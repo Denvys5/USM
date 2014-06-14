@@ -13,12 +13,16 @@ public class SwordUranium extends ItemSword {
 		super(par1, USM.Uranium);
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
-//	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
-//
-//	{
-//		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 100, 1));
-//		return false;	
-//	}
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
+
+	{
+		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 100, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 100, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 100, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 100, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 100, 1));
+		return false;	
+	}
 	
 	@Override
 	public void registerIcons(IconRegister reg){

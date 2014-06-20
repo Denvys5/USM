@@ -1,4 +1,4 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.item;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -8,8 +8,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class IngotUranium extends Item {
-	public IngotUranium(int par1) {
+public class StickIron extends Item {
+	public StickIron(int par1) {
 		super(par1);
 		this.setCreativeTab(CreativeTabs.tabMaterials);
 		
@@ -17,13 +17,9 @@ public class IngotUranium extends Item {
 		
 	}
 	
-	@SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
-    {
-        return true;
-    }
+	
 	@Override
 	public void registerIcons(IconRegister reg){
-	this.itemIcon = reg.registerIcon("uraniumswordmod:IngotUranium");
+	this.itemIcon = reg.registerIcon("uraniumswordmod:StickIron");
 	}
 }

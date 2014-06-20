@@ -1,5 +1,6 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.item;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,11 +17,11 @@ public class SwordUranium extends ItemSword {
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
 
 	{
-		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 100, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 100, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 100, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 100, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 100, 1));
+		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
+	    par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
 		return false;	
 	}
 	

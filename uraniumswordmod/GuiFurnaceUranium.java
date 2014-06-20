@@ -1,0 +1,29 @@
+package assets.uraniumswordmod;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+
+public class GuiFurnaceUranium extends GuiContainer {
+
+	public static final ResourceLocation texture = new ResourceLocation("uraniumswordmod", "textures/gui/FurnaceUranium_gui.png");
+	public TileEntityFurnaceUranium furnaceUranium;
+	public GuiFurnaceUranium(InventoryPlayer inventoryPlayer, TileEntityFurnaceUranium entity) {
+		super(new ContainerFurnaceUranium(inventoryPlayer, entity));
+        this.furnaceUranium = entity;
+        this.xSize = 176;
+        this.ySize = 166;
+	}
+
+
+	public void drawGuiContainerForegroundLayer(int par1, int par2) {
+		String name = this.furnaceUranium.isInvNameLocalised() ? this.furnaceUranium.getInvName() : I18n.getString(this.furnaceUranium.getInvName());
+		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
+		this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96, 4210752);
+	}
+	public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+		
+	}
+
+}

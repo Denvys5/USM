@@ -1,5 +1,6 @@
 package assets.uraniumswordmod.block;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -28,7 +29,7 @@ public class BlockUranium extends Block {
 
 	@Override
 	public void registerIcons(IconRegister reg){
-	this.blockIcon = reg.registerIcon("uraniumswordmod:BlockUranium");
+	this.blockIcon = reg.registerIcon(USM.modid +":BlockUranium");
 	}
 }
 

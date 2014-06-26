@@ -1,5 +1,6 @@
 package assets.uraniumswordmod.item;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,6 +21,6 @@ public class StickIron extends Item {
 	
 	@Override
 	public void registerIcons(IconRegister reg){
-	this.itemIcon = reg.registerIcon("uraniumswordmod:StickIron");
+	this.itemIcon = reg.registerIcon(USM.modid +":StickIron");
 	}
 }

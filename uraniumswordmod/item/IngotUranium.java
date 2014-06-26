@@ -1,5 +1,6 @@
 package assets.uraniumswordmod.item;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -17,13 +18,9 @@ public class IngotUranium extends Item {
 		
 	}
 	
-	@SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
-    {
-        return true;
-    }
+
 	@Override
 	public void registerIcons(IconRegister reg){
-	this.itemIcon = reg.registerIcon("uraniumswordmod:IngotUranium");
+	this.itemIcon = reg.registerIcon(USM.modid +":IngotUranium");
 	}
 }

@@ -1,7 +1,8 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.generator;
 
 import java.util.Random;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;

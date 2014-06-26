@@ -1,6 +1,8 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.tile;
 
+import assets.uraniumswordmod.USM;
 import assets.uraniumswordmod.block.FurnaceUranium;
+import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,15 +14,16 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityFurnaceUranium extends TileEntity implements ISidedInventory {
 
 	private String localizedName;
 	//Доступ к слотам
-	private static final int[] slots_top = new int[] {0};
-	private static final int[] slots_bottom = new int[] {2, 1};
-	private static final int[] slots_sides = new int[] {1};
+	private static final int[] slots_top = new int[] {0, 1, 2};
+	private static final int[] slots_bottom = new int[] {0, 1, 2,};
+	private static final int[] slots_sides = new int[] {0, 1, 2};
 	private ItemStack[] slots = new ItemStack[3];
 	
 	public int furnaceSpeed = 200;
@@ -44,19 +47,42 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	}
 	
 	public ItemStack getStackInSlot(int i) {
-		return null;
+		return this.slots[i];
 	}
 	
 	public ItemStack decrStackSize(int i, int j) {
+		if(this.slots[i] != null){
+			ItemStack itemstack;
+			if(this.slots[i].stackSize <= j){
+				itemstack = this.slots[i];
+				this.slots[i] = null;
+				return itemstack;
+			}else{
+				itemstack = this.slots[i].splitStack(j);
+				if(this.slots[i].stackSize == 0){
+					this.slots[i] = null;
+				}
+				return itemstack;
+			}
+		}
 		return null;
 	}
 	
 	public ItemStack getStackInSlotOnClosing(int i) {
+		if(this.slots[i] != null){
+			ItemStack itemstack = this.slots[i];
+			this.slots[i] = null;
+			return itemstack;
+		}
 		return null;
 	}
 	
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		this.slots[i] = itemstack;
 		
+		if(itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()){
+			itemstack.stackSize = this.getInventoryStackLimit();
+		}
 	}
 	
 	public boolean isInvNameLocalized() {
@@ -64,20 +90,15 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	}
 	
 	public int getInventoryStackLimit() {
-		return 0;
+		return 64;
 	}
 	
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return false;
+		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : entityplayer.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
 	}
 	
-	public void openChest() {
-		
-	}
-	
-	public void closeChest() {
-		
-	}
+	public void openChest(){}
+	public void closeChest(){}
 	
 	public boolean isBurning(){
 		return this.burnTime > 0;
@@ -122,6 +143,36 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 
 	}
 	
+//Крафты с печкой	
+	private boolean canSmelt(){
+		if(this.slots[0] == null){
+			return false;
+		}else{
+			ItemStack itemstack = UraniumFurnaceRecipes.smelting().getSmeltingResult(this.slots[0]);
+			if(itemstack == null) return false;
+			if(this.slots[2] == null) return true;
+			if(!this.slots[2].isItemEqual(itemstack)) return false;
+			int result = this.slots[2].stackSize + itemstack.stackSize;
+			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+ 		}
+	}
+	
+	public void smeltItem(){
+		if(this.canSmelt()){
+			ItemStack itemstack = UraniumFurnaceRecipes.smelting().getSmeltingResult(this.slots[0]);
+			if(this.slots[2] == null){
+				this.slots[2] = itemstack.copy();
+			}else  if(this.slots[2].isItemEqual(itemstack)){
+				this.slots[2].stackSize += itemstack.stackSize;
+			}
+			this.slots[0].stackSize--;
+			if(this.slots[0].stackSize <= 0){
+				this.slots[0] = null;
+			}
+		}
+	}
+	
+	
 	public static int getItemBurnTime(ItemStack itemstack){
 		if(itemstack == null){
 			return 0;
@@ -143,17 +194,10 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 				}
 			}
 			
-			if(item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-			if(item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-			if(item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD")) return 200;
-			if (itemstack.itemID == Item.stick.itemID) return 100;
-			if (itemstack.itemID == Item.coal.itemID) return 1600;
-			if (itemstack.itemID == Item.bucketLava.itemID) return 20000;
-			if (itemstack.itemID == Block.sapling.blockID) return 100;
-			if (itemstack.itemID == Item.blazeRod.itemID) return 2400;
+			//Значение 100 = 0.5 Операций
+			if (itemstack.itemID == USM.blocknetherstar.blockID) return 1000;
+			if (itemstack.itemID == Item.netherStar.itemID) return 100;
 			
-			
-			if (itemstack.itemID == USM.ingoturanium.itemID) return 100;
 			return GameRegistry.getFuelValue(itemstack);
 		}
 	}
@@ -163,7 +207,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	}
 
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i == 2 ? false : (i == 1 ? isItemFuel(itemstack));
+		return i == 2 ? false : (i == 1 ? isItemFuel(itemstack):true);
 	}
 	
 	public int[] getAccessibleSlotsFromSide(int var1) {

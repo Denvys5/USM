@@ -1,5 +1,7 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.gui;
 
+import assets.uraniumswordmod.USM;
+import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

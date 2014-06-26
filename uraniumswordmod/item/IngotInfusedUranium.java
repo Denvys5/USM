@@ -4,15 +4,20 @@ import assets.uraniumswordmod.USM;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public class SwordUranium extends ItemSword {
-	public SwordUranium(int par1) {
-		super(par1, USM.Uranium);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+
+public class IngotInfusedUranium extends Item {
+	public IngotInfusedUranium(int par1) {
+		super(par1);
+		this.setCreativeTab(CreativeTabs.tabMaterials);
+		
+		
+		
 	}
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
 
@@ -25,9 +30,13 @@ public class SwordUranium extends ItemSword {
 		return false;	
 	}
 	
+	@SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack)
+    {
+        return true;
+    }
 	@Override
 	public void registerIcons(IconRegister reg){
-	//this.itemIcon = reg.registerIcon("uraniumswordmod:SwordUranium");
-	this.itemIcon = reg.registerIcon(USM.modid +":SwordUranium");
+	this.itemIcon = reg.registerIcon(USM.modid +":IngotUranium");
 	}
 }

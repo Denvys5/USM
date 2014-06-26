@@ -1,5 +1,9 @@
-package assets.uraniumswordmod;
+package assets.uraniumswordmod.gui;
 
+import org.lwjgl.opengl.GL11;
+
+import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,7 +27,9 @@ public class GuiFurnaceUranium extends GuiContainer {
 		this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96, 4210752);
 	}
 	public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		mc.getTextureManager().bindTexture(texture);
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
 
 }

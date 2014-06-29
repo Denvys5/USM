@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class IngotInfusedUranium extends Item {
 	public IngotInfusedUranium(int par1) {
 		super(par1);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(USM.USMTab);
 		
 		
 		

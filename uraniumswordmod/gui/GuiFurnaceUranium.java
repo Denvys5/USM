@@ -30,6 +30,12 @@ public class GuiFurnaceUranium extends GuiContainer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+        if(this.furnaceUranium.isBurning()){
+            int k = this.furnaceUranium.getBurnTimeRemainingScaled(12);
+            drawTexturedModalRect(guiLeft + 56, guiTop + 36 + 12 - k, 176, 12 - k, 14, k + 2);
+        }
+        int k = this.furnaceUranium.getCookProgressScaled(24);
+        drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 14, k + 1, 16);
 	}
-
+	
 }

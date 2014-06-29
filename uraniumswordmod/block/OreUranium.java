@@ -14,7 +14,7 @@ public class OreUranium extends Block {
 	
 	public OreUranium(int par1) {
 		super(par1, Material.rock);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(USM.USMTab);
 		this.setHardness(3.0F);
 		this.setResistance(25F);
 		this.setLightValue(8.0F);

@@ -12,22 +12,21 @@ import net.minecraft.potion.PotionEffect;
 public class SwordUranium extends ItemSword {
 	public SwordUranium(int par1) {
 		super(par1, USM.Uranium);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(USM.USMTab);
 	}
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
-
-	{
+	@Override
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase){
+		par1ItemStack.damageItem(1, par3EntityLivingBase);
 		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
 	    par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
 	    par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
 	    par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
 	    par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
-		return false;	
+		return true;	
 	}
 	
 	@Override
 	public void registerIcons(IconRegister reg){
-	//this.itemIcon = reg.registerIcon("uraniumswordmod:SwordUranium");
 	this.itemIcon = reg.registerIcon(USM.modid +":SwordUranium");
 	}
 }

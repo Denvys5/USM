@@ -1,6 +1,7 @@
 package assets.uraniumswordmod.gui;
 
 import assets.uraniumswordmod.lib.SlotUraniumFurnace;
+import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -51,6 +52,23 @@ public class ContainerFurnaceUranium extends Container {
 	}
 	public void detectAndSendChanges(){
 		super.detectAndSendChanges();
+		for(int i = 0; i < this.crafters.size(); i++){
+			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+			if(this.lastCookTime != this.furnaceUranium.cookTime){
+				icrafting.sendProgressBarUpdate(this, 0, this.furnaceUranium.cookTime);
+			}
+
+			if(this.lastBurnTime != this.furnaceUranium.burnTime){
+				icrafting.sendProgressBarUpdate(this, 1, this.furnaceUranium.burnTime);
+			}
+
+			if(this.lastItemBurnTime != this.furnaceUranium.currentItemBurnTime){
+				icrafting.sendProgressBarUpdate(this, 2, this.furnaceUranium.currentItemBurnTime);
+			}
+		}
+		this.lastCookTime = this.furnaceUranium.cookTime;
+		this.lastBurnTime = this.furnaceUranium.burnTime;
+		this.lastItemBurnTime = this.furnaceUranium.currentItemBurnTime;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -60,8 +78,50 @@ public class ContainerFurnaceUranium extends Container {
 		if(slot == 2) this.furnaceUranium.currentItemBurnTime = newValue;
 	}
 	
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return null;
+	public ItemStack transferStackInSlot(EntityPlayer player, int clickedSlotNumber){
+		ItemStack itemstack = null;
+		Slot slot = (Slot) this.inventorySlots.get(clickedSlotNumber);
+		if(slot != null && slot.getHasStack()){
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+			if(clickedSlotNumber == 2){
+				if(!this.mergeItemStack(itemstack1, 3, 39, true)){
+					return null;
+				}
+				slot.onSlotChange(itemstack1, itemstack);
+
+			}else if(clickedSlotNumber != 1 && clickedSlotNumber != 0){
+				if(UraniumFurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null){
+					if(!this.mergeItemStack(itemstack1, 0, 1, false)){
+						return null;
+					}
+				}else if(TileEntityFurnaceUranium.isItemFuel(itemstack1)){
+					if(!this.mergeItemStack(itemstack1, 1, 2, false)){
+						return null;
+					}
+				}else if(clickedSlotNumber >= 3 && clickedSlotNumber < 30){
+					if(!this.mergeItemStack(itemstack1, 30, 39, false)){
+						return null;
+					}
+				}else if(clickedSlotNumber >= 30 && clickedSlotNumber < 39){
+					if(!this.mergeItemStack(itemstack1, 3, 30, false)){
+						return null;
+					}
+				}
+			}else if(!this.mergeItemStack(itemstack1, 3, 39, false)){
+				return null;
+			}
+			if(itemstack1.stackSize == 0){
+				slot.putStack((ItemStack)null);
+			}else{
+				slot.onSlotChanged();
+			}
+			if(itemstack1.stackSize == itemstack.stackSize){
+				return null;
+			}
+			slot.onPickupFromSlot(player, itemstack1);
+		}
+		return itemstack;
 	}
 
 	public boolean canInteractWith(EntityPlayer entityplayer) {

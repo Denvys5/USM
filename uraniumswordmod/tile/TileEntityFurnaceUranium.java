@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityFurnaceUranium extends TileEntity implements ISidedInventory {
@@ -22,11 +24,16 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	private String localizedName;
 	//Доступ к слотам
 	private static final int[] slots_top = new int[] {0, 1, 2};
-	private static final int[] slots_bottom = new int[] {0, 1, 2,};
-	private static final int[] slots_sides = new int[] {0, 1, 2};
+	private static final int[] slots_bottom = new int[] {0, 1, 2};
+	private static final int[] slots_sides = new int[] {1, 0, 2};
 	private ItemStack[] slots = new ItemStack[3];
 	
-	public int furnaceSpeed = 200;
+	//Время операции в тиках
+	//Рабочий
+	public int furnaceSpeed = 200000;
+	//Тестовый
+	//public int furnaceSpeed = 20;
+	
 	public int burnTime;
 	public int currentItemBurnTime;
 	public int cookTime;
@@ -91,6 +98,45 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	
 	public int getInventoryStackLimit() {
 		return 64;
+	}
+	
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		NBTTagList list = nbt.getTagList("Items");
+		this.slots = new ItemStack[this.getSizeInventory()];
+		for(int i = 0; i < list.tagCount(); i++){
+			NBTTagCompound compound = (NBTTagCompound) list.tagAt(i);
+			byte b = compound.getByte("Slot");
+			if(b >= 0 && b < this.slots.length){
+				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
+			}
+		}
+		this.burnTime = nbt.getShort("BurnTime");
+		this.cookTime = nbt.getShort("CookTime");
+		this.currentItemBurnTime = getItemBurnTime(this.slots[1]);
+		if(nbt.hasKey("CustomName")){
+			this.localizedName = nbt.getString("CustomName");
+		}
+	}
+	
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		nbt.setShort("BurnTime", (short)this.burnTime);
+		nbt.setShort("CookTime", (short)this.cookTime);
+		
+		NBTTagList list = new NBTTagList();
+		for(int i = 0; i < this.slots.length; i++){
+			if(this.slots[i] != null){
+				NBTTagCompound compound = new NBTTagCompound();
+				compound.setByte("Slot", (byte)i);
+				this.slots[i].writeToNBT(compound);
+				list.appendTag(compound);
+			}
+		}
+		nbt.setTag("Items", list);
+		if(this.isInvNameLocalised()){
+			nbt.setString("CustomName", this.localizedName);
+		}
 	}
 	
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
@@ -183,20 +229,11 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 			
 			if(item instanceof ItemBlock && Block.blocksList[i] != null){
 				Block block = Block.blocksList[i];
-				if(block == block.woodSingleSlab){
-					return 150;
-				}
-				if(block.blockMaterial == Material.wood){
-					return 300;
-				}
-				if(block == Block.coalBlock){
-					return 1600;
-				}
 			}
 			
-			//Значение 100 = 0.5 Операций
-			if (itemstack.itemID == USM.blocknetherstar.blockID) return 1000;
-			if (itemstack.itemID == Item.netherStar.itemID) return 100;
+			//Время горения в тиках
+ 			if (itemstack.itemID == USM.blocknetherstar.blockID) return 31250;
+			if (itemstack.itemID == Item.netherStar.itemID) return 3125;
 			
 			return GameRegistry.getFuelValue(itemstack);
 		}
@@ -215,11 +252,39 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	}
 	
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-		return this.isItemValidForSlot(i, itemstack);
+		if(itemstack != null){
+			Item stackItem = itemstack.getItem();
+		    if(i == 0 && stackItem instanceof assets.uraniumswordmod.item.IngotUranium){
+			   return true;
+		}else if(i == 1 && this.isItemValidForSlot(i, itemstack)){
+			return this.isItemValidForSlot(i, itemstack);
+		}
+	}
+		//return this.isItemValidForSlot(i, itemstack);
+		return false;
 	}
 	
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return j != 0 || i != 1 || itemstack.itemID == Item.bucketEmpty.itemID;
+		if(i == 1){
+			return false;
+		}
+		if(i == 0){
+			return false;
+		}
+		if(i == 2){
+			return true;
+		}
+		return itemstack.itemID == USM.ingotinfuseduranium.itemID;
+	}
+	public int getBurnTimeRemainingScaled(int i) {
+		if(this.currentItemBurnTime == 0){
+			this.currentItemBurnTime = this.furnaceSpeed;
+		}
+		return this.burnTime * i / this.currentItemBurnTime;
+	}
+	public int getCookProgressScaled(int i) {
+	   return this.cookTime * i / this.furnaceSpeed;
+
 	}
 
 }

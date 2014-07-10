@@ -31,9 +31,9 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 
 	// Время операции в тиках
 	// Рабочий
-	// public int furnaceSpeed = 200000;
+	 public int furnaceSpeed = 200000;
 	// Тестовый
-	public int furnaceSpeed = 20;
+	//public int furnaceSpeed = 20;
 
 	public int burnTime;
 	public int currentItemBurnTime;

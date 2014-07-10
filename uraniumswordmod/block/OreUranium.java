@@ -11,7 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class OreUranium extends Block {
-	
+
 	public OreUranium(int par1) {
 		super(par1, Material.rock);
 		this.setCreativeTab(USM.USMTab);
@@ -19,17 +19,18 @@ public class OreUranium extends Block {
 		this.setResistance(25F);
 		this.setLightValue(8.0F);
 	}
+
 	@Override
-	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
-    {
+	public void onBlockClicked(World par1World, int par2, int par3, int par4,
+			EntityPlayer par5EntityPlayer) {
 		par5EntityPlayer.addPotionEffect(new PotionEffect(17, 100, 1));
 		par5EntityPlayer.addPotionEffect(new PotionEffect(15, 100, 1));
 		par5EntityPlayer.addPotionEffect(new PotionEffect(18, 100, 1));
 		par5EntityPlayer.addPotionEffect(new PotionEffect(20, 100, 1));
-    }
+	}
 
 	@Override
-	public void registerIcons(IconRegister reg){
-	this.blockIcon = reg.registerIcon(USM.modid +":OreUranium");
+	public void registerIcons(IconRegister reg) {
+		this.blockIcon = reg.registerIcon(USM.modid + ":OreUranium");
 	}
 }

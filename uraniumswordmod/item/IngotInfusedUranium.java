@@ -10,33 +10,33 @@ import net.minecraft.potion.PotionEffect;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
 public class IngotInfusedUranium extends Item {
 	public IngotInfusedUranium(int par1) {
 		super(par1);
 		this.setCreativeTab(USM.USMTab);
-		
-		
-		
+
 	}
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
+
+	public boolean hitEntity(ItemStack par1ItemStack,
+			EntityLivingBase par2EntityLivingBase,
+			EntityLivingBase par3EntityLivingBase)
 
 	{
 		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
-	    par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
-		return false;	
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
+		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
-    {
-        return true;
-    }
+	public boolean hasEffect(ItemStack par1ItemStack) {
+		return true;
+	}
+
 	@Override
-	public void registerIcons(IconRegister reg){
-	this.itemIcon = reg.registerIcon(USM.modid +":IngotUranium");
+	public void registerIcons(IconRegister reg) {
+		this.itemIcon = reg.registerIcon(USM.modid + ":IngotUranium");
 	}
 }

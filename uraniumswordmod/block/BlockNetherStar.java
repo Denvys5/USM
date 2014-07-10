@@ -19,9 +19,8 @@ public class BlockNetherStar extends Block {
 		this.setLightValue(8.0F);
 	}
 
-
 	@Override
-	public void registerIcons(IconRegister reg){
-	this.blockIcon = reg.registerIcon(USM.modid +":BlockNetherStar");
+	public void registerIcons(IconRegister reg) {
+		this.blockIcon = reg.registerIcon(USM.modid + ":BlockNetherStar");
 	}
 }

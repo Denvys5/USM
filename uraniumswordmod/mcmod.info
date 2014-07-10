@@ -2,10 +2,10 @@
 {
   "modid": "uraniumswordmod",
   "name": "Uranium Sword Mod",
-  "description": "Modding toolkit to decompile and deobfuscate the Minecraft client and server files.",
+  "description": "",
   "version": "OR3",
   "mcversion": "1.6.4",
-  "logoFile": "/mcplogo.png",
+  "logoFile": "",
   "url": "",
   "updateUrl": "",
   "authors": ["Code by Denvys5", "Textures by DiaMan"],

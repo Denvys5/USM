@@ -8,19 +8,15 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
 public class IngotUranium extends Item {
 	public IngotUranium(int par1) {
 		super(par1);
 		this.setCreativeTab(USM.USMTab);
-		
-		
-		
+
 	}
-	
 
 	@Override
-	public void registerIcons(IconRegister reg){
-	this.itemIcon = reg.registerIcon(USM.modid +":IngotUranium");
+	public void registerIcons(IconRegister reg) {
+		this.itemIcon = reg.registerIcon(USM.modid + ":IngotUranium");
 	}
 }

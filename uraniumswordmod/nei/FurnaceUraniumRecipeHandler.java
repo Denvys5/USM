@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -214,17 +215,13 @@ public class FurnaceUraniumRecipeHandler
 		efuels.add(Block.signWall.blockID);
 		efuels.add(Block.doorWood.blockID);
 		efuels.add(Block.lockedChest.blockID);
+
 	}
 
 	private static void findFuels() {
 		afuels = new ArrayList<FuelPair>();
-		for (ItemStack item : ItemList.items) {
-			if (!efuels.contains(item.itemID)) {
-				int burnTime = TileEntityFurnaceUranium.getItemBurnTime(item);
-				if (burnTime > 0)
-					afuels.add(new FuelPair(item.copy(), burnTime));
-			}
-		}
+		afuels.add(new FuelPair(new ItemStack(Item.netherStar), 3125));
+		afuels.add(new FuelPair(new ItemStack(USM.blocknetherstar), 31250));
 	}
 
 	public String getOverlayIdentifier() {

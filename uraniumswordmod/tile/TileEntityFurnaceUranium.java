@@ -28,6 +28,9 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 	private static final int[] slots_bottom = new int[] { 0, 1, 2 };
 	private static final int[] slots_sides = new int[] { 1, 0, 2 };
 	private ItemStack[] slots = new ItemStack[3];
+	private static final int resultSlot = 2;
+	private static final int fuelSlot = 1;
+	private static final int ingredSlot = 0;
 
 	// Время операции в тиках
 	// Рабочий
@@ -265,7 +268,15 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 	}
 
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i == 2 ? false : (i == 1 ? isItemFuel(itemstack) : true);
+		if(i == this.fuelSlot){
+			if(isItemFuel(itemstack)){
+				return true;
+			}
+		}else if(i != this.fuelSlot){
+			return false;
+		}
+		return false;
+		//return i == 2 ? false : (i == 1 ? isItemFuel(itemstack) : true);
 	}
 
 	public int[] getAccessibleSlotsFromSide(int var1) {
@@ -275,10 +286,9 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
 		if (itemstack != null) {
 			Item stackItem = itemstack.getItem();
-			if (i == 0
-					&& stackItem instanceof assets.uraniumswordmod.item.IngotUranium) {
+			if (i == this.ingredSlot && stackItem == USM.ingoturanium) {
 				return true;
-			} else if (i == 1 && this.isItemValidForSlot(i, itemstack)) {
+			} else if (i == this.fuelSlot && this.isItemValidForSlot(i, itemstack)) {
 				return this.isItemValidForSlot(i, itemstack);
 			}
 		}
@@ -287,14 +297,10 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 	}
 
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		if (i == 1) {
-			return false;
-		}
-		if (i == 0) {
-			return false;
-		}
-		if (i == 2) {
+		if (i == this.resultSlot) {
 			return true;
+		}else if(i != this.resultSlot){
+			return false;
 		}
 		return itemstack.itemID == USM.ingotinfuseduranium.itemID;
 	}

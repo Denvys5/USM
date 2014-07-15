@@ -29,6 +29,8 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -41,7 +43,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.0.4";
+	public static final String version = "0.0.4.4";
 
 	@Instance(modid)
 	public static USM instance;
@@ -94,6 +96,11 @@ public class USM {
 		furnaceuraniumactiveblockID = config.get("Tile Entities",
 				"Uranium Furnace Active", 504).getInt();
 		config.save();
+	}
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event)
+	{
 	}
 
 	@Mod.EventHandler
@@ -191,8 +198,6 @@ public class USM {
 
 		// OreDict
 		OreDictionary.registerOre("ingotUranium", new ItemStack(ingoturanium));
-		OreDictionary
-				.registerOre("crushedUranium", new ItemStack(ingoturanium));
 		OreDictionary.registerOre("oreUranium", new ItemStack(oreuranium));
 		OreDictionary.registerOre("stickIron", new ItemStack(stickiron));
 		OreDictionary.registerOre("ironStick", new ItemStack(stickiron));
@@ -211,17 +216,24 @@ public class USM {
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(USM.stickiron, true,
 				new Object[] { "@", "@", Character.valueOf('@'),
-						"ingotRefinedIron" }));
+						Item.ingotIron }));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(USM.oreuranium, true,
 				new Object[] { "@", Character.valueOf('@'), "oreUranium" }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(USM.ingoturanium, true,
+				new Object[] { "@", Character.valueOf('@'), "crushedUranium" }));
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(USM.blockuranium, true,
-				new Object[] { "@", Character.valueOf('@'), "blockUranium" }));
-
+		GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(USM.blockuranium, 4),
+				new Object[] { "@@", "@@", Character.valueOf('@'), "blockUranium" }));
+        
 		GameRegistry.addRecipe(new ShapedOreRecipe(USM.blocknetherstar, true,
 				new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'),
 						Item.netherStar }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(USM.blockuranium, true,
+				new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'),
+						USM.ingoturanium }));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(USM.furnaceuraniumidle,
 				true, new Object[] { "@@@", "@X@", "!!!",
@@ -242,6 +254,11 @@ public class USM {
 
 	}
 
-	public static final EnumToolMaterial Uranium = EnumHelper.addToolMaterial(
-			"Uranium", 3, 768, 9.0F, 71.0F, 50);
+	public static final EnumToolMaterial UraniumSword = EnumHelper.addToolMaterial(
+			"UraniumSword", 3, 768, 9.0F, 71.0F, 50);
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		
+	}
 }

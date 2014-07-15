@@ -11,7 +11,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class SwordUranium extends ItemSword {
 	public SwordUranium(int par1) {
-		super(par1, USM.Uranium);
+		super(par1, USM.UraniumSword);
 		this.setCreativeTab(USM.USMTab);
 	}
 

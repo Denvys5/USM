@@ -3,6 +3,7 @@ package assets.uraniumswordmod.block;
 import java.util.Random;
 
 import assets.uraniumswordmod.USM;
+import assets.uraniumswordmod.lib.BlockList;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -73,7 +74,7 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public int idDropped(int par1, Random random, int par3) {
-		return USM.furnaceuraniumidle.blockID;
+		return BlockList.furnaceuraniumidle.blockID;
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z) {
@@ -195,10 +196,10 @@ public class FurnaceUranium extends BlockContainer {
 		keepInventory = true;
 		if (active) {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					USM.furnaceuraniumactive.blockID);
+					BlockList.furnaceuraniumactive.blockID);
 		} else {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					USM.furnaceuraniumidle.blockID);
+					BlockList.furnaceuraniumidle.blockID);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -265,6 +266,6 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public int idPicked(World world, int x, int y, int z) {
-		return USM.furnaceuraniumidle.blockID;
+		return BlockList.furnaceuraniumidle.blockID;
 	}
 }

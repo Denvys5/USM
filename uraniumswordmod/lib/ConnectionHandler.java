@@ -14,8 +14,8 @@ public class ConnectionHandler implements IConnectionHandler {
 	public void playerLoggedIn(Player player, NetHandler netHandler,
 			INetworkManager manager) {
 		netHandler.getPlayer().addChatMessage(
-				EnumChatFormatting.DARK_PURPLE
-						+ "Uranium Sword Mod has a Furnace!!!");
+				EnumChatFormatting.GOLD
+						+ "Uranium Furnace NEI integration is still WIP");
 	}
 
 	public String connectionReceived(NetLoginHandler netHandler,

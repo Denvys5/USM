@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import assets.uraniumswordmod.USM;
 import assets.uraniumswordmod.gui.GuiFurnaceUranium;
+import assets.uraniumswordmod.lib.BlockList;
 import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import net.minecraft.block.Block;
@@ -221,7 +222,7 @@ public class FurnaceUraniumRecipeHandler
 	private static void findFuels() {
 		afuels = new ArrayList<FuelPair>();
 		afuels.add(new FuelPair(new ItemStack(Item.netherStar), 3125));
-		afuels.add(new FuelPair(new ItemStack(USM.blocknetherstar), 31250));
+		afuels.add(new FuelPair(new ItemStack(BlockList.blocknetherstar), 31250));
 	}
 
 	public String getOverlayIdentifier() {

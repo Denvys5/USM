@@ -3,6 +3,7 @@ package assets.uraniumswordmod.generator;
 import java.util.Random;
 
 import assets.uraniumswordmod.USM;
+import assets.uraniumswordmod.lib.BlockList;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -32,7 +33,7 @@ public class OreGenerator implements IWorldGenerator {
 	}
 
 	public void generateSurface(World world, Random random, int x, int y) {
-		this.addOreSpawn(USM.oreuranium, world, random, x, y, 16, 16,
+		this.addOreSpawn(BlockList.oreuranium, world, random, x, y, 16, 16,
 				1 + random.nextInt(3), 15, 5, 50);
 	}
 

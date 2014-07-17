@@ -2,6 +2,7 @@ package assets.uraniumswordmod.tile;
 
 import assets.uraniumswordmod.USM;
 import assets.uraniumswordmod.block.FurnaceUranium;
+import assets.uraniumswordmod.lib.BlockList;
 import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -254,7 +255,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 			}
 
 			// Время горения в тиках
-			if (itemstack.itemID == USM.blocknetherstar.blockID)
+			if (itemstack.itemID == BlockList.blocknetherstar.blockID)
 				return 31250;
 			if (itemstack.itemID == Item.netherStar.itemID)
 				return 3125;
@@ -286,7 +287,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
 		if (itemstack != null) {
 			Item stackItem = itemstack.getItem();
-			if (i == this.ingredSlot && stackItem == USM.ingoturanium) {
+			if (i == this.ingredSlot && stackItem == BlockList.ingoturanium) {
 				return true;
 			} else if (i == this.fuelSlot && this.isItemValidForSlot(i, itemstack)) {
 				return this.isItemValidForSlot(i, itemstack);
@@ -302,7 +303,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 		}else if(i != this.resultSlot){
 			return false;
 		}
-		return itemstack.itemID == USM.ingotinfuseduranium.itemID;
+		return itemstack.itemID == BlockList.ingotinfuseduranium.itemID;
 	}
 
 	public int getBurnTimeRemainingScaled(int i) {

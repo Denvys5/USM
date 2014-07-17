@@ -26,9 +26,9 @@ public class UraniumFurnaceRecipes {
 		return smeltingBase;
 	}
 
-	private UraniumFurnaceRecipes() {
-		this.addSmelting(USM.ingoturanium.itemID, new ItemStack(
-				USM.ingotinfuseduranium), 100.0F);
+	public UraniumFurnaceRecipes() {
+		this.addSmelting(BlockList.ingoturanium.itemID, new ItemStack(
+				BlockList.ingotinfuseduranium), 100.0F);
 
 	}
 

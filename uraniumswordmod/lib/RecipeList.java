@@ -49,7 +49,6 @@ public class RecipeList {
 						Block.dragonEgg, ('!'), Block.coalBlock }));
 
 
-
 	}
 	public static void ShapelessCrafting(){
 		GameRegistry.addShapelessRecipe(new ItemStack(BlockList.ingoturanium, 9),

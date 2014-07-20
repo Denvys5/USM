@@ -53,25 +53,21 @@ public class USM {
 	@SidedProxy(clientSide = "assets.uraniumswordmod.proxy.ClientProxy", serverSide = "assets.uraniumswordmod.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-
 	public static final int guiIdFurnaceUranium = 0;
 	public static CreativeTabs USMTab;
-
-
 
 	public void initConfiguration(FMLInitializationEvent event) {
 		BlockList.ConfigMethod();
 	}
-	
+
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
-		
+	public void preInit(FMLPreInitializationEvent event) {
+
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		this.initConfiguration(event);
-		GameRegistry.registerWorldGenerator(new OreGenerator());
 
 		USMTab = new CreativeTabs("uraniumswordmodtab") {
 			@SideOnly(Side.CLIENT)
@@ -79,24 +75,25 @@ public class USM {
 				return BlockList.sworduranium.itemID;
 			}
 		};
-		
-		BlockList.thingRegister();
+		GameRegistry.registerWorldGenerator(new OreGenerator());
+		GuiHandler guiHandler = new GuiHandler();
+		BlockList.blockRegister();
+		BlockList.itemRegister();
 		BlockList.OreRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
-
 		proxy.registerRandomStuff();
-
 		NetworkRegistry.instance().registerConnectionHandler(
 				new ConnectionHandler());
 
 	}
 
-	public static final EnumToolMaterial UraniumSword = EnumHelper.addToolMaterial(
-			"UraniumSword", 3, 768, 9.0F, 71.0F, 50);
+	public static final EnumToolMaterial UraniumSword = EnumHelper
+			.addToolMaterial("UraniumSword", 3, 768, 9.0F, 71.0F, 50);
+
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event){
-		
+	public void postInit(FMLPostInitializationEvent event) {
+
 	}
 }

@@ -42,6 +42,8 @@ public class BlockList {
 	public static int stickironitemID;
 	public static int furnaceuraniumidleblockID;
 	public static int furnaceuraniumactiveblockID;
+	
+
 
 	public static void blockRegister() {
 
@@ -96,41 +98,14 @@ public class BlockList {
 	}
 
 	public static void OreRegister() {
-		OreDictionary.registerOre("ingotUranium", new ItemStack(
-				BlockList.ingoturanium));
-		OreDictionary.registerOre("oreUranium", new ItemStack(
-				BlockList.oreuranium));
-		OreDictionary.registerOre("stickIron", new ItemStack(
-				BlockList.stickiron));
-		OreDictionary.registerOre("ironStick", new ItemStack(
-				BlockList.stickiron));
-		OreDictionary
-				.registerOre("ironRod", new ItemStack(BlockList.stickiron));
-		OreDictionary.registerOre("blockUranium", new ItemStack(
-				BlockList.blockuranium));
+		Util.OreBlockRegister(oreuranium, "oreUranium");
+		Util.OreBlockRegister(blockuranium, "blockUranium");
+		Util.OreItemRegister(ingoturanium, "ingotUranium");
+		Util.OreItemRegister(stickiron, "stickIron");
+		Util.OreItemRegister(stickiron, "ironStick");
+		Util.OreItemRegister(stickiron, "ironRod");
 	}
 
-	public static void ConfigMethod() {
-		Configuration config = new Configuration(new File(
-				"config/USM/UraniumSwordMod.cfg"));
-		config.load();
-		oreuraniumblockID = config.get("Blocks", "Uranium Ore", 500).getInt();
-		blockuraniumblockID = config.get("Blocks", "Uranium Block", 502)
-				.getInt();
-		blocknetherstarblockID = config.get("Blocks", "Nether Star Block", 501)
-				.getInt();
-		sworduraniumitemID = config.get("Items", "Uranium Sword", 1551)
-				.getInt();
-		ingotinfuseduraniumitemID = config.get("Items",
-				"Infused Uranium Ingot", 1553).getInt();
-		ingoturaniumitemID = config.get("Items", "Uranium Ingot", 1552)
-				.getInt();
-		stickironitemID = config.get("Items", "Iron Stick", 1550).getInt();
-		furnaceuraniumidleblockID = config.get("Tile Entities",
-				"Uranium Furnace", 503).getInt();
-		furnaceuraniumactiveblockID = config.get("Tile Entities",
-				"Uranium Furnace Active", 504).getInt();
-		config.save();
-	}
+
 
 }

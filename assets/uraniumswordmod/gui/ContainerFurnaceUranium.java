@@ -1,7 +1,7 @@
 package assets.uraniumswordmod.gui;
 
-import assets.uraniumswordmod.lib.SlotUraniumFurnace;
 import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
+import assets.uraniumswordmod.lib.apilib.SlotUraniumFurnace;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

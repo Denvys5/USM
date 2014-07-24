@@ -13,6 +13,7 @@ import assets.uraniumswordmod.item.IngotUranium;
 import assets.uraniumswordmod.item.StickIron;
 import assets.uraniumswordmod.item.SwordUranium;
 import assets.uraniumswordmod.lib.BlockList;
+import assets.uraniumswordmod.lib.Config;
 import assets.uraniumswordmod.lib.ConnectionHandler;
 import assets.uraniumswordmod.lib.RecipeList;
 import assets.uraniumswordmod.proxy.CommonProxy;
@@ -45,7 +46,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.0.4.5";
+	public static final String version = "0.0.5.0";
 
 	@Instance(modid)
 	public static USM instance;
@@ -57,7 +58,7 @@ public class USM {
 	public static CreativeTabs USMTab;
 
 	public void initConfiguration(FMLInitializationEvent event) {
-		BlockList.ConfigMethod();
+		Config.ConfigMethod();
 	}
 
 	@EventHandler
@@ -79,13 +80,16 @@ public class USM {
 		GuiHandler guiHandler = new GuiHandler();
 		BlockList.blockRegister();
 		BlockList.itemRegister();
-		BlockList.OreRegister();
+		//BlockList.OreRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
 		proxy.registerRandomStuff();
 		NetworkRegistry.instance().registerConnectionHandler(
 				new ConnectionHandler());
+		if(Config.OreRegister == 1){
+			BlockList.OreRegister();	
+		}
 
 	}
 

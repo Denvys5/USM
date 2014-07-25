@@ -96,16 +96,4 @@ public class BlockList {
 		Util.regItem(ingotinfuseduranium, "ingotinfuseduranium",
 				"Infused Uranium Ingot");
 	}
-
-	public static void OreRegister() {
-		Util.OreBlockRegister(oreuranium, "oreUranium");
-		Util.OreBlockRegister(blockuranium, "blockUranium");
-		Util.OreItemRegister(ingoturanium, "ingotUranium");
-		Util.OreItemRegister(stickiron, "stickIron");
-		Util.OreItemRegister(stickiron, "ironStick");
-		Util.OreItemRegister(stickiron, "ironRod");
-	}
-
-
-
 }

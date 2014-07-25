@@ -16,10 +16,20 @@ public class ConnectionHandler implements IConnectionHandler {
 		netHandler.getPlayer().addChatMessage(
 				EnumChatFormatting.GOLD
 						+ "Uranium Furnace NEI integration is still WIP");
-		if(Config.OreRegister != 1){
+		if(OreRegistration.OreUraniumRegister != 1){
 			netHandler.getPlayer().addChatMessage(
 					EnumChatFormatting.GOLD
-							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear");	
+							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Uranium Ore)");	
+		}
+		if(OreRegistration.IngotUraniumRegister != 1){
+			netHandler.getPlayer().addChatMessage(
+					EnumChatFormatting.GOLD
+							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Uranium Ingots)");	
+		}
+		if(OreRegistration.IronStickRegister != 1){
+			netHandler.getPlayer().addChatMessage(
+					EnumChatFormatting.GOLD
+							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Iron Stick)");	
 		}
 	}
 

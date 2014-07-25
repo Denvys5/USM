@@ -16,8 +16,6 @@ public class Config {
 	public static Configuration config = new Configuration(new File(
 			"config/USM/UraniumSwordMod.cfg"));
 	
-	public static int OreRegister;
-	
 	public static void ConfigMethod() {
 		config.load();
 		Config.ConfigBlockID();
@@ -30,11 +28,10 @@ public class Config {
 
 
 	private static void ConfigOreRegister() {
-		Config.OreRegister = config.get("Tweaks", "Ore Registration", 1).getInt();
+		OreRegistration.OreUraniumRegister = config.get("Tweaks", "Uranium Ore Ore Registration", 1).getInt();
+		OreRegistration.IngotUraniumRegister = config.get("Tweaks", "Uranium Ingot Ore Registration", 1).getInt();
+		OreRegistration.IronStickRegister = config.get("Tweaks", "Iron Stick Ore Registration", 1).getInt();
 	}
-
-
-
 
 	private static void ConfigBlockID() {
 		BlockList.oreuraniumblockID = config.get("Blocks", "Uranium Ore", 500).getInt();

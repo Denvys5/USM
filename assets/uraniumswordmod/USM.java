@@ -15,6 +15,7 @@ import assets.uraniumswordmod.item.SwordUranium;
 import assets.uraniumswordmod.lib.BlockList;
 import assets.uraniumswordmod.lib.Config;
 import assets.uraniumswordmod.lib.ConnectionHandler;
+import assets.uraniumswordmod.lib.OreRegistration;
 import assets.uraniumswordmod.lib.RecipeList;
 import assets.uraniumswordmod.proxy.CommonProxy;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
@@ -46,7 +47,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.0.5.0";
+	public static final String version = "0.0.5.1";
 
 	@Instance(modid)
 	public static USM instance;
@@ -80,22 +81,18 @@ public class USM {
 		GuiHandler guiHandler = new GuiHandler();
 		BlockList.blockRegister();
 		BlockList.itemRegister();
-		//BlockList.OreRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
 		proxy.registerRandomStuff();
 		NetworkRegistry.instance().registerConnectionHandler(
 				new ConnectionHandler());
-		if(Config.OreRegister == 1){
-			BlockList.OreRegister();	
-		}
-
+		OreRegistration.BooleanRegister();
 	}
-
 	public static final EnumToolMaterial UraniumSword = EnumHelper
 			.addToolMaterial("UraniumSword", 3, 768, 9.0F, 71.0F, 50);
 
+	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 

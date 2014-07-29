@@ -21,10 +21,13 @@ public class Config {
 		Config.ConfigBlockID();
 		Config.ConfigItemID();
 		Config.ConfigOreRegister();
+		Config.ConfigCrafts();
 		config.save();
 	}
 
-	
+	private static void ConfigCrafts(){
+		
+	}
 
 
 	private static void ConfigOreRegister() {
@@ -50,6 +53,8 @@ public class Config {
 	
 	private static void ConfigItemID(){
 		BlockList.sworduraniumitemID = config.get("Items", "Uranium Sword", 1551)
+				.getInt();
+		BlockList.uraniumonstickID = config.get("Items", "Uranium On Stick", 1554)
 				.getInt();
 		BlockList.ingotinfuseduraniumitemID = config.get("Items",
 				"Infused Uranium Ingot", 1553).getInt();

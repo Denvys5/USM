@@ -47,6 +47,12 @@ public class RecipeList {
 				true, new Object[] { "@@@", "@X@", "!!!",
 						Character.valueOf('@'), Block.blockIron, ('X'),
 						Block.dragonEgg, ('!'), Block.coalBlock }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.uraniumonstick, true,
+				new Object[] { "@00", "0X0", "00@", Character.valueOf('@'), BlockList.ingotinfuseduranium, Character.valueOf('X'), Item.stick }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockList.ingotinfuseduranium, 2), true,
+				new Object[] { "@", Character.valueOf('@'), BlockList.uraniumonstick}));
 
 
 	}

@@ -8,6 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class OreUranium extends Block {
@@ -32,5 +33,10 @@ public class OreUranium extends Block {
 	@Override
 	public void registerIcons(IconRegister reg) {
 		this.blockIcon = reg.registerIcon(USM.modid + ":OreUranium");
+	}
+	
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,
+			int par4, Entity par5Entity) {
+		par5Entity.attackEntityFrom(DamageSource.cactus, 5.0F);
 	}
 }

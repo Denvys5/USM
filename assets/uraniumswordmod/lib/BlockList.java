@@ -12,6 +12,7 @@ import assets.uraniumswordmod.item.IngotInfusedUranium;
 import assets.uraniumswordmod.item.IngotUranium;
 import assets.uraniumswordmod.item.StickIron;
 import assets.uraniumswordmod.item.SwordUranium;
+import assets.uraniumswordmod.item.UraniumOnStick;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -27,6 +28,7 @@ public class BlockList {
 	public static Block blockuranium;
 	public static Block blocknetherstar;
 	public static Item sworduranium;
+	public static Item uraniumonstick;
 	public static Item ingotinfuseduranium;
 	public static Item ingoturanium;
 	public static Item stickiron;
@@ -42,6 +44,7 @@ public class BlockList {
 	public static int stickironitemID;
 	public static int furnaceuraniumidleblockID;
 	public static int furnaceuraniumactiveblockID;
+	public static int uraniumonstickID;
 	
 
 
@@ -81,6 +84,10 @@ public class BlockList {
 		sworduranium = new SwordUranium(BlockList.sworduraniumitemID)
 				.setUnlocalizedName("Uranium Sword");
 		Util.regItem(sworduranium, "sworduranium", "Uranium Sword");
+		
+		uraniumonstick = new UraniumOnStick(BlockList.uraniumonstickID)
+		.setUnlocalizedName("Uranium On Stick");
+Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
 
 		stickiron = new StickIron(BlockList.stickironitemID)
 				.setUnlocalizedName("Iron Stick");

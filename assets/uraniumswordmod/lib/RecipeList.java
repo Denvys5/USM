@@ -9,13 +9,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class RecipeList {
 	public static void ShapedOreCrafting(){
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.sworduranium, true,
-				new Object[] { "#X#", "#X#", "@SA",
-						// Character.valueOf('X'),
-						// USM.ingotinfuseduranium,('S'), "stickIron",('#'),
-						// Block.obsidian,('@'), Potion.harm,('A'),
-						// Potion.damageBoost}));
-						Character.valueOf('X'), BlockList.ingotinfuseduranium, ('S'),
-						"stickIron", ('#'), Block.obsidian }));
+				new Object[] { "X", "X", "S",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
+						"stickIron" }));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.stickiron, true,
 				new Object[] { "@", "@", Character.valueOf('@'),
@@ -37,6 +33,11 @@ public class RecipeList {
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.blockuranium, true,
 				new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'),
 				BlockList.ingoturanium }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.blockinfuseduranium, true,
+				new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'),
+				BlockList.ingotinfuseduranium }));
+
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.furnaceuraniumidle,
 				true, new Object[] { "@@@", "@X@", "!!!",

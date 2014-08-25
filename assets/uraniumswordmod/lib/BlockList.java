@@ -3,6 +3,7 @@ package assets.uraniumswordmod.lib;
 import java.io.File;
 
 import assets.uraniumswordmod.USM;
+import assets.uraniumswordmod.block.BlockInfusedUranium;
 import assets.uraniumswordmod.block.BlockNetherStar;
 import assets.uraniumswordmod.block.BlockUranium;
 import assets.uraniumswordmod.block.FurnaceUranium;
@@ -27,6 +28,7 @@ public class BlockList {
 	public static Block oreuranium;
 	public static Block blockuranium;
 	public static Block blocknetherstar;
+	public static Block blockinfuseduranium;
 	public static Item sworduranium;
 	public static Item uraniumonstick;
 	public static Item ingotinfuseduranium;
@@ -37,6 +39,7 @@ public class BlockList {
 
 	public static int oreuraniumblockID;
 	public static int blockuraniumblockID;
+	public static int blockinfuseduraniumblockID;
 	public static int blocknetherstarblockID;
 	public static int sworduraniumitemID;
 	public static int ingotinfuseduraniumitemID;
@@ -44,7 +47,7 @@ public class BlockList {
 	public static int stickironitemID;
 	public static int furnaceuraniumidleblockID;
 	public static int furnaceuraniumactiveblockID;
-	public static int uraniumonstickID;
+	public static int uraniumonstickitemID;
 	
 
 
@@ -61,6 +64,10 @@ public class BlockList {
 		blockuranium = new BlockUranium(BlockList.blockuraniumblockID)
 				.setUnlocalizedName("Block Uranium");
 		Util.regBlock(blockuranium, "blockuranium", "Block Uranium");
+		
+		blockinfuseduranium = new BlockInfusedUranium(BlockList.blockinfuseduraniumblockID)
+				.setUnlocalizedName("Block Infused Uranium");
+		Util.regBlock(blockinfuseduranium, "blockinfuseduranium", "Block Infused Uranium");
 
 		furnaceuraniumidle = new FurnaceUranium(
 				BlockList.furnaceuraniumidleblockID, false).setUnlocalizedName(
@@ -85,7 +92,7 @@ public class BlockList {
 				.setUnlocalizedName("Uranium Sword");
 		Util.regItem(sworduranium, "sworduranium", "Uranium Sword");
 		
-		uraniumonstick = new UraniumOnStick(BlockList.uraniumonstickID)
+		uraniumonstick = new UraniumOnStick(BlockList.uraniumonstickitemID)
 		.setUnlocalizedName("Uranium On Stick");
 Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
 

@@ -25,6 +25,7 @@ public class SwordUranium extends ItemSword {
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(USM.Radiation.id, 1, 0));
 		return true;
 	}
 

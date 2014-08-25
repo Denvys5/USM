@@ -42,6 +42,8 @@ public class Config {
 			.getInt();
 		BlockList.blocknetherstarblockID = config.get("Blocks", "Nether Star Block", 501)
 			.getInt();
+		BlockList.blockinfuseduraniumblockID = config.get("Blocks", "Infused Uranium Block", 505)
+				.getInt();
 	
 	
 		BlockList.furnaceuraniumidleblockID = config.get("Tile Entities",
@@ -54,7 +56,7 @@ public class Config {
 	private static void ConfigItemID(){
 		BlockList.sworduraniumitemID = config.get("Items", "Uranium Sword", 1551)
 				.getInt();
-		BlockList.uraniumonstickID = config.get("Items", "Uranium On Stick", 1554)
+		BlockList.uraniumonstickitemID = config.get("Items", "Uranium On Stick", 1554)
 				.getInt();
 		BlockList.ingotinfuseduraniumitemID = config.get("Items",
 				"Infused Uranium Ingot", 1553).getInt();

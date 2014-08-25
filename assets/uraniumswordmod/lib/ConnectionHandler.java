@@ -15,7 +15,7 @@ public class ConnectionHandler implements IConnectionHandler {
 			INetworkManager manager) {
 		netHandler.getPlayer().addChatMessage(
 				EnumChatFormatting.GOLD
-						+ "Uranium Furnace NEI integration is still WIP");
+						+ "Uranium Sword Mod is developing exclusively for Sagitarium.org");
 		if(OreRegistration.OreUraniumRegister != 1){
 			netHandler.getPlayer().addChatMessage(
 					EnumChatFormatting.GOLD

@@ -5,7 +5,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ClientProxy extends CommonProxy {
 	public void registerRandomStuff() {
-		LanguageRegistry.instance().addStringLocalization("potion.radiation", "Radiation");
+		LanguageRegistry.instance().addStringLocalization("potion.radiationUSM", "Radiation (USM)");
 		LanguageRegistry.instance().addStringLocalization(
 				USM.USMTab.getTranslatedTabLabel(), "Uranium Sword Mod");
 	}

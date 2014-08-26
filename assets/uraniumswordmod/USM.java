@@ -60,7 +60,7 @@ public class USM {
 		Config.ConfigMethod();
 	}
 	
-	public static Potion Radiation;
+	public static Potion RadiationUSM;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
@@ -110,7 +110,7 @@ public class USM {
 		NetworkRegistry.instance().registerConnectionHandler(
 				new ConnectionHandler());
 		OreRegistration.BooleanRegister();
-		Radiation = (new Radiation(32, false, 0)).setIconIndex(0, 0).setPotionName("potion.radiation");
+		RadiationUSM = (new Radiation(32, false, 0)).setIconIndex(0, 0).setPotionName("potion.radiationusm");
 	}
 	public static final EnumToolMaterial UraniumSword = EnumHelper
 			.addToolMaterial("UraniumSword", 3, 768, 9.0F, 71.0F, 50);

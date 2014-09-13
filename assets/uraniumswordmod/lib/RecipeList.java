@@ -1,6 +1,7 @@
 package assets.uraniumswordmod.lib;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -12,6 +13,11 @@ public class RecipeList {
 				new Object[] { "X", "X", "S",
 						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
 						"stickIron" }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.sworduranium, true,
+				new Object[] { "1X2", "3X4", "5S6",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
+						"stickIron", ('5'), new ItemStack(Item.potion, 1, 8233), ('6'), new ItemStack(Item.potion, 1, 8236) }));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.stickiron, true,
 				new Object[] { "@", "@", Character.valueOf('@'),

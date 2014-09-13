@@ -1,5 +1,6 @@
 package assets.uraniumswordmod.lib;
 
+import assets.uraniumswordmod.USM;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -15,18 +16,18 @@ public class ConnectionHandler implements IConnectionHandler {
 			INetworkManager manager) {
 		netHandler.getPlayer().addChatMessage(
 				EnumChatFormatting.GOLD
-						+ "Uranium Sword Mod is developing exclusively for Sagitarium.org");
-		if(OreRegistration.OreUraniumRegister != 1){
+						+ "Uranium Sword Mod " + USM.version + " is developing exclusively for Sagitarium.org");
+		if(OreRegistration.OreUraniumRegister != true){
 			netHandler.getPlayer().addChatMessage(
 					EnumChatFormatting.GOLD
 							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Uranium Ore)");	
 		}
-		if(OreRegistration.IngotUraniumRegister != 1){
+		if(OreRegistration.IngotUraniumRegister != true){
 			netHandler.getPlayer().addChatMessage(
 					EnumChatFormatting.GOLD
 							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Uranium Ingots)");	
 		}
-		if(OreRegistration.IronStickRegister != 1){
+		if(OreRegistration.IronStickRegister != true){
 			netHandler.getPlayer().addChatMessage(
 					EnumChatFormatting.GOLD
 							+ "Uranium Sword Mod Ore Registration turned off. Some crafts may dissapear (with Iron Stick)");	

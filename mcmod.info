@@ -3,7 +3,7 @@
   "modid": "uraniumswordmod",
   "name": "Uranium Sword Mod",
   "description": "",
-  "version": "OR3",
+  "version": "0.2",
   "mcversion": "1.6.4",
   "logoFile": "",
   "url": "",
@@ -12,6 +12,6 @@
   "credits": "",
   "parent": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["Denvys5Core"]
 }
 ]

@@ -20,12 +20,12 @@ public class SwordUranium extends ItemSword {
 			EntityLivingBase par2EntityLivingBase,
 			EntityLivingBase par3EntityLivingBase) {
 		par1ItemStack.damageItem(1, par3EntityLivingBase);
-		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
-		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
-		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
-		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 1));
-		par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 1));
-		par2EntityLivingBase.addPotionEffect(new PotionEffect(USM.RadiationUSM.id, 20, 0));
+		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 0));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 0));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 0));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 0));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(20, 600, 0));
+		par2EntityLivingBase.addPotionEffect(new PotionEffect(USM.RadiationUSM.id, 2, 0));
 		return true;
 	}
 

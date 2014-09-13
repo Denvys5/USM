@@ -9,10 +9,9 @@ public class USMEventHooks {
 	@ForgeSubscribe
 	public void onEntityUpdate(LivingUpdateEvent event) {
 		if (event.entityLiving.isPotionActive(USM.RadiationUSM)) {
-			/*if (event.entityLiving.worldObj.rand.nextInt(20) == 0) {
-				event.entityLiving.attackEntityFrom(DamageSource.generic, 2);
-				}*/
 			if(true){
+				event.entity.attackEntityFrom(DamageSource.outOfWorld, 75);
+				event.entity.attackEntityFrom(DamageSource.magic, 75);
 				event.entityLiving.attackEntityFrom(DamageSource.generic, 75);
 			}
 			if(event.entityLiving.getActivePotionEffect(USM.RadiationUSM).getDuration()==0){

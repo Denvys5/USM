@@ -9,10 +9,26 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RecipeList {
 	public static void ShapedOreCrafting(){
-		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.sworduranium, true,
-				new Object[] { "X", "X", "S",
-						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
-						"stickIron" }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.UraniumHelmet, true,
+				new Object[] { "XXX", "X@X",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('@'),
+						BlockList.blocknetherstar }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.UraniumChest, true,
+				new Object[] { "X#X", "X@X", "XXX",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('@'),
+						BlockList.blocknetherstar }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.UraniumLeggins, true,
+				new Object[] { "X@X", "X#X", "X#X",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('@'),
+						BlockList.blocknetherstar }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.UraniumBoots, true,
+				new Object[] { "X#X", "X@X",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('@'),
+						BlockList.blocknetherstar }));
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.sworduranium, true,
 				new Object[] { "1X2", "3X4", "5S6",

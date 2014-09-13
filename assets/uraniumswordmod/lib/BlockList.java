@@ -13,10 +13,7 @@ import assets.uraniumswordmod.item.IngotInfusedUranium;
 import assets.uraniumswordmod.item.IngotUranium;
 import assets.uraniumswordmod.item.StickIron;
 import assets.uraniumswordmod.item.SwordUranium;
-import assets.uraniumswordmod.item.UraniumBoots;
-import assets.uraniumswordmod.item.UraniumChest;
-import assets.uraniumswordmod.item.UraniumHelmet;
-import assets.uraniumswordmod.item.UraniumLeggins;
+import assets.uraniumswordmod.item.UraniumArmour;
 import assets.uraniumswordmod.item.UraniumOnStick;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -40,6 +37,10 @@ public class BlockList {
 	public static Item ingotinfuseduranium;
 	public static Item ingoturanium;
 	public static Item stickiron;
+	public static ItemArmor UraniumHelmet;
+	public static ItemArmor UraniumChest;
+	public static ItemArmor UraniumLeggins;
+	public static ItemArmor UraniumBoots;
 	public static Block furnaceuraniumidle;
 	public static Block furnaceuraniumactive;
 
@@ -54,39 +55,37 @@ public class BlockList {
 	public static int furnaceuraniumidleblockID;
 	public static int furnaceuraniumactiveblockID;
 	public static int uraniumonstickitemID;
+	public static int UraniumHelmetID;
+	public static int UraniumChestID;
+	public static int UraniumLegginsID;
+	public static int UraniumBootsID;
 	
-    public static ItemArmor UraniumHelmet = new UraniumHelmet(3200, USM.UraniumArmour, 0, 0);
-    
-    public static ItemArmor UraniumChest = new UraniumChest(3201, USM.UraniumArmour, 1, 1);
-    
-    public static ItemArmor UraniumLeggins = new UraniumLeggins(3202, USM.UraniumArmour, 2, 2);
-    
-    public static ItemArmor UraniumBoots = new UraniumBoots(3203, USM.UraniumArmour, 3, 3);
+
 
 
 	public static void blockRegister() {
 
-		oreuranium = new OreUranium(BlockList.oreuraniumblockID)
+		oreuranium = new OreUranium(oreuraniumblockID)
 				.setUnlocalizedName("Uranium Ore");
 		Util.regBlock(oreuranium, "oreuranium", "Uranium Ore");
 
-		blocknetherstar = new BlockNetherStar(BlockList.blocknetherstarblockID)
+		blocknetherstar = new BlockNetherStar(blocknetherstarblockID)
 				.setUnlocalizedName("Nether Star Block");
 		Util.regBlock(blocknetherstar, "blocknetherstar", "Nether Star Block");
 
-		blockuranium = new BlockUranium(BlockList.blockuraniumblockID)
+		blockuranium = new BlockUranium(blockuraniumblockID)
 				.setUnlocalizedName("Block Uranium");
 		Util.regBlock(blockuranium, "blockuranium", "Block Uranium");
 		
-		blockinfuseduranium = new BlockInfusedUranium(BlockList.blockinfuseduraniumblockID)
+		blockinfuseduranium = new BlockInfusedUranium(blockinfuseduraniumblockID)
 				.setUnlocalizedName("Block Infused Uranium");
 		Util.regBlock(blockinfuseduranium, "blockinfuseduranium", "Block Infused Uranium");
 
 		furnaceuraniumidle = new FurnaceUranium(
-				BlockList.furnaceuraniumidleblockID, false).setUnlocalizedName(
+				furnaceuraniumidleblockID, false).setUnlocalizedName(
 				"Uranium Furnace").setCreativeTab(USM.USMTab);
 		furnaceuraniumactive = new FurnaceUranium(
-				BlockList.furnaceuraniumactiveblockID, true)
+				furnaceuraniumactiveblockID, true)
 				.setUnlocalizedName("Uranium Furnace Active").setLightValue(
 						0.8F);
 		Util.regBlock(furnaceuraniumidle, "furnaceuraniumidle",
@@ -101,26 +100,41 @@ public class BlockList {
 	}
 
 	public static void itemRegister() {
-		sworduranium = new SwordUranium(BlockList.sworduraniumitemID)
+		sworduranium = new SwordUranium(sworduraniumitemID)
 				.setUnlocalizedName("Uranium Sword");
 		Util.regItem(sworduranium, "sworduranium", "Uranium Sword");
 		
-		uraniumonstick = new UraniumOnStick(BlockList.uraniumonstickitemID)
+		uraniumonstick = new UraniumOnStick(uraniumonstickitemID)
 		.setUnlocalizedName("Uranium On Stick");
 Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
 
-		stickiron = new StickIron(BlockList.stickironitemID)
+		stickiron = new StickIron(stickironitemID)
 				.setUnlocalizedName("Iron Stick");
 		Util.regItem(stickiron, "stickiron", "Iron Stick");
 
-		ingoturanium = new IngotUranium(BlockList.ingoturaniumitemID)
+		ingoturanium = new IngotUranium(ingoturaniumitemID)
 				.setUnlocalizedName("Uranium Ingot");
 		Util.regItem(ingoturanium, "ingoturanium", "Uranium Ingot");
 
 		ingotinfuseduranium = new IngotInfusedUranium(
-				BlockList.ingotinfuseduraniumitemID)
+				ingotinfuseduraniumitemID)
 				.setUnlocalizedName("Infused Uranium Ingot");
 		Util.regItem(ingotinfuseduranium, "ingotinfuseduranium",
 				"Infused Uranium Ingot");
+	}
+	
+	public static void armourRegister(){
+	    UraniumHelmet = new UraniumArmour(UraniumHelmetID, 0, 0);
+        LanguageRegistry.instance().addNameForObject(UraniumHelmet, "en_US", "Uranium Helmet");
+        LanguageRegistry.instance().addNameForObject(UraniumHelmet, "ru_RU", "Фу, не знать английский");
+	    UraniumChest = new UraniumArmour(UraniumChestID, 1, 1);
+        LanguageRegistry.instance().addNameForObject(UraniumChest, "en_US", "Uranium Chest");
+        LanguageRegistry.instance().addNameForObject(UraniumChest, "ru_RU", "Фу, не знать английский");
+	    UraniumLeggins = new UraniumArmour(UraniumLegginsID, 2, 2);
+        LanguageRegistry.instance().addNameForObject(UraniumLeggins, "en_US", "Uranium Leggins");
+        LanguageRegistry.instance().addNameForObject(UraniumLeggins, "ru_RU", "Фу, не знать английский");
+	    UraniumBoots = new UraniumArmour(UraniumBootsID, 3, 3);
+        LanguageRegistry.instance().addNameForObject(UraniumBoots, "en_US", "Uranium Boots");
+        LanguageRegistry.instance().addNameForObject(UraniumBoots, "ru_RU", "Фу, не знать английский");
 	}
 }

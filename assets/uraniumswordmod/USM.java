@@ -44,7 +44,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.2";
+	public static final String version = "0.3";
 
 	@Instance(modid)
 	public static USM instance;
@@ -103,6 +103,7 @@ public class USM {
 		GuiHandler guiHandler = new GuiHandler();
 		BlockList.blockRegister();
 		BlockList.itemRegister();
+		BlockList.armourRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
@@ -114,8 +115,7 @@ public class USM {
 		RadiationUSM = (new Radiation(32, false, 0)).setIconIndex(0, 0).setPotionName("potion.radiationusm");
 	}
 	public static final EnumToolMaterial UraniumSword = EnumHelper
-			.addToolMaterial("UraniumSword", 3, 768, 9.0F, (float) (UraniumSwordDamage - 4.0), 50);
-	public static EnumArmorMaterial UraniumArmour = EnumHelper.addArmorMaterial("UraniumArmour", 1000, new int[] {2, 3, 3, 2}, 50);
+			.addToolMaterial("UraniumSword", 3, 768, 9.0F, 1496.0F, 50);
 
 	
 	@EventHandler

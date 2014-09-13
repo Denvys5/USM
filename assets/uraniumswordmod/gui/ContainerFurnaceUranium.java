@@ -1,10 +1,10 @@
 package assets.uraniumswordmod.gui;
 
 import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
+import assets.uraniumswordmod.lib.apilib.SlotUraniumFurnace;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import denvys5.core.SlotUraniumFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

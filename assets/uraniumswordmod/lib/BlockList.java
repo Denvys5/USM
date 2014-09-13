@@ -13,18 +13,12 @@ import assets.uraniumswordmod.item.IngotInfusedUranium;
 import assets.uraniumswordmod.item.IngotUranium;
 import assets.uraniumswordmod.item.StickIron;
 import assets.uraniumswordmod.item.SwordUranium;
-import assets.uraniumswordmod.item.UraniumBoots;
-import assets.uraniumswordmod.item.UraniumChest;
-import assets.uraniumswordmod.item.UraniumHelmet;
-import assets.uraniumswordmod.item.UraniumLeggins;
 import assets.uraniumswordmod.item.UraniumOnStick;
 import assets.uraniumswordmod.tile.TileEntityFurnaceUranium;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import denvys5.core.Util;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
@@ -55,13 +49,6 @@ public class BlockList {
 	public static int furnaceuraniumactiveblockID;
 	public static int uraniumonstickitemID;
 	
-    public static ItemArmor UraniumHelmet = new UraniumHelmet(3200, USM.UraniumArmour, 0, 0);
-    
-    public static ItemArmor UraniumChest = new UraniumChest(3201, USM.UraniumArmour, 1, 1);
-    
-    public static ItemArmor UraniumLeggins = new UraniumLeggins(3202, USM.UraniumArmour, 2, 2);
-    
-    public static ItemArmor UraniumBoots = new UraniumBoots(3203, USM.UraniumArmour, 3, 3);
 
 
 	public static void blockRegister() {

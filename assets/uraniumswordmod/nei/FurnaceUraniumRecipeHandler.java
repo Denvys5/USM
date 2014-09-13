@@ -43,7 +43,7 @@ public class FurnaceUraniumRecipeHandler
 
 	public String getGuiTexture() {
 		return new ResourceLocation(USM.modid,
-				"textures/gui/FurnaceUraniumNEI_gui.png").toString();
+				"textures/gui/FurnaceUranium_gui.png").toString();
 	}
 
 	public class SmeltingPair extends CachedRecipe {

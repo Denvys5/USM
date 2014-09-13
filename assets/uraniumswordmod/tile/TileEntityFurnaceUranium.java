@@ -3,7 +3,6 @@ package assets.uraniumswordmod.tile;
 import assets.uraniumswordmod.USM;
 import assets.uraniumswordmod.block.FurnaceUranium;
 import assets.uraniumswordmod.lib.BlockList;
-import assets.uraniumswordmod.lib.UraniumFurnaceFuelHandler;
 import assets.uraniumswordmod.lib.UraniumFurnaceRecipes;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -278,6 +277,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 			return false;
 		}
 		return false;
+		//return i == 2 ? false : (i == 1 ? isItemFuel(itemstack) : true);
 	}
 
 	public int[] getAccessibleSlotsFromSide(int var1) {
@@ -293,6 +293,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 				return this.isItemValidForSlot(i, itemstack);
 			}
 		}
+		// return this.isItemValidForSlot(i, itemstack);
 		return false;
 	}
 

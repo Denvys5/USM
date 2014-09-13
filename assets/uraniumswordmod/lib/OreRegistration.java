@@ -1,21 +1,19 @@
 package assets.uraniumswordmod.lib;
 
-import denvys5.core.Util;
-
 public class OreRegistration {
 	
-	public static boolean OreUraniumRegister;
-	public static boolean IngotUraniumRegister;
-	public static boolean IronStickRegister;
+	public static int OreUraniumRegister;
+	public static int IngotUraniumRegister;
+	public static int IronStickRegister;
 	
 	public static void BooleanRegister(){
-		if(OreRegistration.OreUraniumRegister == true){
+		if(OreRegistration.OreUraniumRegister == 1){
 			OreUraniumRegister();
 		}
-		if(OreRegistration.IngotUraniumRegister == true){
+		if(OreRegistration.IngotUraniumRegister == 1){
 			IngotUraniumRegister();
 		}
-		if(OreRegistration.IronStickRegister == true){
+		if(OreRegistration.IronStickRegister == 1){
 			IronStickRegister();
 		}
 		

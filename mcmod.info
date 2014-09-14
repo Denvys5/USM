@@ -1,0 +1,17 @@
+[
+{
+  "modid": "uraniumswordmod",
+  "name": "Uranium Sword Mod",
+  "description": "",
+  "version": "0.2",
+  "mcversion": "1.6.4",
+  "logoFile": "",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["Code by Denvys5", "Textures by DiaMan"],
+  "credits": "",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": ["Denvys5Core"]
+}
+]

@@ -39,7 +39,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = USM.modid, name = USM.name, version = USM.version, dependencies = "required-after:Denvys5Core@[1.0,)")
+@Mod(modid = USM.modid, name = USM.name, version = USM.version/*, dependencies = "required-after:Denvys5Core@[1.0,)"*/)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class USM {
 	public static final String modid = "uraniumswordmod";

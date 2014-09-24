@@ -8,4 +8,4 @@ All textures made by DiaMan.
 This mod is developing exlusively for Sagitarium.org
 
 
-Since version 0.2 requires Denvys5Coremod
+Version 0.3 supports Minecraft 1.6.4

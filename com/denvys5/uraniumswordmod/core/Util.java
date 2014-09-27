@@ -2,6 +2,7 @@ package com.denvys5.uraniumswordmod.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -45,4 +46,16 @@ public class Util {
         
 		return entity.getLookVec().createVectorHelper(posX, posY, posZ);
 	}
+	
+	public boolean isFullArmorSetEquiped(EntityPlayer player){
+        ItemStack helmet = player.getEquipmentInSlot(4);
+        ItemStack plate = player.getEquipmentInSlot(3);
+        ItemStack leggings = player.getEquipmentInSlot(2);
+        ItemStack boots = player.getEquipmentInSlot(1);
+		if(helmet.getItem().equals(BlockList.UraniumHelmet) && plate.getItem().equals(BlockList.UraniumChest) && leggings.getItem().equals(BlockList.UraniumLeggins) && boots.getItem().equals(BlockList.UraniumBoots)){
+			return true;
+		}
+		return false;
+	}
+	
 }

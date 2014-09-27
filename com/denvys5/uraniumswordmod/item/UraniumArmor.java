@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.item;
 
+import java.util.Collection;
+
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -15,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 
@@ -105,8 +108,8 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
     public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot){
         stack.setItemDamage(0);
     }
-    
-    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
+
+    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String type) {
         if (itemstack.getItem() == BlockList.UraniumHelmet || itemstack.getItem() == BlockList.UraniumChest || itemstack.getItem() == BlockList.UraniumBoots){
             return USM.modid + ":models/armor/UraniumArmor_layer_1.png";
         }else if(itemstack.getItem() == BlockList.UraniumLeggins){
@@ -146,34 +149,29 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
 
         return 5;
     }
-
+	
 	
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
-    	System.out.println("Update!");
-        ItemStack helmet = player.getEquipmentInSlot(4);
-        ItemStack plate = player.getEquipmentInSlot(3);
-        ItemStack leggings = player.getEquipmentInSlot(2);
-        ItemStack boots = player.getEquipmentInSlot(1);
-        
-        if (helmet.getItem() == BlockList.UraniumHelmet && plate.getItem() == BlockList.UraniumChest && leggings.getItem() == BlockList.UraniumLeggins && boots.getItem() == BlockList.UraniumBoots){
-            if (!player.isPotionActive(USM.RadiationUSM))
-            {
+        if(!(player.getTotalArmorValue() < 10)){
+        	if (player.isPotionActive(USM.RadiationUSM)){
                 player.removePotionEffect(USM.RadiationUSM.id);
-                player.curePotionEffects(new ItemStack(BlockList.sworduranium));
             }
             if(player.getHealth() < player.getMaxHealth()){
             	player.heal(player.getMaxHealth() - player.getHealth());
             }
             if (itemStack.getItemDamage() > 0){
             	itemStack.setItemDamage(0);
-
             }
-            
+            if(player.isSprinting()){
+            	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 2));
+            }
+            player.capabilities.allowFlying = true;
             player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 0));
             player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 0));
             player.fallDistance = 0;
-            
-    	}
+        }else{
+            player.capabilities.allowFlying = false;
+        }
         return;
     }
 }

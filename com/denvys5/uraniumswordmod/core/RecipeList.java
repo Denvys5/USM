@@ -34,6 +34,11 @@ public class RecipeList {
 				new Object[] { "1X2", "3X4", "5S6",
 						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
 						"stickIron", ('5'), new ItemStack(Items.potionitem, 1, 8233), ('6'), new ItemStack(Items.potionitem, 1, 8236) }));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.pickuranium, true,
+				new Object[] { "X@X", "3S4", "5S6",
+						Character.valueOf('X'), BlockList.blockinfuseduranium, ('S'),
+						"stickIron", ('@'), BlockList.blocknetherstar, ('3'), new ItemStack(Items.potionitem, 1, 8233), ('4'), new ItemStack(Items.potionitem, 1, 8236) }));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.stickiron, true,
 				new Object[] { "@", "@", Character.valueOf('@'),

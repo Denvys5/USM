@@ -14,6 +14,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import com.denvys5.uraniumswordmod.api.GuiHandler;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
 import com.denvys5.uraniumswordmod.effects.Radiation;
+import com.denvys5.uraniumswordmod.events.USMEventHooks;
 import com.denvys5.uraniumswordmod.oregenerators.UraniumOreGenerator;
 
 import cpw.mods.fml.common.Mod;
@@ -30,12 +31,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.4";
+	public static final String version = "0.4.1";
 
 	@Instance(modid)
 	public static USM instance;
 
-	@SidedProxy(clientSide = "denvys5.core.proxy.ClientProxy", serverSide = "denvys5.core.proxy.CommonProxy")
+	@SidedProxy(clientSide = "com.denvys5.uraniumswordmod.core.proxy.ClientProxy", serverSide = "com.denvys5.uraniumswordmod.core.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static final int guiIdFurnaceUranium = 0;
@@ -46,6 +47,7 @@ public class USM {
 	}
 	public static double UraniumSwordDamage; 
 	public static ToolMaterial UraniumSword = EnumHelper.addToolMaterial("UraniumSword", 3, 768, 9.0F, 1496.0F, 50);
+	 public static ToolMaterial UraniumPick = EnumHelper.addToolMaterial("UraniumPick", 4, 1000, 12.0F, 8.0F, 50);
 	public static Potion RadiationUSM;
 
 	@EventHandler
@@ -75,7 +77,6 @@ public class USM {
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
 		
 		
-		BlockList.armourRegister();
 	}
 
 	@Mod.EventHandler
@@ -94,13 +95,12 @@ public class USM {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		BlockList.blockRegister();
 		BlockList.itemRegister();
-
+		BlockList.armorRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
 		proxy.registerRandomStuff();
 		AchievementPage.registerAchievementPage(USMAchievPage);
-		//NetworkRegistry.INSTANCE.registerConnectionHandler(new ConnectionHandler());
 		OreRegistration.BooleanRegister();
 		RadiationUSM = (new Radiation(32, false, 0)).setIconIndex(0, 0).setPotionName("potion.radiationusm");
 	}

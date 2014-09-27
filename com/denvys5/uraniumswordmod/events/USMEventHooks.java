@@ -1,4 +1,6 @@
-package com.denvys5.uraniumswordmod.core;
+package com.denvys5.uraniumswordmod.events;
+
+import com.denvys5.uraniumswordmod.core.USM;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.DamageSource;

@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 
-public class UraniumArmour extends ItemArmor implements ISpecialArmor {
+public class UraniumArmor extends ItemArmor implements ISpecialArmor {
 	
     private static int invSize = 9;
     private static IIcon helmetIcon;
@@ -26,9 +26,9 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
     private static IIcon leggingsIcon;
     private static IIcon bootsIcon;
     
-    public UraniumArmour(int par1, int armorType)
+    public UraniumArmor(int slot)
     {
-        super(ItemArmor.ArmorMaterial.GOLD, par1, armorType);
+        super(ArmorMaterial.GOLD, 0, slot);
         setMaxDamage(1000);
         this.setCreativeTab(USM.USMTab);
     }
@@ -72,27 +72,14 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
         return this.itemIcon;
     }
     
-    public boolean isImmuneToVoid(ItemStack itemStack){
-        return true;
-    }
-
-    
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
     {
-        if (source.equals(DamageSource.drown))
-        {
-            return new ArmorProperties(-1, 0, 0);
+        if (source.equals(DamageSource.drown)){
+            return new ArmorProperties(-1, 0, 10);
         }
 
-        if (source.equals(DamageSource.outOfWorld))
-        {
-            if (isImmuneToVoid(armor))
-            {
+        if (source.equals(DamageSource.outOfWorld)){
                 return new ArmorProperties(-1, 3, 100000);
-            } else
-            {
-                return new ArmorProperties(-1, 0, 0);
-            }
         }
 
         ItemStack helmet = player.getEquipmentInSlot(4);
@@ -100,15 +87,12 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
         ItemStack leggings = player.getEquipmentInSlot(2);
         ItemStack boots = player.getEquipmentInSlot(1);
 
-        if (helmet == null || plate == null || leggings == null || boots == null)
-        {
+        if (helmet == null || plate == null || leggings == null || boots == null){
             return new ArmorProperties(-1, 0, 0);
         }
 
-        if (helmet.getItem() == BlockList.UraniumHelmet || plate.getItem() == BlockList.UraniumChest || leggings.getItem() == BlockList.UraniumLeggins || boots.getItem() == BlockList.UraniumBoots)
-        {
-            if (source.isUnblockable())
-            {
+        if (helmet.getItem() == BlockList.UraniumHelmet || plate.getItem() == BlockList.UraniumChest || leggings.getItem() == BlockList.UraniumLeggins || boots.getItem() == BlockList.UraniumBoots){
+            if (source.isUnblockable()){
                 return new ArmorProperties(-1, 3, 3);
             }
 
@@ -118,20 +102,15 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
         return new ArmorProperties(-1, 0, 0);
     }
     
-    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
-    {
-        stack.setItemDamage(stack.getItemDamage() + damage);
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot){
+        stack.setItemDamage(0);
     }
     
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer) {
-        if (this == BlockList.UraniumHelmet || this == BlockList.UraniumChest || this == BlockList.UraniumBoots)
-        {
-            return USM.modid + ":textures/armor/UraniumArmor_layer_1.png";
-        }
-
-        if (this == BlockList.UraniumLeggins)
-        {
-            return USM.modid + ":textures/armor/UraniumArmor_layer_2.png";
+    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
+        if (itemstack.getItem() == BlockList.UraniumHelmet || itemstack.getItem() == BlockList.UraniumChest || itemstack.getItem() == BlockList.UraniumBoots){
+            return USM.modid + ":models/armor/UraniumArmor_layer_1.png";
+        }else if(itemstack.getItem() == BlockList.UraniumLeggins){
+            return USM.modid + ":models/armor/UraniumArmor_layer_2.png";
         }else{
             return null;
         }
@@ -168,9 +147,9 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
         return 5;
     }
 
-    
-    public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack){
-    	
+	
+    public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
+    	System.out.println("Update!");
         ItemStack helmet = player.getEquipmentInSlot(4);
         ItemStack plate = player.getEquipmentInSlot(3);
         ItemStack leggings = player.getEquipmentInSlot(2);
@@ -185,16 +164,14 @@ public class UraniumArmour extends ItemArmor implements ISpecialArmor {
             if(player.getHealth() < player.getMaxHealth()){
             	player.heal(player.getMaxHealth() - player.getHealth());
             }
-            if (itemStack.getItemDamage() > 0)
-            {
-                if (!player.capabilities.isCreativeMode)
-                {
-                    itemStack.setItemDamage(0);
-                }
+            if (itemStack.getItemDamage() > 0){
+            	itemStack.setItemDamage(0);
+
             }
             
             player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 0));
             player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 0));
+            player.fallDistance = 0;
             
     	}
         return;

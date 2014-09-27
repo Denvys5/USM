@@ -2,235 +2,166 @@ package com.denvys5.uraniumswordmod.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiFurnace;
-import net.minecraft.inventory.Container;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 import codechicken.nei.ItemList;
 import codechicken.nei.NEIClientUtils;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.api.IOverlayHandler;
-import codechicken.nei.api.IRecipeOverlayRenderer;
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.ICraftingHandler;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
-import com.denvys5.uraniumswordmod.core.BlockList;
+
 import com.denvys5.uraniumswordmod.core.USM;
-import com.denvys5.uraniumswordmod.nei.FurnaceUraniumRecipeHandler;
 import com.denvys5.uraniumswordmod.uraniumfurnace.GuiFurnaceUranium;
 import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
 import com.denvys5.uraniumswordmod.uraniumfurnace.UraniumFurnaceRecipes;
 
-public class FurnaceUraniumRecipeHandler
-		/* implements ICraftingHandler */extends TemplateRecipeHandler {
+public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler
+{
+    public class SmeltingPair extends CachedRecipe
+    {
+        public SmeltingPair(ItemStack ingred, ItemStack result) {
+            ingred.stackSize = 1;
+            this.ingred = new PositionedStack(ingred, 51, 6);
+            this.result = new PositionedStack(result, 111, 24);
+        }
 
-	public String getRecipeName() {
+        public List<PositionedStack> getIngredients() {
+            return getCycledIngredients(cycleticks / 48, Arrays.asList(ingred));
+        }
 
-		return "Uranium Furnace";
-	}
+        public PositionedStack getResult() {
+            return result;
+        }
 
-	public String getGuiTexture() {
-		return new ResourceLocation(USM.modid,
+        public PositionedStack getOtherStack() {
+            return afuels.get((cycleticks / 48) % afuels.size()).stack;
+        }
+
+        PositionedStack ingred;
+        PositionedStack result;
+    }
+
+    public static class FuelPair
+    {
+        public FuelPair(ItemStack ingred, int burnTime) {
+            this.stack = new PositionedStack(ingred, 51, 42, false);
+            this.burnTime = burnTime;
+        }
+
+        public PositionedStack stack;
+        public int burnTime;
+    }
+
+    public static ArrayList<FuelPair> afuels;
+    public static HashSet<Block> efuels;
+
+    @Override
+    public void loadTransferRects() {		
+    	transferRects.add(new RecipeTransferRect(new Rectangle(55, 34, 18, 18), "fuel"));
+    	transferRects.add(new RecipeTransferRect(new Rectangle(78, 34, 24, 18), "smelting"));
+    }
+
+    @Override
+    public Class<? extends GuiContainer> getGuiClass() {
+        return GuiFurnaceUranium.class;
+    }
+
+    @Override
+    public String getRecipeName() {
+        return NEIClientUtils.translate("recipe.furnace");
+    }
+
+    @Override
+    public TemplateRecipeHandler newInstance() {
+        if (afuels == null)
+            findFuels();
+        return super.newInstance();
+    }
+
+    @Override
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals("smelting") && getClass() == FurnaceUraniumRecipeHandler.class) {//don't want subclasses getting a hold of this
+            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+            for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+                arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
+        } else
+            super.loadCraftingRecipes(outputId, results);
+    }
+
+    @Override
+    public void loadCraftingRecipes(ItemStack result) {
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+        for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+            if (NEIServerUtils.areStacksSameType(recipe.getValue(), result))
+                arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
+    }
+
+    @Override
+    public void loadUsageRecipes(String inputId, Object... ingredients) {
+        if (inputId.equals("fuel") && getClass() == FurnaceUraniumRecipeHandler.class)//don't want subclasses getting a hold of this
+            loadCraftingRecipes("smelting");
+        else
+            super.loadUsageRecipes(inputId, ingredients);
+    }
+
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+        for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
+            if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
+                SmeltingPair arecipe = new SmeltingPair(recipe.getKey(), recipe.getValue());
+                arecipe.setIngredientPermutation(Arrays.asList(arecipe.ingred), ingredient);
+                arecipes.add(arecipe);
+            }
+    }
+
+    @Override
+    public String getGuiTexture() {
+        return new ResourceLocation(USM.modid,
 				"textures/gui/FurnaceUraniumNEI_gui.png").toString();
-	}
+    }
 
-	public class SmeltingPair extends CachedRecipe {
-		public SmeltingPair(ItemStack ingred, ItemStack result) {
-			ingred.stackSize = 1;
-			this.ingred = new PositionedStack(ingred, 51, 6);
-			this.result = new PositionedStack(result, 111, 24);
-		}
+    @Override
+    public void drawExtras(int recipe) {
+        drawProgressBar(51, 25, 176, 0, 14, 14, 48, 7);
+        drawProgressBar(74, 23, 176, 14, 24, 18, 48, 0);
+    }
 
-		public PositionedStack getIngredient() {
-			int cycle = cycleticks / 48;
-			if (ingred.item.getItemDamage() == -1) {
-				PositionedStack stack = ingred.copy();
-				int maxDamage = 0;
-				do {
-					maxDamage++;
-					stack.item.setItemDamage(maxDamage);
-				} while (NEIClientUtils.isValidItem(stack.item));
+    private static Set<Item> excludedFuels() {
+        Set<Item> efuels = new HashSet<Item>();
+        efuels.add(Item.getItemFromBlock(Blocks.brown_mushroom));
+        efuels.add(Item.getItemFromBlock(Blocks.red_mushroom));
+        efuels.add(Item.getItemFromBlock(Blocks.standing_sign));
+        efuels.add(Item.getItemFromBlock(Blocks.wall_sign));
+        efuels.add(Item.getItemFromBlock(Blocks.wooden_door));
+        efuels.add(Item.getItemFromBlock(Blocks.trapped_chest));
+        return efuels;
+    }
 
-				stack.item.setItemDamage(cycle % maxDamage);
-				return stack;
-			}
-			return ingred;
-		}
+    private static void findFuels() {
+        afuels = new ArrayList<FuelPair>();
+        Set<Item> efuels = excludedFuels();
+        for (ItemStack item : ItemList.items)
+            if (!efuels.contains(item.getItem())) {
+                int burnTime = TileEntityFurnaceUranium.getItemBurnTime(item);
+                if (burnTime > 0)
+                    afuels.add(new FuelPair(item.copy(), burnTime));
+            }
+    }
 
-		public PositionedStack getResult() {
-			return result;
-		}
-
-		public PositionedStack getOtherStack() {
-			return afuels.get((cycleticks / 48) % afuels.size()).stack;
-		}
-
-		PositionedStack ingred;
-		PositionedStack result;
-	}
-
-	public static class FuelPair {
-		public FuelPair(ItemStack ingred, int burnTime) {
-			this.stack = new PositionedStack(ingred, 51, 42, false);
-			this.burnTime = burnTime;
-		}
-
-		public PositionedStack stack;
-		public int burnTime;
-	}
-
-	public static ArrayList<FuelPair> afuels;
-	public static TreeSet<Integer> efuels;
-
-	public void loadTransferRects() {
-		transferRects.add(new RecipeTransferRect(new Rectangle(55, 34, 18, 18),
-				"fuel"));
-		transferRects.add(new RecipeTransferRect(new Rectangle(78, 34, 24, 18),
-				"smelting"));
-	}
-
-	public Class<? extends GuiContainer> getGuiClass() {
-		return GuiFurnaceUranium.class;
-	}
-
-	public TemplateRecipeHandler newInstance() {
-		if (afuels == null)
-			findFuels();
-		return super.newInstance();
-	}
-
-	public void loadCraftingRecipes(String outputId, Object... results) {
-		if (outputId.equals("smelting")
-				&& getClass() == FurnaceUraniumRecipeHandler.class)// don't want
-																	// subclasses
-																	// getting a
-																	// hold of
-																	// this
-		{
-			HashMap<Integer, ItemStack> recipes = (HashMap<Integer, ItemStack>) UraniumFurnaceRecipes
-					.smelting().getSmeltingList();
-			HashMap<List<Integer>, ItemStack> metarecipes = (HashMap<List<Integer>, ItemStack>) UraniumFurnaceRecipes
-					.smelting().getMetaSmeltingList();
-
-			for (Entry<Integer, ItemStack> recipe : recipes.entrySet()) {
-				ItemStack item = recipe.getValue();
-				arecipes.add(new SmeltingPair(new ItemStack(recipe.getKey(), 1,
-						-1), item));
-			}
-			if (metarecipes == null)
-				return;
-			for (Entry<List<Integer>, ItemStack> recipe : metarecipes
-					.entrySet()) {
-				ItemStack item = recipe.getValue();
-				arecipes.add(new SmeltingPair(new ItemStack(recipe.getKey()
-						.get(0), 1, recipe.getKey().get(1)), item));
-			}
-		} else {
-			super.loadCraftingRecipes(outputId, results);
-		}
-	}
-
-	public void loadCraftingRecipes(ItemStack result) {
-		HashMap<Integer, ItemStack> recipes = (HashMap<Integer, ItemStack>) UraniumFurnaceRecipes
-				.smelting().getSmeltingList();
-		HashMap<List<Integer>, ItemStack> metarecipes = (HashMap<List<Integer>, ItemStack>) UraniumFurnaceRecipes
-				.smelting().getMetaSmeltingList();
-
-		for (Entry<Integer, ItemStack> recipe : recipes.entrySet()) {
-			ItemStack item = recipe.getValue();
-			if (NEIServerUtils.areStacksSameType(item, result)) {
-				arecipes.add(new SmeltingPair(new ItemStack(recipe.getKey(), 1,
-						-1), item));
-			}
-		}
-		if (metarecipes == null)
-			return;
-		for (Entry<List<Integer>, ItemStack> recipe : metarecipes.entrySet()) {
-			ItemStack item = recipe.getValue();
-			if (NEIServerUtils.areStacksSameType(item, result)) {
-				arecipes.add(new SmeltingPair(new ItemStack(recipe.getKey()
-						.get(0), 1, recipe.getKey().get(1)), item));
-			}
-		}
-	}
-
-	public void loadUsageRecipes(String inputId, Object... ingredients) {
-		if (inputId.equals("fuel")
-				&& getClass() == FurnaceUraniumRecipeHandler.class)// don't want
-																	// subclasses
-																	// getting a
-																	// hold of
-																	// this
-		{
-			loadCraftingRecipes("smelting");
-		} else {
-			super.loadUsageRecipes(inputId, ingredients);
-		}
-	}
-
-	public void loadUsageRecipes(ItemStack ingredient) {
-		HashMap<Integer, ItemStack> recipes = (HashMap<Integer, ItemStack>) UraniumFurnaceRecipes
-				.smelting().getSmeltingList();
-		HashMap<List<Integer>, ItemStack> metarecipes = (HashMap<List<Integer>, ItemStack>) UraniumFurnaceRecipes
-				.smelting().getMetaSmeltingList();
-
-		for (Entry<Integer, ItemStack> recipe : recipes.entrySet()) {
-			ItemStack item = recipe.getValue();
-			if (ingredient.itemID == recipe.getKey()) {
-				arecipes.add(new SmeltingPair(ingredient, item));
-			}
-		}
-		if (metarecipes == null)
-			return;
-		for (Entry<List<Integer>, ItemStack> recipe : metarecipes.entrySet()) {
-			ItemStack item = recipe.getValue();
-			if (ingredient.itemID == recipe.getKey().get(0)
-					&& ingredient.getItemDamage() == recipe.getKey().get(1)) {
-				arecipes.add(new SmeltingPair(ingredient, item));
-			}
-		}
-	}
-
-	public void drawExtras(int recipe) {
-		drawProgressBar(51, 25, 176, 0, 14, 14, 48, 7);
-		drawProgressBar(74, 23, 176, 14, 24, 18, 48, 0);
-	}
-
-	private static void removeFuels() {
-		efuels = new TreeSet<Integer>();
-		efuels.add(Block.mushroomCapBrown.blockID);
-		efuels.add(Block.mushroomCapRed.blockID);
-		efuels.add(Block.signPost.blockID);
-		efuels.add(Block.signWall.blockID);
-		efuels.add(Block.doorWood.blockID);
-		efuels.add(Block.lockedChest.blockID);
-
-	}
-
-	private static void findFuels() {
-		afuels = new ArrayList<FuelPair>();
-		afuels.add(new FuelPair(new ItemStack(Item.netherStar), 3125));
-		afuels.add(new FuelPair(new ItemStack(BlockList.blocknetherstar), 31250));
-	}
-
-	public String getOverlayIdentifier() {
-		return "smelting";
-	}
-
-	static {
-		removeFuels();
-	}
-
+    @Override
+    public String getOverlayIdentifier() {
+        return "smelting";
+    }
 }

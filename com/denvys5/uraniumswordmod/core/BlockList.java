@@ -3,6 +3,7 @@ package com.denvys5.uraniumswordmod.core;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 
 import com.denvys5.uraniumswordmod.block.*;
 import com.denvys5.uraniumswordmod.item.*;
@@ -18,18 +19,17 @@ public class BlockList {
 	public static Block blocknetherstar;
 	public static Block blockinfuseduranium;
 	public static Item sworduranium;
+	public static Item pickuranium;
 	public static Item uraniumonstick;
 	public static Item ingotinfuseduranium;
 	public static Item ingoturanium;
 	public static Item stickiron;
-	public static ItemArmor UraniumHelmet;
-	public static ItemArmor UraniumChest;
-	public static ItemArmor UraniumLeggins;
-	public static ItemArmor UraniumBoots;
+	public static Item UraniumHelmet;
+	public static Item UraniumChest;
+	public static Item UraniumLeggins;
+	public static Item UraniumBoots;
 	public static Block furnaceuraniumidle;
 	public static Block furnaceuraniumactive;
-	
-	
 
 	public static void blockRegister() {
 
@@ -68,9 +68,13 @@ public class BlockList {
 				.setUnlocalizedName("Uranium Sword");
 		Util.regItem(sworduranium, "sworduranium", "Uranium Sword");
 		
+		pickuranium = new PickUranium()
+				.setUnlocalizedName("Uranium Pickaxe");
+		Util.regItem(pickuranium, "pickuranium", "Uranium Pickaxe");
+		
 		uraniumonstick = new UraniumOnStick()
-		.setUnlocalizedName("Uranium On Stick");
-Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
+				.setUnlocalizedName("Uranium On Stick");
+		Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
 
 		stickiron = new StickIron()
 				.setUnlocalizedName("Iron Stick");
@@ -86,14 +90,14 @@ Util.regItem(uraniumonstick, "uraniumonstick", "Uranium On Stick");
 				"Infused Uranium Ingot");
 	}
 	
-	public static void armourRegister(){
-	    UraniumHelmet = new UraniumArmour(0 ,0);
-	    Util.armorRegister(UraniumHelmet, "Uranium Helmet");
-	    UraniumChest = new UraniumArmour(1, 1);
-	    Util.armorRegister(UraniumChest, "Uranium Chest");
-	    UraniumLeggins = new UraniumArmour(2, 2);
-	    Util.armorRegister(UraniumLeggins, "Uranium Leggins");
-	    UraniumBoots = new UraniumArmour(3, 3);
-	    Util.armorRegister(UraniumBoots, "Uranium Boots");
+	public static void armorRegister(){	    
+	    UraniumHelmet = new UraniumArmor(0).setUnlocalizedName("UraniumHelmet");
+	    Util.armorRegister(UraniumHelmet, "UraniumHelmet", "Uranium Helmet");
+	    UraniumChest = new UraniumArmor(1).setUnlocalizedName("UraniumChest");
+	    Util.armorRegister(UraniumChest, "UraniumChest", "Uranium Chest");
+	    UraniumLeggins = new UraniumArmor(2).setUnlocalizedName("UraniumLeggins");
+	    Util.armorRegister(UraniumLeggins, "UraniumLeggins", "Uranium Leggins");
+	    UraniumBoots = new UraniumArmor(3).setUnlocalizedName("UraniumBoots");
+	    Util.armorRegister(UraniumBoots, "UraniumBoots", "Uranium Boots");
 	}
 }

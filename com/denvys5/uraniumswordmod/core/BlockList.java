@@ -7,6 +7,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 
 import com.denvys5.uraniumswordmod.block.*;
 import com.denvys5.uraniumswordmod.item.*;
+import com.denvys5.uraniumswordmod.uraniumfurnace.FurnaceUranium;
 import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
 
 import cpw.mods.fml.common.registry.GameRegistry;

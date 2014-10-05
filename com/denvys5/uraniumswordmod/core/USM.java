@@ -31,7 +31,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.4.1";
+	public static final String version = "0.4.3";
 
 	@Instance(modid)
 	public static USM instance;
@@ -47,7 +47,7 @@ public class USM {
 	}
 	public static double UraniumSwordDamage; 
 	public static ToolMaterial UraniumSword = EnumHelper.addToolMaterial("UraniumSword", 3, 768, 9.0F, 1496.0F, 50);
-	 public static ToolMaterial UraniumPick = EnumHelper.addToolMaterial("UraniumPick", 4, 1000, 12.0F, 8.0F, 50);
+	 public static ToolMaterial UraniumPick = EnumHelper.addToolMaterial("UraniumPick", 4, 1000, 15.0F, 8.0F, 50);
 	public static Potion RadiationUSM;
 
 	@EventHandler

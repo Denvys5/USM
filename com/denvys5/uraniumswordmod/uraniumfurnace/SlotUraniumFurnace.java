@@ -7,7 +7,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.MathHelper;
 
@@ -72,7 +71,7 @@ public class SlotUraniumFurnace extends Slot
         if (!this.thePlayer.worldObj.isRemote)
         {
             int i = this.field_75228_b;
-            float f = FurnaceRecipes.smelting().func_151398_b(p_75208_1_);
+            float f = UraniumFurnaceRecipes.smelting().func_151398_b(p_75208_1_);
             int j;
 
             if (f == 0.0F)

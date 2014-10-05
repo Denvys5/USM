@@ -151,26 +151,33 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
     }
 	
 	
-    public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
+    @SuppressWarnings("unused")
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
         if(!(player.getTotalArmorValue() < 10)){
-        	if (player.isPotionActive(USM.RadiationUSM)){
+        	/*if (player.isPotionActive(USM.RadiationUSM)){
                 player.removePotionEffect(USM.RadiationUSM.id);
-            }
-            if(player.getHealth() < player.getMaxHealth()){
-            	player.heal(player.getMaxHealth() - player.getHealth());
+            }*/
+        	if(true){
+        		player.capabilities.disableDamage = true;
+        	}else{
+        		if(player.getHealth() < player.getMaxHealth()){
+        			player.heal(player.getMaxHealth() - player.getHealth());
+        		}
             }
             if (itemStack.getItemDamage() > 0){
             	itemStack.setItemDamage(0);
             }
             if(player.isSprinting()){
-            	player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 2));
+            	//player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 5, 2));
+            	player.capabilities.setPlayerWalkSpeed(0.2F);
+            }else{
+            	player.capabilities.setPlayerWalkSpeed(0.15F);
             }
             player.capabilities.allowFlying = true;
-            player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 0));
-            player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 0));
             player.fallDistance = 0;
         }else{
             player.capabilities.allowFlying = false;
+            player.capabilities.disableDamage = false;
         }
         return;
     }

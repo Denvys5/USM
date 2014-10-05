@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.block;
+package com.denvys5.uraniumswordmod.uraniumfurnace;
 
 import java.util.Random;
 
@@ -18,12 +18,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
-
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 

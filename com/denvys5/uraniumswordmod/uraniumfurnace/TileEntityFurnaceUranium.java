@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.registry.GameRegistry;
-import com.denvys5.uraniumswordmod.block.FurnaceUranium;
+
 import com.denvys5.uraniumswordmod.core.BlockList;
 
 public class TileEntityFurnaceUranium extends TileEntity implements
@@ -247,7 +247,8 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 			if (item == Items.nether_star)
 				return 3125;
 
-			return GameRegistry.getFuelValue(itemstack);
+			//return GameRegistry.getFuelValue(itemstack);
+			return 0;
 		}
 	}
 

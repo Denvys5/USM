@@ -18,7 +18,7 @@ public class SwordUranium extends ItemSword {
 	public boolean hitEntity(ItemStack par1ItemStack,
 			EntityLivingBase par2EntityLivingBase,
 			EntityLivingBase par3EntityLivingBase) {
-		par1ItemStack.damageItem(1, par3EntityLivingBase);
+		//par1ItemStack.damageItem(1, par3EntityLivingBase);
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 0));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 0));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 0));

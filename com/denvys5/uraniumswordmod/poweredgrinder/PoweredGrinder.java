@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.uraniumfurnace;
+package com.denvys5.uraniumswordmod.poweredgrinder;
 
 import java.util.Random;
 
@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 
-public class FurnaceUranium extends BlockContainer {
+public class PoweredGrinder extends BlockContainer {
 
 	private Random rand = new Random();
 
@@ -37,7 +37,7 @@ public class FurnaceUranium extends BlockContainer {
 
 	private static boolean keepInventory;
 
-	public FurnaceUranium(boolean isActive) {
+	public PoweredGrinder(boolean isActive) {
 		super(Material.rock);
 		this.isActive = isActive;
 		this.setHardness(10.0F);
@@ -45,10 +45,10 @@ public class FurnaceUranium extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		side = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_side");
-		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "FurnaceUranium_active" : "FurnaceUranium_idle"));
-		top = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_top");
-		bottom = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_bottom");
+		side = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_side");
+		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "PoweredGrinder_active" : "PoweredGrinder_idle"));
+		top = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_top");
+		bottom = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -62,7 +62,7 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3) {
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(BlockList.PoweredGrinderidle);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z) {
@@ -98,47 +98,13 @@ public class FurnaceUranium extends BlockContainer {
 			EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			FMLNetworkHandler.openGui(player, USM.instance,
-					USM.instance.guiIdFurnaceUranium, world, x, y, z);
+					USM.instance.guiIdPoweredGrinder, world, x, y, z);
 		}
 		return true;
 	}
 
 	public TileEntity createNewTileEntity(World world, int i) {
-		return new TileEntityFurnaceUranium();
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z,
-			Random random) {
-		if (this.isActive) {
-			int direction = world.getBlockMetadata(x, y, z);
-			float x1 = (float) x + 0.5F;
-			float y1 = (float) ((float) y + random.nextFloat() * 0.4);
-			float z1 = (float) z + 0.5F;
-			float f = 0.52F;
-			float f1 = this.rand.nextFloat() * 0.6F - 0.3F;
-			if (direction == 4) {
-				world.spawnParticle("smoke", (double) (x1 - f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 - f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-			} else if (direction == 5) {
-				world.spawnParticle("smoke", (double) (x1 + f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-			} else if (direction == 2) {
-				world.spawnParticle("smoke", (double) (x1 + f1), (double) (y1),
-						(double) (z1 - f), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f1), (double) (y1),
-						(double) (z1 - f), 0D, 0D, 0D);
-			} else if (direction == 3) {
-				world.spawnParticle("smoke", (double) (x1 + f1), (double) (y1),
-						(double) (z1 + f), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f1), (double) (y1),
-						(double) (z1 + f), 0D, 0D, 0D);
-			}
-		}
+		return new TileEntityPoweredGrinder();
 	}
 
 	public void onBlockPlacedBy(World world, int x, int y, int z,
@@ -158,11 +124,11 @@ public class FurnaceUranium extends BlockContainer {
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
 		if (itemstack.hasDisplayName()) {
-			((TileEntityFurnaceUranium) world.getTileEntity(x, y, z)).setGuiDisplayName(itemstack.getDisplayName());
+			((TileEntityPoweredGrinder) world.getTileEntity(x, y, z)).setGuiDisplayName(itemstack.getDisplayName());
 		}
 	}
 
-	public static void updateFurnaceUraniumBlockState(boolean active,
+	public static void updatePoweredGrinderBlockState(boolean active,
 			World worldObj, int xCoord, int yCoord, int zCoord) {
 		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord,
@@ -170,10 +136,10 @@ public class FurnaceUranium extends BlockContainer {
 		keepInventory = true;
 		if (active) {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					BlockList.furnaceuraniumactive);
+					BlockList.PoweredGrinderactive);
 		} else {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					BlockList.furnaceuraniumidle);
+					BlockList.PoweredGrinderidle);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -186,7 +152,7 @@ public class FurnaceUranium extends BlockContainer {
 	public void breakBlock(World world, int x, int y, int z, Block oldBlock,
 			int oldMetadata) {
 		if (!keepInventory) {
-			TileEntityFurnaceUranium tileentity = (TileEntityFurnaceUranium) world
+			TileEntityPoweredGrinder tileentity = (TileEntityPoweredGrinder) world
 					.getTileEntity(x, y, z);
 			if (tileentity != null) {
 				for (int i = 0; i < tileentity.getSizeInventory(); i++) {
@@ -240,6 +206,6 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public Item getItem(World world, int x, int y, int z) {
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(BlockList.PoweredGrinderidle);
 	}
 }

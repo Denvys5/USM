@@ -1,7 +1,5 @@
 package com.denvys5.uraniumswordmod.item;
 
-import java.util.Collection;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -15,11 +13,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.core.Config;
 import com.denvys5.uraniumswordmod.core.USM;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class UraniumArmor extends ItemArmor implements ISpecialArmor {
 	
@@ -150,14 +150,9 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
         return 5;
     }
 	
-	
-    @SuppressWarnings("unused")
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
         if(!(player.getTotalArmorValue() < 10)){
-        	/*if (player.isPotionActive(USM.RadiationUSM)){
-                player.removePotionEffect(USM.RadiationUSM.id);
-            }*/
-        	if(true){
+        	if(Config.FullCheatyArmor == true){
         		player.capabilities.disableDamage = true;
         	}else{
         		if(player.getHealth() < player.getMaxHealth()){
@@ -167,11 +162,16 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
             if (itemStack.getItemDamage() > 0){
             	itemStack.setItemDamage(0);
             }
-            if(player.isSprinting()){
-            	//player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 5, 2));
-            	player.capabilities.setPlayerWalkSpeed(0.2F);
+            if(Config.ArmorCrashFix == false){
+            	if(player.isSprinting()){
+            		player.capabilities.setPlayerWalkSpeed(0.2F);
+            	}else{
+            		player.capabilities.setPlayerWalkSpeed(0.15F);
+            	}
             }else{
-            	player.capabilities.setPlayerWalkSpeed(0.15F);
+            	if(player.isSprinting()){
+            		player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 5, 2));
+            	}
             }
             player.capabilities.allowFlying = true;
             player.fallDistance = 0;

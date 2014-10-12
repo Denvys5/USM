@@ -11,12 +11,14 @@ import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
-import com.denvys5.uraniumswordmod.api.GuiHandler;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
 import com.denvys5.uraniumswordmod.effects.Radiation;
+import com.denvys5.uraniumswordmod.events.OnPlayerLoginEvent;
 import com.denvys5.uraniumswordmod.events.USMEventHooks;
 import com.denvys5.uraniumswordmod.oregenerators.UraniumOreGenerator;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -31,7 +33,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.4.3";
+	public static final String version = "0.5.0";
 
 	@Instance(modid)
 	public static USM instance;
@@ -40,13 +42,15 @@ public class USM {
 	public static CommonProxy proxy;
 
 	public static final int guiIdFurnaceUranium = 0;
+	public static final int guiIdDuplicator = 1;
+	public static final int guiIdPoweredGrinder = 2;
 	public static CreativeTabs USMTab;
 	public static AchievementPage USMAchievPage = new AchievementPage("Uranium Sword Mod");
 	public void initConfiguration(FMLInitializationEvent event) {
 		Config.ConfigMethod();
 	}
 	public static double UraniumSwordDamage; 
-	public static ToolMaterial UraniumSword = EnumHelper.addToolMaterial("UraniumSword", 3, 768, 9.0F, 1496.0F, 50);
+	public static ToolMaterial UraniumSword = EnumHelper.addToolMaterial("UraniumSword", 3, 1000, 9.0F, 1496.0F, 50);
 	 public static ToolMaterial UraniumPick = EnumHelper.addToolMaterial("UraniumPick", 4, 1000, 15.0F, 8.0F, 50);
 	public static Potion RadiationUSM;
 
@@ -75,6 +79,7 @@ public class USM {
 		}
 
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
+		FMLCommonHandler.instance().bus().register(new OnPlayerLoginEvent());
 		
 		
 	}
@@ -90,11 +95,15 @@ public class USM {
 			}
 
 		};
+        if (Loader.isModLoaded("gregtech_addon")) {
+            System.err.println("[USM] DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH");
+        }
 		GameRegistry.registerWorldGenerator(new UraniumOreGenerator(), 0);
 		GuiHandler guiHandler = new GuiHandler();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		BlockList.blockRegister();
 		BlockList.itemRegister();
+		BlockList.tileEntityRegister();
 		BlockList.armorRegister();
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();

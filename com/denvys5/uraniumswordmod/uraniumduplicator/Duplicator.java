@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.uraniumfurnace;
+package com.denvys5.uraniumswordmod.uraniumduplicator;
 
 import java.util.Random;
 
@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 
-public class FurnaceUranium extends BlockContainer {
+public class Duplicator extends BlockContainer {
 
 	private Random rand = new Random();
 
@@ -37,7 +37,7 @@ public class FurnaceUranium extends BlockContainer {
 
 	private static boolean keepInventory;
 
-	public FurnaceUranium(boolean isActive) {
+	public Duplicator(boolean isActive) {
 		super(Material.rock);
 		this.isActive = isActive;
 		this.setHardness(10.0F);
@@ -45,10 +45,14 @@ public class FurnaceUranium extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
-		side = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_side");
-		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "FurnaceUranium_active" : "FurnaceUranium_idle"));
-		top = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_top");
-		bottom = iconRegister.registerIcon(USM.modid + ":FurnaceUranium_bottom");
+		side = iconRegister.registerIcon(USM.modid + ":Duplicator_side");
+		front = iconRegister.registerIcon(USM.modid
+				+ ":"
+				+ (this.isActive ? "Duplicator_active"
+						: "Duplicator_idle"));
+		top = iconRegister.registerIcon(USM.modid + ":Duplicator_top");
+		bottom = iconRegister
+				.registerIcon(USM.modid + ":Duplicator_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -62,7 +66,7 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3) {
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(BlockList.duplicatoridle);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z) {
@@ -104,7 +108,7 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public TileEntity createNewTileEntity(World world, int i) {
-		return new TileEntityFurnaceUranium();
+		return new TileEntityDuplicator();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -158,11 +162,12 @@ public class FurnaceUranium extends BlockContainer {
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
 		if (itemstack.hasDisplayName()) {
-			((TileEntityFurnaceUranium) world.getTileEntity(x, y, z)).setGuiDisplayName(itemstack.getDisplayName());
+			((TileEntityDuplicator) world.getTileEntity(x, y, z))
+					.setGuiDisplayName(itemstack.getDisplayName());
 		}
 	}
 
-	public static void updateFurnaceUraniumBlockState(boolean active,
+	public static void updateDuplicatorBlockState(boolean active,
 			World worldObj, int xCoord, int yCoord, int zCoord) {
 		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord,
@@ -170,10 +175,10 @@ public class FurnaceUranium extends BlockContainer {
 		keepInventory = true;
 		if (active) {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					BlockList.furnaceuraniumactive);
+					BlockList.duplicatoractive);
 		} else {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
-					BlockList.furnaceuraniumidle);
+					BlockList.duplicatoridle);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -186,7 +191,7 @@ public class FurnaceUranium extends BlockContainer {
 	public void breakBlock(World world, int x, int y, int z, Block oldBlock,
 			int oldMetadata) {
 		if (!keepInventory) {
-			TileEntityFurnaceUranium tileentity = (TileEntityFurnaceUranium) world
+			TileEntityDuplicator tileentity = (TileEntityDuplicator) world
 					.getTileEntity(x, y, z);
 			if (tileentity != null) {
 				for (int i = 0; i < tileentity.getSizeInventory(); i++) {
@@ -240,6 +245,6 @@ public class FurnaceUranium extends BlockContainer {
 	}
 
 	public Item getItem(World world, int x, int y, int z) {
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(BlockList.duplicatoridle);
 	}
 }

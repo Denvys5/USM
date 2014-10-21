@@ -11,19 +11,17 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerDuplicator extends Container {
 
-	private TileEntityDuplicator duplicator;
-	public int lastBurnTime;
+	private TileEntityDuplicator Duplicator;
+	public int lastpower;
 	public int lastItemBurnTime;
 	public int lastCookTime;
 
-	public ContainerDuplicator(InventoryPlayer inventory,
-			TileEntityDuplicator tileentity) {
-		this.duplicator = tileentity;
+	public ContainerDuplicator(InventoryPlayer inventory, TileEntityDuplicator tileentity) {
+		this.Duplicator = tileentity;
 		// Положение слотов
-		this.addSlotToContainer(new Slot(tileentity, 0, 56, 17));
-		this.addSlotToContainer(new Slot(tileentity, 1, 56, 53));
-		this.addSlotToContainer(new SlotDuplicator(inventory.player,
-				tileentity, 2, 116, 35));
+		this.addSlotToContainer(new Slot(tileentity, 0, 56, 35));
+		this.addSlotToContainer(new Slot(tileentity, 1, 8, 56));
+		this.addSlotToContainer(new SlotDuplicator(inventory.player, tileentity, 2, 116, 35));
 		// Карманы игрока
 		for (int i = 0; i < 9; i++) {
 			this.addSlotToContainer(new Slot(inventory, i + 9, 8 + i * 18, 84));
@@ -44,48 +42,36 @@ public class ContainerDuplicator extends Container {
 
 	public void canCraftingToCrafters(ICrafting icrafting) {
 		super.addCraftingToCrafters(icrafting);
-		icrafting.sendProgressBarUpdate(this, 0, this.duplicator.cookTime);
-		icrafting.sendProgressBarUpdate(this, 1, this.duplicator.burnTime);
-		icrafting.sendProgressBarUpdate(this, 2,
-				this.duplicator.currentItemBurnTime);
+		icrafting.sendProgressBarUpdate(this, 0, this.Duplicator.cookTime);
+		icrafting.sendProgressBarUpdate(this, 1, this.Duplicator.power);
+		icrafting.sendProgressBarUpdate(this, 2, this.Duplicator.maxPower);
 	}
 
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++) {
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
-			if (this.lastCookTime != this.duplicator.cookTime) {
+			if (this.lastCookTime != this.Duplicator.cookTime) {
 				icrafting.sendProgressBarUpdate(this, 0,
-						this.duplicator.cookTime);
+						this.Duplicator.cookTime);
 			}
 
-			if (this.lastBurnTime != this.duplicator.burnTime) {
+			if (this.lastpower != this.Duplicator.power) {
 				icrafting.sendProgressBarUpdate(this, 1,
-						this.duplicator.burnTime);
-			}
-
-			if (this.lastItemBurnTime != this.duplicator.currentItemBurnTime) {
-				icrafting.sendProgressBarUpdate(this, 2,
-						this.duplicator.currentItemBurnTime);
+						this.Duplicator.power);
 			}
 		}
-		this.lastCookTime = this.duplicator.cookTime;
-		this.lastBurnTime = this.duplicator.burnTime;
-		this.lastItemBurnTime = this.duplicator.currentItemBurnTime;
+		this.lastCookTime = this.Duplicator.cookTime;
+		this.lastpower = this.Duplicator.power;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newValue) {
-		if (slot == 0)
-			this.duplicator.cookTime = newValue;
-		if (slot == 1)
-			this.duplicator.burnTime = newValue;
-		if (slot == 2)
-			this.duplicator.currentItemBurnTime = newValue;
+		if (slot == 0) this.Duplicator.cookTime = newValue;
+		if (slot == 1) this.Duplicator.power = newValue;
 	}
 
-	public ItemStack transferStackInSlot(EntityPlayer player,
-			int clickedSlotNumber) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int clickedSlotNumber) {
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(clickedSlotNumber);
 		if (slot != null && slot.getHasStack()) {
@@ -98,12 +84,11 @@ public class ContainerDuplicator extends Container {
 				slot.onSlotChange(itemstack1, itemstack);
 
 			} else if (clickedSlotNumber != 1 && clickedSlotNumber != 0) {
-				if (DuplicatorRecipes.smelting().getSmeltingResult(
-						itemstack1) != null) {
+				if (DuplicatorRecipes.smelting().getSmeltingResult(itemstack1) != null) {
 					if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 						return null;
 					}
-				} else if (TileEntityDuplicator.isItemFuel(itemstack1)) {
+				} else if (TileEntityDuplicator.hasItemPower(itemstack1)) {
 					if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 						return null;
 					}
@@ -133,8 +118,7 @@ public class ContainerDuplicator extends Container {
 	}
 
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-
-		return this.duplicator.isUseableByPlayer(entityplayer);
+		return this.Duplicator.isUseableByPlayer(entityplayer);
 	}
 
 }

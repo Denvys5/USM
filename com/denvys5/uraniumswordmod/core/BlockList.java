@@ -23,6 +23,8 @@ public class BlockList {
 	public static Block blockuranium;
 	public static Block blocknetherstar;
 	public static Block blockinfuseduranium;
+	public static Block BasicMachineCore;
+	public static Block DisassemblerCore;
 	
 	
 	public static Item sworduranium;
@@ -44,6 +46,7 @@ public class BlockList {
 	public static Block duplicatoractive;
 	public static Block PoweredGrinderidle;
 	public static Block PoweredGrinderactive;
+	
 
 	public static void blockRegister() {
 		oreuranium = new OreUranium().setBlockName("Uranium Ore");
@@ -57,6 +60,12 @@ public class BlockList {
 		
 		blockinfuseduranium = new BlockInfusedUranium().setBlockName("Block Infused Uranium");
 		Util.regBlock(blockinfuseduranium, "blockinfuseduranium", "Block Infused Uranium");
+		
+		BasicMachineCore = new BasicMachineCore().setBlockName("Basic Machine Core");
+		Util.regBlock(BasicMachineCore, "BasicMachineCore", "Basic Machine Core");
+		
+		DisassemblerCore = new DisassemblerCore().setBlockName("Disassembler Core");
+		Util.regBlock(DisassemblerCore, "DisassemblerCore", "Disassembler Core");
 	}
 
 	public static void itemRegister() {
@@ -85,34 +94,31 @@ public class BlockList {
 	public static void tileEntityRegister(){
 		furnaceuraniumidle = new FurnaceUranium(false).setBlockName("Uranium Furnace").setCreativeTab(USM.USMTab);
 		furnaceuraniumactive = new FurnaceUranium(true).setBlockName("Uranium Furnace Active").setLightLevel(0.8F);
-		Util.regBlock(furnaceuraniumidle, "furnaceuraniumidle", "Uranium Furnace");
-		Util.regBlock(furnaceuraniumactive, "furnaceuraniumactive", "Uranium Furnace Active");
+		Util.regTileEntity(furnaceuraniumidle, furnaceuraniumactive, "Uranium Furnace", "furnaceuranium");
 		GameRegistry.registerTileEntity(TileEntityFurnaceUranium.class, "FurnaceUranium");
 		LanguageRegistry.instance().addStringLocalization("container.furnaceUranium", "Uranium Furnace");
 		
 		duplicatoridle = new Duplicator(false).setBlockName("Duplicator").setCreativeTab(USM.USMTab);
 		duplicatoractive = new Duplicator(true).setBlockName("Duplicator Active").setLightLevel(0.8F);
-		Util.regBlock(duplicatoridle, "duplicatoridle", "Duplicator");
-		Util.regBlock(duplicatoractive, "duplicatoractive", "Duplicator Active");
+		Util.regTileEntity(duplicatoridle, duplicatoractive, "Duplicator", "duplicator");
 		GameRegistry.registerTileEntity(TileEntityDuplicator.class,"duplicator");
 		LanguageRegistry.instance().addStringLocalization("container.Duplicator", "Duplicator");
 		
 		PoweredGrinderidle = new PoweredGrinder(false).setBlockName("Powered Grinder").setCreativeTab(USM.USMTab);
 		PoweredGrinderactive = new PoweredGrinder(true).setBlockName("Powered Grinder Active").setLightLevel(0.8F);
-		Util.regBlock(PoweredGrinderidle, "PoweredGrinderidle", "Powered Grinder");
-		Util.regBlock(PoweredGrinderactive, "PoweredGrinderactive", "Powered Grinder Active");
+		Util.regTileEntity(PoweredGrinderidle, PoweredGrinderactive, "Powered Grinder", "PoweredGrinder");
 		GameRegistry.registerTileEntity(TileEntityPoweredGrinder.class,"PoweredGrinder");
 		LanguageRegistry.instance().addStringLocalization("container.PoweredGrinder", "Powered Grinder");
 	}
 	
 	public static void armorRegister(){	    
 	    UraniumHelmet = new UraniumArmor(0).setUnlocalizedName("UraniumHelmet");
-	    Util.armorRegister(UraniumHelmet, "UraniumHelmet", "Uranium Helmet");
+	    Util.regItem(UraniumHelmet, "UraniumHelmet", "Uranium Helmet");
 	    UraniumChest = new UraniumArmor(1).setUnlocalizedName("UraniumChest");
-	    Util.armorRegister(UraniumChest, "UraniumChest", "Uranium Chest");
+	    Util.regItem(UraniumChest, "UraniumChest", "Uranium Chest");
 	    UraniumLeggins = new UraniumArmor(2).setUnlocalizedName("UraniumLeggins");
-	    Util.armorRegister(UraniumLeggins, "UraniumLeggins", "Uranium Leggins");
+	    Util.regItem(UraniumLeggins, "UraniumLeggins", "Uranium Leggins");
 	    UraniumBoots = new UraniumArmor(3).setUnlocalizedName("UraniumBoots");
-	    Util.armorRegister(UraniumBoots, "UraniumBoots", "Uranium Boots");
+	    Util.regItem(UraniumBoots, "UraniumBoots", "Uranium Boots");
 	}
 }

@@ -79,7 +79,7 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public String getRecipeName() {
-        return NEIClientUtils.translate("recipe.furnace");
+        return "Uranium Furnace";
     }
 
     @Override
@@ -162,6 +162,6 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public String getOverlayIdentifier() {
-        return "smelting";
+        return "Uranium Furnace";
     }
 }

@@ -1,6 +1,7 @@
 package com.denvys5.uraniumswordmod.item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -32,7 +34,7 @@ public class PickUranium extends ItemPickaxe{
 	public PickUranium() {
 		super(USM.UraniumPick);
         this.maxStackSize = 1;
-        this.efficiencyOnProperMaterial = 12.0F;
+        this.efficiencyOnProperMaterial = 20.0F;
         setCreativeTab(USM.USMTab);
 	}
 	
@@ -154,5 +156,7 @@ public class PickUranium extends ItemPickaxe{
             return;
     	}
     }
-
+    public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
+        l.add(StatCollector.translateToLocal("UraniumPick.tooltip"));
+    }
 }

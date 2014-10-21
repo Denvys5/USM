@@ -40,7 +40,7 @@ public class FurnaceUranium extends BlockContainer {
 	public FurnaceUranium(boolean isActive) {
 		super(Material.rock);
 		this.isActive = isActive;
-		this.setHardness(10.0F);
+		this.setHardness(30.0F);
 	}
 
 	@SideOnly(Side.CLIENT)

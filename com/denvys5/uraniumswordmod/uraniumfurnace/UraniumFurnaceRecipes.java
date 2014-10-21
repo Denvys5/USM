@@ -31,7 +31,7 @@ public class UraniumFurnaceRecipes
 
     private UraniumFurnaceRecipes()
     {
-    	this.func_151396_a(BlockList.ingoturanium, new ItemStack(BlockList.ingotinfuseduranium), 100.0F);
+    	//this.func_151396_a(BlockList.ingoturanium, new ItemStack(BlockList.ingotinfuseduranium), 100.0F);
     }
 
     public void func_151393_a(Block p_151393_1_, ItemStack p_151393_2_, float p_151393_3_)

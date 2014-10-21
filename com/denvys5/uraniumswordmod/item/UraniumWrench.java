@@ -18,6 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.tools.IToolWrench;
 
+import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.USM;
 
 import cpw.mods.fml.relauncher.Side;
@@ -47,16 +48,18 @@ public class UraniumWrench extends Item implements IToolWrench {
         blocks.add("BuildCraft|Factory:refineryBlock");
         blocks.add("BuildCraft|Factory:machineBlock");
         blocks.add("factorization:mirror");
+        blocks.add("uraniumswordmod:furnaceuraniumidle");
+        blocks.add("uraniumswordmod:furnaceuraniumactive");
+        blocks.add("uraniumswordmod:PoweredGrinderidle");
+        blocks.add("uraniumswordmod:PoweredGrinderactive");
 
     }
 
-    public boolean canWrench(EntityPlayer entityPlayer, int x, int y, int z)
-    {
+    public boolean canWrench(EntityPlayer entityPlayer, int x, int y, int z){
         return true;
     }
 
-    public void wrenchUsed(EntityPlayer entityPlayer, int x, int y, int z)
-    {
+    public void wrenchUsed(EntityPlayer entityPlayer, int x, int y, int z){
         entityPlayer.swingItem();
     }
 
@@ -65,8 +68,7 @@ public class UraniumWrench extends Item implements IToolWrench {
         return true;
     }
 
-    public boolean onItemUseFirst(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int X, int Y, int Z, int par7, float par8, float par9, float par10)
-    {
+    public boolean onItemUseFirst(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int X, int Y, int Z, int par7, float par8, float par9, float par10){
         par2EntityPlayer.swingItem();
         if (par3World.isRemote) {
             return false;
@@ -130,6 +132,11 @@ public class UraniumWrench extends Item implements IToolWrench {
                 par3World.isRemote = false;
                 return true;
             }
+            //USM Tiles
+            if (TargetBlock == BlockList.furnaceuraniumidle || TargetBlock == BlockList.furnaceuraniumactive || TargetBlock == BlockList.PoweredGrinderidle || TargetBlock == BlockList.PoweredGrinderactive) {
+                par3World.setBlockMetadataWithNotify(X, Y, Z, ((Meta - 1) % 4) + 2, 3);
+                return true;
+            }
             //interaction with other mods
             //place for advertising
             //end of interaction
@@ -175,6 +182,6 @@ public class UraniumWrench extends Item implements IToolWrench {
     }
 
     public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
-        l.add(StatCollector.translateToLocal("screwdriver.tooltip"));
+        l.add(StatCollector.translateToLocal("UraniumWrench.tooltip"));
     }
 }

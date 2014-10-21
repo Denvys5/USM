@@ -1,5 +1,9 @@
 package com.denvys5.uraniumswordmod.item;
 
+import java.util.List;
+
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.nodes.IRevealer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -11,8 +15,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.Config;
@@ -20,14 +27,15 @@ import com.denvys5.uraniumswordmod.core.USM;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-public class UraniumArmor extends ItemArmor implements ISpecialArmor {
+@Optional.InterfaceList(value = {@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft")})
+public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, IRevealer {
 	
     private static int invSize = 9;
     private static IIcon helmetIcon;
     private static IIcon plateIcon;
     private static IIcon leggingsIcon;
     private static IIcon bootsIcon;
+    public static boolean Goggles = false;
     
     public UraniumArmor(int slot)
     {
@@ -181,4 +189,23 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor {
         }
         return;
     }
+    public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
+        l.add(StatCollector.translateToLocal("UraniumArmor.tooltip"));
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
+    	if(Goggles){
+    		return true;
+    	}
+		return false;
+	}
+
+    @Optional.Method(modid = "Thaumcraft")
+	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
+    	if(Goggles){
+    		return true;
+    	}
+		return false;
+	}
 }

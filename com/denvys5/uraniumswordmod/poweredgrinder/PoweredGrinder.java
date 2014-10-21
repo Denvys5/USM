@@ -40,7 +40,7 @@ public class PoweredGrinder extends BlockContainer {
 	public PoweredGrinder(boolean isActive) {
 		super(Material.rock);
 		this.isActive = isActive;
-		this.setHardness(10.0F);
+		this.setHardness(30.0F);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -128,8 +128,7 @@ public class PoweredGrinder extends BlockContainer {
 		}
 	}
 
-	public static void updatePoweredGrinderBlockState(boolean active,
-			World worldObj, int xCoord, int yCoord, int zCoord) {
+	public static void updatePoweredGrinderBlockState(boolean active, World worldObj, int xCoord, int yCoord, int zCoord) {
 		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord,
 				zCoord);

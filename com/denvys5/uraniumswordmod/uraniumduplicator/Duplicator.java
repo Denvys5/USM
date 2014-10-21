@@ -46,13 +46,9 @@ public class Duplicator extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister) {
 		side = iconRegister.registerIcon(USM.modid + ":Duplicator_side");
-		front = iconRegister.registerIcon(USM.modid
-				+ ":"
-				+ (this.isActive ? "Duplicator_active"
-						: "Duplicator_idle"));
+		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "Duplicator_active" : "Duplicator_idle"));
 		top = iconRegister.registerIcon(USM.modid + ":Duplicator_top");
-		bottom = iconRegister
-				.registerIcon(USM.modid + ":Duplicator_bottom");
+		bottom = iconRegister.registerIcon(USM.modid + ":Duplicator_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -101,8 +97,7 @@ public class Duplicator extends BlockContainer {
 	public boolean onBlockActivated(World world, int x, int y, int z,
 			EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			FMLNetworkHandler.openGui(player, USM.instance,
-					USM.instance.guiIdFurnaceUranium, world, x, y, z);
+			FMLNetworkHandler.openGui(player, USM.instance, USM.instance.guiIdPoweredGrinder, world, x, y, z);
 		}
 		return true;
 	}
@@ -111,44 +106,9 @@ public class Duplicator extends BlockContainer {
 		return new TileEntityDuplicator();
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z,
-			Random random) {
-		if (this.isActive) {
-			int direction = world.getBlockMetadata(x, y, z);
-			float x1 = (float) x + 0.5F;
-			float y1 = (float) ((float) y + random.nextFloat() * 0.4);
-			float z1 = (float) z + 0.5F;
-			float f = 0.52F;
-			float f1 = this.rand.nextFloat() * 0.6F - 0.3F;
-			if (direction == 4) {
-				world.spawnParticle("smoke", (double) (x1 - f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 - f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-			} else if (direction == 5) {
-				world.spawnParticle("smoke", (double) (x1 + f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f), (double) (y1),
-						(double) (z1 + f1), 0D, 0D, 0D);
-			} else if (direction == 2) {
-				world.spawnParticle("smoke", (double) (x1 + f1), (double) (y1),
-						(double) (z1 - f), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f1), (double) (y1),
-						(double) (z1 - f), 0D, 0D, 0D);
-			} else if (direction == 3) {
-				world.spawnParticle("smoke", (double) (x1 + f1), (double) (y1),
-						(double) (z1 + f), 0D, 0D, 0D);
-				world.spawnParticle("flame", (double) (x1 + f1), (double) (y1),
-						(double) (z1 + f), 0D, 0D, 0D);
-			}
-		}
-	}
-
 	public void onBlockPlacedBy(World world, int x, int y, int z,
 			EntityLivingBase entityLivingBase, ItemStack itemstack) {
-		int l = MathHelper
-				.floor_double((double) (entityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int l = MathHelper.floor_double((double) (entityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		if (l == 0) {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
@@ -162,16 +122,13 @@ public class Duplicator extends BlockContainer {
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
 		if (itemstack.hasDisplayName()) {
-			((TileEntityDuplicator) world.getTileEntity(x, y, z))
-					.setGuiDisplayName(itemstack.getDisplayName());
+			((TileEntityDuplicator) world.getTileEntity(x, y, z)).setGuiDisplayName(itemstack.getDisplayName());
 		}
 	}
 
-	public static void updateDuplicatorBlockState(boolean active,
-			World worldObj, int xCoord, int yCoord, int zCoord) {
+	public static void updateDuplicatorBlockState(boolean active, World worldObj, int xCoord, int yCoord, int zCoord) {
 		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord,
-				zCoord);
+		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord, zCoord);
 		keepInventory = true;
 		if (active) {
 			worldObj.setBlock(xCoord, yCoord, zCoord,
@@ -238,10 +195,8 @@ public class Duplicator extends BlockContainer {
 		return true;
 	}
 
-	public int getComparatorInputOverride(World world, int x, int y, int z,
-			int i) {
-		return Container.calcRedstoneFromInventory((IInventory) world
-				.getTileEntity(x, y, z));
+	public int getComparatorInputOverride(World world, int x, int y, int z, int i) {
+		return Container.calcRedstoneFromInventory((IInventory) world.getTileEntity(x, y, z));
 	}
 
 	public Item getItem(World world, int x, int y, int z) {

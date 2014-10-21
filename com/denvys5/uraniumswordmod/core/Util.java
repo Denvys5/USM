@@ -1,5 +1,8 @@
 package com.denvys5.uraniumswordmod.core;
 
+import com.denvys5.uraniumswordmod.uraniumfurnace.FurnaceUranium;
+import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,16 +15,23 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class Util {
+	private static String russianLocalisation = "Санкции!";
+	
 	public static void regBlock(Block block, String blockName,String name){
 		GameRegistry.registerBlock(block, blockName);
         LanguageRegistry.instance().addNameForObject(block, "en_US", name);
-        LanguageRegistry.instance().addNameForObject(block, "ru_RU", "Фу, не знать английский");
+        LanguageRegistry.instance().addNameForObject(block, "ru_RU", russianLocalisation);
 	}
 	
 	public static void regItem(Item item, String unlocalizedName , String name){
 		GameRegistry.registerItem(item, unlocalizedName);
         LanguageRegistry.instance().addNameForObject(item, "en_US", name);
-        LanguageRegistry.instance().addNameForObject(item, "ru_RU", "Фу, не знать английский");
+        LanguageRegistry.instance().addNameForObject(item, "ru_RU", russianLocalisation);
+	}
+	
+	public static void regTileEntity(Block tileEntityIdle, Block tileEntityActive, String name, String nameWithoutSpaces){
+		Util.regBlock(tileEntityIdle, nameWithoutSpaces + "idle", name);
+		Util.regBlock(tileEntityActive, nameWithoutSpaces + "active", name + " Active");
 	}
 	
 	public static void OreItemRegister(Item item, String orename){
@@ -30,12 +40,6 @@ public class Util {
 	
 	public static void OreBlockRegister(Block block, String orename){
 		OreDictionary.registerOre(orename, new ItemStack(block));
-	}
-	
-	public static void armorRegister(Item item, String unlocalizedName, String name){
-		GameRegistry.registerItem(item, unlocalizedName);
-        LanguageRegistry.instance().addNameForObject(item, "en_US", name);
-        LanguageRegistry.instance().addNameForObject(item, "ru_RU", "Фу, не знать английский");
 	}
 	
 	public static Vec3 getEntityBlockVector(Entity entity)
@@ -47,7 +51,7 @@ public class Util {
 		return entity.getLookVec().createVectorHelper(posX, posY, posZ);
 	}
 	
-	public boolean isFullArmorSetEquiped(EntityPlayer player){
+	public static boolean isFullArmorSetEquiped(EntityPlayer player){
         ItemStack helmet = player.getEquipmentInSlot(4);
         ItemStack plate = player.getEquipmentInSlot(3);
         ItemStack leggings = player.getEquipmentInSlot(2);
@@ -58,4 +62,14 @@ public class Util {
 		return false;
 	}
 	
+	public static Item getItemFromOreDict(String oreDictName){
+		for(ItemStack ore : OreDictionary.getOres(oreDictName)){
+		      if(ore != null){
+		         if(ore.getItemDamage() != OreDictionary.WILDCARD_VALUE){
+		        	 return ore.getItem();
+		         }
+		      }
+		}
+		return null;
+	}
 }

@@ -6,36 +6,34 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.uraniumfurnace.FurnaceUranium;
 
-public class TileEntityPoweredGrinder extends TileEntity implements
-		ISidedInventory {
+public class TileEntityPoweredGrinder extends TileEntity implements ISidedInventory {
 
 	private String localizedName;
 	// Доступ к слотам
-	private static final int[] slots_top = new int[] { 0, 1, 2 };
-	private static final int[] slots_bottom = new int[] { 0, 1, 2 };
-	private static final int[] slots_sides = new int[] { 1, 0, 2 };
+	private static final int[] slots_top = new int[] { 0, 2 };
+	private static final int[] slots_bottom = new int[] { 0, 2 };
+	private static final int[] slots_sides = new int[] { 0, 2 };
 	private ItemStack[] slots = new ItemStack[3];
 	private static final int resultSlot = 2;
 	private static final int fuelSlot = 1;
 	private static final int ingredSlot = 0;
 
-	// Время операции в тиках
-	// Рабочий
-	 public int furnaceSpeed = 20000;
-	// Тестовый
-	//public int furnaceSpeed = 20;
 
-	public int burnTime;
-	public int currentItemBurnTime;
+	// Время операции в тиках
+	public int grinderSpeed = 80;
+
+	public static int powerUsage = 32;
+	public int power;
+	public static final int maxPower = 32000;
 	public int cookTime;
 
 	public int getSizeInventory() {
@@ -43,8 +41,7 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 	}
 
 	public String getInventoryName() {
-		return this.hasCustomInventoryName() ? this.localizedName
-				: "container.PoweredGrinder";
+		return this.hasCustomInventoryName() ? this.localizedName : "container.PoweredGrinder";
 	}
 
 	public boolean hasCustomInventoryName() {
@@ -115,9 +112,8 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
 			}
 		}
-		this.burnTime = nbt.getShort("BurnTime");
+		this.power = nbt.getShort("Power");
 		this.cookTime = nbt.getShort("CookTime");
-		this.currentItemBurnTime = getItemBurnTime(this.slots[1]);
 		if (nbt.hasKey("CustomName")) {
 			this.localizedName = nbt.getString("CustomName");
 		}
@@ -125,7 +121,7 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setShort("BurnTime", (short) this.burnTime);
+		nbt.setShort("Power", (short) this.power);
 		nbt.setShort("CookTime", (short) this.cookTime);
 
 		NBTTagList list = new NBTTagList();
@@ -144,84 +140,89 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 	}
 
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord,
-				this.zCoord) != this ? false : entityplayer.getDistanceSq(
-				(double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D,
-				(double) this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : entityplayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
 	}
 
-	public boolean isBurning() {
-		return this.burnTime > 0;
+	public boolean hasPower() {
+		return this.power > this.powerUsage;
+	}
+	
+	public int getRequiredPowerForCrafting(ItemStack itemstack){
+		if (this.slots[0] == null) {
+			return 0;
+		} else {
+			return PoweredGrinderRecipes.smelting().getFromPowerList(itemstack);
+		}
+	}
+	
+	public int operationSpeed(){
+		return getRequiredPowerForCrafting(this.slots[0])/powerUsage;
 	}
 
 	public void updateEntity() {
-		boolean flag = this.burnTime > 0;
+		boolean flag = this.power > 0;
 		boolean flag1 = false;
-		if (this.burnTime > 0) {
-			this.burnTime--;
+		if(operationSpeed() != 0){
+			this.grinderSpeed = operationSpeed();
 		}
 		if (!this.worldObj.isRemote) {
-			if (this.burnTime == 0 && this.canSmelt()) {
-				this.currentItemBurnTime = this.burnTime = getItemBurnTime(this.slots[1]);
-				if (this.burnTime > 0) {
+			if (this.power <= (this.maxPower - this.getItemPower(this.slots[1])) && this.hasItemPower(this.slots[1])) {
+				int prevPower = this.power;
+				this.power += getItemPower(this.slots[1]);
+				if (prevPower > 0) {
 					flag1 = true;
 					if (this.slots[1] != null) {
 						this.slots[1].stackSize--;
 						if (this.slots[1].stackSize == 0) {
-							this.slots[1] = this.slots[1].getItem()
-									.getContainerItem(this.slots[1]);
+							this.slots[1] = this.slots[1].getItem().getContainerItem(this.slots[1]);
 						}
 					}
 				}
 			}
-			if (flag != this.isBurning()) {
-				PoweredGrinder.updatePoweredGrinderBlockState(
-						this.burnTime > 0, this.worldObj, this.xCoord,
-						this.yCoord, this.zCoord);
+			if (flag != this.hasPower()) {
+				PoweredGrinder.updatePoweredGrinderBlockState(this.hasPower() && this.canGrind(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			}
 		}
-		if (this.isBurning() && this.canSmelt()) {
+		if (this.hasPower() && this.canGrind()) {
 			this.cookTime++;
-			if (this.cookTime == this.furnaceSpeed) {
+			this.power -= this.powerUsage;
+			if (this.cookTime == this.grinderSpeed) {
 				this.cookTime = 0;
-				this.smeltItem();
+				this.grindItem();
 				flag1 = true;
 			}
-		} else {
+		}else if(this.canGrind()){
+		}else{
 			this.cookTime = 0;
 		}
 		if (flag1) {
 			this.markDirty();
 		}
-
+	}
+	
+	private int craftTime(ItemStack itemstack){
+		return getRequiredPowerForCrafting(itemstack)/this.powerUsage;
 	}
 
-	// Крафты с печкой
-	private boolean canSmelt() {
+	private boolean canGrind() {
 		if (this.slots[0] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = PoweredGrinderRecipes.smelting()
-					.getSmeltingResult(this.slots[0]);
-			if (itemstack == null)
-				return false;
-			if (this.slots[2] == null)
-				return true;
-			if (!this.slots[2].isItemEqual(itemstack))
-				return false;
+			ItemStack itemstack = PoweredGrinderRecipes.smelting().getSmeltingResult(this.slots[0]);
+			if(itemstack == null) return false;
+			if(this.slots[2] == null) return true;
+			if(!this.slots[2].isItemEqual(itemstack)) return false;
 			int result = this.slots[2].stackSize + itemstack.stackSize;
-			return (result <= getInventoryStackLimit() && result <= itemstack
-					.getMaxStackSize());
+			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
 		}
 	}
 
-	public void smeltItem() {
-		if (this.canSmelt()) {
-			ItemStack itemstack = PoweredGrinderRecipes.smelting()
-					.getSmeltingResult(this.slots[0]);
+	public void grindItem(){
+		if(this.canGrind()){
+			ItemStack itemstack = PoweredGrinderRecipes.smelting().getSmeltingResult(this.slots[0]);
 			if (this.slots[2] == null) {
 				this.slots[2] = itemstack.copy();
-			} else if (this.slots[2].isItemEqual(itemstack)) {
+			}else if(this.slots[2].isItemEqual(itemstack)){
 				this.slots[2].stackSize += itemstack.stackSize;
 			}
 			this.slots[0].stackSize--;
@@ -231,40 +232,23 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 		}
 	}
 
-	public static int getItemBurnTime(ItemStack itemstack) {
+	public static int getItemPower(ItemStack itemstack) {
 		if (itemstack == null) {
 			return 0;
 		} else {
 			Item item = itemstack.getItem();
-
-			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air) {
-				Block block = Block.getBlockFromItem(item);
-			}
-
+			Block block = Block.getBlockFromItem(item);
 			// Время горения в тиках
-			if (item == Item.getItemFromBlock(BlockList.blocknetherstar))
-				return 31250;
-			if (item == Items.nether_star)
-				return 3125;
-
-			//return GameRegistry.getFuelValue(itemstack);
+			if(item == Items.glowstone_dust) return 1000;
+			if(item == Items.redstone) return 500;
+			if(block == Blocks.redstone_block) return 4500;
+			if(block == Blocks.glowstone) return 4000;
 			return 0;
 		}
 	}
 
-	public static boolean isItemFuel(ItemStack itemstack) {
-		return getItemBurnTime(itemstack) > 0;
-	}
-
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		if(i == this.fuelSlot){
-			if(isItemFuel(itemstack)){
-				return true;
-			}
-		}else if(i != this.fuelSlot){
-			return false;
-		}
-		return false;
+	public static boolean hasItemPower(ItemStack itemstack) {
+		return getItemPower(itemstack) > 0;
 	}
 
 	public int[] getAccessibleSlotsFromSide(int var1) {
@@ -273,11 +257,8 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
 		if (itemstack != null) {
-			Item stackItem = itemstack.getItem();
-			if (i == this.ingredSlot && stackItem == BlockList.ingoturanium) {
+			if (i == this.ingredSlot && PoweredGrinderRecipes.smelting().getSmeltingResult(itemstack) != null) {
 				return true;
-			} else if (i == this.fuelSlot && this.isItemValidForSlot(i, itemstack)) {
-				return this.isItemValidForSlot(i, itemstack);
 			}
 		}
 		return false;
@@ -286,25 +267,22 @@ public class TileEntityPoweredGrinder extends TileEntity implements
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
 		if (i == this.resultSlot) {
 			return true;
-		}else if(i != this.resultSlot){
+		}else{
 			return false;
 		}
-		return itemstack.getItem() == BlockList.ingotinfuseduranium;
 	}
 
-	public int getBurnTimeRemainingScaled(int i) {
-		if (this.currentItemBurnTime == 0) {
-			this.currentItemBurnTime = this.furnaceSpeed;
-		}
-		return this.burnTime * i / this.currentItemBurnTime;
+	public int getPowerRemainingScaled(int i) {
+		return this.power * i / this.maxPower;
 	}
 
-	public int getCookProgressScaled(int i) {
-		return this.cookTime * i / this.furnaceSpeed;
+	public int getGrinderProgressScaled(int i) {
+		return this.cookTime * i / this.grinderSpeed;
 
 	}
 
 	public void openInventory() {}
 	public void closeInventory() {}
+	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {return false;}
 
 }

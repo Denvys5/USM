@@ -11,19 +11,17 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerPoweredGrinder extends Container {
 
-	private TileEntityPoweredGrinder furnaceUranium;
-	public int lastBurnTime;
+	private TileEntityPoweredGrinder PoweredGrinder;
+	public int lastpower;
 	public int lastItemBurnTime;
 	public int lastCookTime;
 
-	public ContainerPoweredGrinder(InventoryPlayer inventory,
-			TileEntityPoweredGrinder tileentity) {
-		this.furnaceUranium = tileentity;
+	public ContainerPoweredGrinder(InventoryPlayer inventory, TileEntityPoweredGrinder tileentity) {
+		this.PoweredGrinder = tileentity;
 		// Положение слотов
-		this.addSlotToContainer(new Slot(tileentity, 0, 56, 17));
-		this.addSlotToContainer(new Slot(tileentity, 1, 56, 53));
-		this.addSlotToContainer(new SlotPoweredGrinder(inventory.player,
-				tileentity, 2, 116, 35));
+		this.addSlotToContainer(new Slot(tileentity, 0, 56, 35));
+		this.addSlotToContainer(new Slot(tileentity, 1, 8, 56));
+		this.addSlotToContainer(new SlotPoweredGrinder(inventory.player, tileentity, 2, 116, 35));
 		// Карманы игрока
 		for (int i = 0; i < 9; i++) {
 			this.addSlotToContainer(new Slot(inventory, i + 9, 8 + i * 18, 84));
@@ -44,48 +42,36 @@ public class ContainerPoweredGrinder extends Container {
 
 	public void canCraftingToCrafters(ICrafting icrafting) {
 		super.addCraftingToCrafters(icrafting);
-		icrafting.sendProgressBarUpdate(this, 0, this.furnaceUranium.cookTime);
-		icrafting.sendProgressBarUpdate(this, 1, this.furnaceUranium.burnTime);
-		icrafting.sendProgressBarUpdate(this, 2,
-				this.furnaceUranium.currentItemBurnTime);
+		icrafting.sendProgressBarUpdate(this, 0, this.PoweredGrinder.cookTime);
+		icrafting.sendProgressBarUpdate(this, 1, this.PoweredGrinder.power);
+		icrafting.sendProgressBarUpdate(this, 2, this.PoweredGrinder.maxPower);
 	}
 
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); i++) {
 			ICrafting icrafting = (ICrafting) this.crafters.get(i);
-			if (this.lastCookTime != this.furnaceUranium.cookTime) {
+			if (this.lastCookTime != this.PoweredGrinder.cookTime) {
 				icrafting.sendProgressBarUpdate(this, 0,
-						this.furnaceUranium.cookTime);
+						this.PoweredGrinder.cookTime);
 			}
 
-			if (this.lastBurnTime != this.furnaceUranium.burnTime) {
+			if (this.lastpower != this.PoweredGrinder.power) {
 				icrafting.sendProgressBarUpdate(this, 1,
-						this.furnaceUranium.burnTime);
-			}
-
-			if (this.lastItemBurnTime != this.furnaceUranium.currentItemBurnTime) {
-				icrafting.sendProgressBarUpdate(this, 2,
-						this.furnaceUranium.currentItemBurnTime);
+						this.PoweredGrinder.power);
 			}
 		}
-		this.lastCookTime = this.furnaceUranium.cookTime;
-		this.lastBurnTime = this.furnaceUranium.burnTime;
-		this.lastItemBurnTime = this.furnaceUranium.currentItemBurnTime;
+		this.lastCookTime = this.PoweredGrinder.cookTime;
+		this.lastpower = this.PoweredGrinder.power;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newValue) {
-		if (slot == 0)
-			this.furnaceUranium.cookTime = newValue;
-		if (slot == 1)
-			this.furnaceUranium.burnTime = newValue;
-		if (slot == 2)
-			this.furnaceUranium.currentItemBurnTime = newValue;
+		if (slot == 0) this.PoweredGrinder.cookTime = newValue;
+		if (slot == 1) this.PoweredGrinder.power = newValue;
 	}
 
-	public ItemStack transferStackInSlot(EntityPlayer player,
-			int clickedSlotNumber) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int clickedSlotNumber) {
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(clickedSlotNumber);
 		if (slot != null && slot.getHasStack()) {
@@ -98,12 +84,11 @@ public class ContainerPoweredGrinder extends Container {
 				slot.onSlotChange(itemstack1, itemstack);
 
 			} else if (clickedSlotNumber != 1 && clickedSlotNumber != 0) {
-				if (PoweredGrinderRecipes.smelting().getSmeltingResult(
-						itemstack1) != null) {
+				if (PoweredGrinderRecipes.smelting().getSmeltingResult(itemstack1) != null) {
 					if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 						return null;
 					}
-				} else if (TileEntityPoweredGrinder.isItemFuel(itemstack1)) {
+				} else if (TileEntityPoweredGrinder.hasItemPower(itemstack1)) {
 					if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 						return null;
 					}
@@ -133,8 +118,7 @@ public class ContainerPoweredGrinder extends Container {
 	}
 
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-
-		return this.furnaceUranium.isUseableByPlayer(entityplayer);
+		return this.PoweredGrinder.isUseableByPlayer(entityplayer);
 	}
 
 }

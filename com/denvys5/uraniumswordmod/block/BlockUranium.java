@@ -2,7 +2,9 @@ package com.denvys5.uraniumswordmod.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import com.denvys5.uraniumswordmod.core.USM;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -11,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockUranium extends Block {
@@ -40,5 +43,9 @@ public class BlockUranium extends Block {
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,
 			int par4, Entity par5Entity) {
 		par5Entity.attackEntityFrom(DamageSource.cactus, 5.0F);
+	}
+	
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+	return false;
 	}
 }

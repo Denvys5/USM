@@ -33,7 +33,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.5.0";
+	public static final String version = "0.6.0";
 
 	@Instance(modid)
 	public static USM instance;
@@ -80,13 +80,14 @@ public class USM {
 
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
 		FMLCommonHandler.instance().bus().register(new OnPlayerLoginEvent());
-		
+		FMLCommonHandler.instance().bus().register(new KeyHandler());
 		
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		this.initConfiguration(event);
+		
 
 		USMTab = new CreativeTabs("uraniumswordmodtab") {
 			public Item getTabIconItem() {
@@ -108,6 +109,9 @@ public class USM {
 		RecipeList.ShapedOreCrafting();
 		RecipeList.ShapelessCrafting();
 		RecipeList.VanillaSmeltingRecipes();
+		RecipeList.UraniumFurnaceRecipes();
+		RecipeList.PoweredGrinderRecipes();
+		RecipeList.DuplicatorRecipes();
 		proxy.registerRandomStuff();
 		AchievementPage.registerAchievementPage(USMAchievPage);
 		OreRegistration.BooleanRegister();

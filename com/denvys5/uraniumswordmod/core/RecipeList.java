@@ -2,11 +2,10 @@ package com.denvys5.uraniumswordmod.core;
 
 
 import ic2.api.item.IC2Items;
-import ic2.core.Ic2Items;
 
-import com.denvys5.uraniumswordmod.poweredgrinder.PoweredGrinderRecipes;
-import com.denvys5.uraniumswordmod.uraniumduplicator.DuplicatorRecipes;
-import com.denvys5.uraniumswordmod.uraniumfurnace.UraniumFurnaceRecipes;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinderRecipes;
+import com.denvys5.uraniumswordmod.machines.uraniumduplicator.DuplicatorRecipes;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.UraniumFurnaceRecipes;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,7 +18,6 @@ public class RecipeList {
 	private static int PowerPerOreGrind = 512;
 	private static int PowerPerIngotGrind = 256;
 	private static int PowerPerOreDuplicate = 1024;
-	
 	public static void ShapedOreCrafting(){
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.UraniumWrench, true, new Object[] { "X!X", "@@@", "!@!", Character.valueOf('X'), "ingotUranium", ('@'), Items.iron_ingot }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.BasicMachineCore, true, new Object[] { "XXX", "@#@", "X!X", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), Items.redstone, ('!'), BlockList.ingoturanium}));
@@ -34,6 +32,7 @@ public class RecipeList {
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.stickiron, true, new Object[] { "@", "@", Character.valueOf('@'), Items.iron_ingot }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.oreuranium, true, new Object[] { "@", Character.valueOf('@'), "oreUranium" }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.ingoturanium, true, new Object[] { "@", Character.valueOf('@'), "crushedUranium" }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.BasicBattery, true, new Object[] { "!@!", "#$#", "#$#", Character.valueOf('@'), Items.redstone, ('$'), "ingotUranium", ('#'), Items.iron_ingot}));
 		GameRegistry.addRecipe(new ShapedOreRecipe (new ItemStack(BlockList.blockuranium, 4), new Object[] { "@@", "@@", Character.valueOf('@'), "blockUranium" }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.blocknetherstar, true, new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'), Items.nether_star }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockList.blockuranium, true, new Object[] { "@@@", "@@@", "@@@", Character.valueOf('@'), BlockList.ingoturanium }));

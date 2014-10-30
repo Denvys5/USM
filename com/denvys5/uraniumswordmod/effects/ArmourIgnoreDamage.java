@@ -10,5 +10,5 @@ public class ArmourIgnoreDamage extends DamageSource {
 			super(label);
 			LanguageRegistry.addName(Radiation, "Radiation effect");
 		}
-		public static DamageSource Radiation = (new ArmourIgnoreDamage("Radiation")).setDamageBypassesArmor();
+		public static DamageSource Radiation = (new ArmourIgnoreDamage("radiation")).setDamageBypassesArmor();
 }

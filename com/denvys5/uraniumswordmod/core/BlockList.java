@@ -5,14 +5,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.block.*;
 import com.denvys5.uraniumswordmod.item.*;
-import com.denvys5.uraniumswordmod.poweredgrinder.PoweredGrinder;
-import com.denvys5.uraniumswordmod.poweredgrinder.TileEntityPoweredGrinder;
-import com.denvys5.uraniumswordmod.uraniumduplicator.Duplicator;
-import com.denvys5.uraniumswordmod.uraniumduplicator.TileEntityDuplicator;
-import com.denvys5.uraniumswordmod.uraniumfurnace.FurnaceUranium;
-import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.TileEntityPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.uraniumduplicator.Duplicator;
+import com.denvys5.uraniumswordmod.machines.uraniumduplicator.TileEntityDuplicator;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.FurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.windmill.TileEntityWindmill;
+import com.denvys5.uraniumswordmod.machines.windmill.WindmillBlock;
+import com.denvys5.uraniumswordmod.machines.windmill.WindmillItem;
+import com.denvys5.uraniumswordmod.machines.windmill.WindmillPlatform;
+import com.denvys5.uraniumswordmod.machines.nuke.Nuke;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -25,6 +31,8 @@ public class BlockList {
 	public static Block blockinfuseduranium;
 	public static Block BasicMachineCore;
 	public static Block DisassemblerCore;
+	public static Block NuclearWaste;
+	public static Block Nuke;
 	
 	
 	public static Item sworduranium;
@@ -38,6 +46,7 @@ public class BlockList {
 	public static Item UraniumLeggins;
 	public static Item UraniumBoots;
 	public static Item UraniumWrench;
+	public static Item BasicBattery;
 	
 	
 	public static Block furnaceuraniumidle;
@@ -46,6 +55,9 @@ public class BlockList {
 	public static Block duplicatoractive;
 	public static Block PoweredGrinderidle;
 	public static Block PoweredGrinderactive;
+	public static Block WindmillBlock;
+	public static Block WindmillPlatform;
+	public static Item WindmillItem;
 	
 
 	public static void blockRegister() {
@@ -66,6 +78,12 @@ public class BlockList {
 		
 		DisassemblerCore = new DisassemblerCore().setBlockName("Disassembler Core");
 		Util.regBlock(DisassemblerCore, "DisassemblerCore", "Disassembler Core");
+		
+		NuclearWaste = new NuclearWaste().setBlockName("Nuclear Waste").setLightLevel(0.8F);
+		Util.regBlock(NuclearWaste, "NuclearWaste", "Nuclear Waste");
+		
+		Nuke = new Nuke().setBlockName("Nuke");
+		Util.regBlock(Nuke, "Nuke", "Nuke");
 	}
 
 	public static void itemRegister() {
@@ -89,6 +107,9 @@ public class BlockList {
 		
 		UraniumWrench = new UraniumWrench().setUnlocalizedName("Uranium Wrench");
 		Util.regItem(UraniumWrench, "UraniumWrench", "Uranium Wrench");
+		
+		BasicBattery = new BasicBattery(10000).setUnlocalizedName("Basic Battery");
+		Util.regItem(BasicBattery, "BasicBattery", "Basic Battery");
 	}
 	
 	public static void tileEntityRegister(){
@@ -109,6 +130,14 @@ public class BlockList {
 		Util.regTileEntity(PoweredGrinderidle, PoweredGrinderactive, "Powered Grinder", "PoweredGrinder");
 		GameRegistry.registerTileEntity(TileEntityPoweredGrinder.class,"PoweredGrinder");
 		LanguageRegistry.instance().addStringLocalization("container.PoweredGrinder", "Powered Grinder");
+		
+		WindmillBlock = new WindmillBlock().setBlockName("Windmill");
+		WindmillPlatform = new WindmillPlatform().setBlockName("WindmillPlatform");
+		WindmillItem = new WindmillItem().setUnlocalizedName("WindmillItem").setCreativeTab(USM.USMTab);
+		GameRegistry.registerTileEntity(TileEntityWindmill.class, "Windmill");
+		Util.regBlock(WindmillPlatform, "WindmillPlatform", "Windmill Platform");
+		Util.regBlock(WindmillBlock, "WindmillBlock", "Windmill Block");
+		Util.regItem(WindmillItem, "WindmillItem", "Windmill Item");
 	}
 	
 	public static void armorRegister(){	    

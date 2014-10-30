@@ -1,8 +1,5 @@
 package com.denvys5.uraniumswordmod.core;
 
-import com.denvys5.uraniumswordmod.uraniumfurnace.FurnaceUranium;
-import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

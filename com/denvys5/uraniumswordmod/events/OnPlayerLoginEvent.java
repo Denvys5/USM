@@ -2,8 +2,8 @@ package com.denvys5.uraniumswordmod.events;
 
 
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.OreRegistration;
-import com.denvys5.uraniumswordmod.core.USM;
 
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;

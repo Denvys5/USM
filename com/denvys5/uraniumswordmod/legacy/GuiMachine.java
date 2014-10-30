@@ -3,8 +3,8 @@ package com.denvys5.uraniumswordmod.legacy;
 
 import java.util.List;
 
-import com.denvys5.uraniumswordmod.poweredgrinder.PoweredGrinderRecipes;
-import com.denvys5.uraniumswordmod.poweredgrinder.TileEntityPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinderRecipes;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.TileEntityPoweredGrinder;
 
 public class GuiMachine{
 

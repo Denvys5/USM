@@ -12,7 +12,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 
-import com.denvys5.uraniumswordmod.core.USM;
+import com.denvys5.uraniumswordmod.USM;
 
 public class SwordUranium extends ItemSword {
 	public SwordUranium() {

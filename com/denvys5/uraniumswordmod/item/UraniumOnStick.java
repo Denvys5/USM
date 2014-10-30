@@ -7,7 +7,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import com.denvys5.uraniumswordmod.core.USM;
+
+import com.denvys5.uraniumswordmod.USM;
 
 public class UraniumOnStick extends Item {
 	public UraniumOnStick() {

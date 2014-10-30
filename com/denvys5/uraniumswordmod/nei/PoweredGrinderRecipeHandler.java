@@ -21,13 +21,13 @@ import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 
-import com.denvys5.uraniumswordmod.core.USM;
-import com.denvys5.uraniumswordmod.poweredgrinder.GuiPoweredGrinder;
-import com.denvys5.uraniumswordmod.poweredgrinder.PoweredGrinderRecipes;
-import com.denvys5.uraniumswordmod.poweredgrinder.TileEntityPoweredGrinder;
-import com.denvys5.uraniumswordmod.uraniumfurnace.GuiFurnaceUranium;
-import com.denvys5.uraniumswordmod.uraniumfurnace.TileEntityFurnaceUranium;
-import com.denvys5.uraniumswordmod.uraniumfurnace.UraniumFurnaceRecipes;
+import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinderRecipes;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.TileEntityPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.UraniumFurnaceRecipes;
 
 public class PoweredGrinderRecipeHandler extends TemplateRecipeHandler
 {

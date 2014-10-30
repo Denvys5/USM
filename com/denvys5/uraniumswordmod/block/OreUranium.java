@@ -10,7 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import com.denvys5.uraniumswordmod.core.USM;
+
+import com.denvys5.uraniumswordmod.USM;
 
 public class OreUranium extends Block {
 

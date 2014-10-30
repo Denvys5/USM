@@ -18,40 +18,44 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.tools.IToolWrench;
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.BlockList;
-import com.denvys5.uraniumswordmod.core.USM;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class UraniumWrench extends Item implements IToolWrench {
     private float damageVsEntity;
-    public static Set<String> blocks = new HashSet();
+    private int USMTilesMetaVar;
+    public static Set<String> blocksFromOtherMods = new HashSet();
+    public static Set<String> USMBlocks = new HashSet();
 
     public UraniumWrench(){
         super();
         maxStackSize = 1;
         setCreativeTab(USM.USMTab);
 
-        blocks.add("IronChest:BlockIronChest");
-        blocks.add("Forestry:tile.for.factory");
-        blocks.add("Forestry:tile.for.factory2");
-        blocks.add("Forestry:tile.for.engine");
-        blocks.add("BuildCraft|Silicon:laserBlock");
-        blocks.add("BuildCraft|Factory:autoWorkbenchBlock");
-        blocks.add("BuildCraft|Energy:engineBlock");
-        blocks.add("BuildCraft|Silicon:assemblyTableBlock");
-        blocks.add("BuildCraft|Factory:tankBlock");
-        blocks.add("BuildCraft|Factory:miningWellBlock");
-        blocks.add("BuildCraft|Factory:pumpBlock");
-        blocks.add("BuildCraft|Factory:blockHopper");
-        blocks.add("BuildCraft|Factory:refineryBlock");
-        blocks.add("BuildCraft|Factory:machineBlock");
-        blocks.add("factorization:mirror");
-        blocks.add("uraniumswordmod:furnaceuraniumidle");
-        blocks.add("uraniumswordmod:furnaceuraniumactive");
-        blocks.add("uraniumswordmod:PoweredGrinderidle");
-        blocks.add("uraniumswordmod:PoweredGrinderactive");
+        blocksFromOtherMods.add("IronChest:BlockIronChest");
+        blocksFromOtherMods.add("Forestry:tile.for.factory");
+        blocksFromOtherMods.add("Forestry:tile.for.factory2");
+        blocksFromOtherMods.add("Forestry:tile.for.engine");
+        blocksFromOtherMods.add("BuildCraft|Silicon:laserBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:autoWorkbenchBlock");
+        blocksFromOtherMods.add("BuildCraft|Energy:engineBlock");
+        blocksFromOtherMods.add("BuildCraft|Silicon:assemblyTableBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:tankBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:miningWellBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:pumpBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:blockHopper");
+        blocksFromOtherMods.add("BuildCraft|Factory:refineryBlock");
+        blocksFromOtherMods.add("BuildCraft|Factory:machineBlock");
+        blocksFromOtherMods.add("factorization:mirror");
+        
+        
+        USMBlocks.add("uraniumswordmod:furnaceuraniumidle");
+        USMBlocks.add("uraniumswordmod:furnaceuraniumactive");
+        USMBlocks.add("uraniumswordmod:PoweredGrinderidle");
+        USMBlocks.add("uraniumswordmod:PoweredGrinderactive");
 
     }
 
@@ -132,11 +136,17 @@ public class UraniumWrench extends Item implements IToolWrench {
                 par3World.isRemote = false;
                 return true;
             }
-            //USM Tiles
-            if (TargetBlock == BlockList.furnaceuraniumidle || TargetBlock == BlockList.furnaceuraniumactive || TargetBlock == BlockList.PoweredGrinderidle || TargetBlock == BlockList.PoweredGrinderactive) {
-                par3World.setBlockMetadataWithNotify(X, Y, Z, ((Meta - 1) % 4) + 2, 3);
+            //USM Tiles            
+            for (String str : USMBlocks)
+                if (TargetBlock == Block.getBlockFromName(str) && (USMBlocks.contains(str))) {
+                	if(Meta == 2) USMTilesMetaVar = 5;
+                	if(Meta == 5) USMTilesMetaVar = 3;
+                	if(Meta == 3) USMTilesMetaVar = 4;
+                	if(Meta == 4) USMTilesMetaVar = 2;
+                    par3World.setBlockMetadataWithNotify(X, Y, Z, USMTilesMetaVar, 3);
                 return true;
             }
+            
             //interaction with other mods
             //place for advertising
             //end of interaction
@@ -166,8 +176,16 @@ public class UraniumWrench extends Item implements IToolWrench {
                 return true;
             }
             //interaction with other mods
-            for (String str : blocks)
-                if (par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (blocks.contains(str))) {
+            for (String str : blocksFromOtherMods)
+                if (par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (blocksFromOtherMods.contains(str))) {
+                EntityItem blockDropped = new EntityItem(par3World, X+0.5, Y+0.5, Z+0.5, is);
+                par3World.setBlockToAir(X, Y, Z);
+                par3World.spawnEntityInWorld(blockDropped);
+                return true;
+            }
+            
+            for (String str : USMBlocks)
+                if (par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (USMBlocks.contains(str))) {
                 EntityItem blockDropped = new EntityItem(par3World, X+0.5, Y+0.5, Z+0.5, is);
                 par3World.setBlockToAir(X, Y, Z);
                 par3World.spawnEntityInWorld(blockDropped);

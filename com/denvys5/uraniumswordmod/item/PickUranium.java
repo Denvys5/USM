@@ -21,9 +21,9 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.Config;
 import com.denvys5.uraniumswordmod.core.ToolHandler;
-import com.denvys5.uraniumswordmod.core.USM;
 import com.denvys5.uraniumswordmod.core.Util;
 
 import cpw.mods.fml.relauncher.Side;

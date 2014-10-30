@@ -1,7 +1,8 @@
 package com.denvys5.uraniumswordmod.achievements;
 
 
-import com.denvys5.uraniumswordmod.core.USM;
+import com.denvys5.uraniumswordmod.USM;
+
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 

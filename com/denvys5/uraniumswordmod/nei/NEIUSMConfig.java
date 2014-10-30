@@ -6,23 +6,23 @@ import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.recipe.IUsageHandler;
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.BlockList;
-import com.denvys5.uraniumswordmod.core.USM;
-import com.denvys5.uraniumswordmod.poweredgrinder.GuiPoweredGrinder;
-import com.denvys5.uraniumswordmod.uraniumfurnace.GuiFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
 
 public class NEIUSMConfig implements IConfigureNEI {
 
 	public void loadConfig() {
 		API.registerRecipeHandler(new FurnaceUraniumRecipeHandler());
 		API.registerUsageHandler(new FurnaceUraniumRecipeHandler());
-		API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
-		API.registerUsageHandler(new PoweredGrinderRecipeHandler());
+		//API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
+		//API.registerUsageHandler(new PoweredGrinderRecipeHandler());
 		API.hideItem(new ItemStack(BlockList.furnaceuraniumactive));
 		API.hideItem(new ItemStack(BlockList.PoweredGrinderactive));
 		API.hideItem(new ItemStack(BlockList.duplicatoractive));
-		API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
-		API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
+		//API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
+		//API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
 	}
 
 	public String getName() {

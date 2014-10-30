@@ -1,6 +1,6 @@
 package com.denvys5.uraniumswordmod.events;
 
-import com.denvys5.uraniumswordmod.core.USM;
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.effects.ArmourIgnoreDamage;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

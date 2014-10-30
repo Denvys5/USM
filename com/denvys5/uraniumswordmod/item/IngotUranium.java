@@ -5,7 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
-import com.denvys5.uraniumswordmod.core.USM;
+
+import com.denvys5.uraniumswordmod.USM;
 
 public class IngotUranium extends Item {
 	public IngotUranium() {

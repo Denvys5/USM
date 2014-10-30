@@ -21,9 +21,9 @@ import net.minecraftforge.common.ISpecialArmor;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
+import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.Config;
-import com.denvys5.uraniumswordmod.core.USM;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,6 +36,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
     private static IIcon leggingsIcon;
     private static IIcon bootsIcon;
     public static boolean Goggles = false;
+    public static boolean NightVis = false;
     
     public UraniumArmor(int slot)
     {
@@ -169,6 +170,9 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
             }
             if (itemStack.getItemDamage() > 0){
             	itemStack.setItemDamage(0);
+            }
+            if(NightVis){
+            	player.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), 5, 0));
             }
             if(Config.ArmorCrashFix == false){
             	if(player.isSprinting()){

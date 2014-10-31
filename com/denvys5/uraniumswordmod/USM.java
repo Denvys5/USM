@@ -19,8 +19,11 @@ import com.denvys5.uraniumswordmod.core.RecipeList;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
 import com.denvys5.uraniumswordmod.effects.Radiation;
 import com.denvys5.uraniumswordmod.events.*;
+import com.denvys5.uraniumswordmod.machines.nuke.EntityNukePrimed;
+import com.denvys5.uraniumswordmod.machines.nuke.RenderNukePrimed;
 import com.denvys5.uraniumswordmod.oregenerators.UraniumOreGenerator;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -31,13 +34,14 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = USM.modid, name = USM.name, version = USM.version/*, dependencies = "required-after:Denvys5Core@[1.0,)"*/)
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.6.1";
+	public static final String version = "0.6.2";
 
 	@Instance(modid)
 	public static USM instance;
@@ -91,16 +95,11 @@ public class USM {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		this.initConfiguration(event);
-		
-
-		USMTab = new CreativeTabs("uraniumswordmodtab") {
-			public Item getTabIconItem() {
-				return BlockList.sworduranium;
-				//return Item.getItemFromBlock(BlockList.blocknetherstar);
-			}
-
-		};
-        if (Loader.isModLoaded("gregtech_addon")) {
+	    EntityRegistry.registerGlobalEntityID(EntityNukePrimed.class, "entityNukePrimed", EntityRegistry.findGlobalUniqueEntityId());
+	    EntityRegistry.registerModEntity(EntityNukePrimed.class, "entityNukePrimed", 53, this, 256, 1, false);
+	    RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderNukePrimed());
+		USMTab = new CreativeTabs("uraniumswordmodtab"){public Item getTabIconItem(){return BlockList.sworduranium;}};
+        if (Loader.isModLoaded("gregtech_addon")){
             System.err.println("[USM] DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH");
         }
 		GameRegistry.registerWorldGenerator(new UraniumOreGenerator(), 0);

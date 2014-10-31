@@ -8,7 +8,7 @@ import java.net.URL;
 import com.denvys5.uraniumswordmod.USM;
 
 public class UpdateChecker{
-	public static String updateUrl = new String(getHTML("https://github.com/Denvys5/USM/blob/master/com/denvys5/uraniumswordmod/core/USM.java"));
+	public static String updateUrl = new String(getHTML("https://github.com/Denvys5/USM/blob/master/mcmod.info"));
 	public static boolean isNewUpdate = false;
 	public static String latestVersion;
 	public static void updateCheck(){

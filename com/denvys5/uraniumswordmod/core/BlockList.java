@@ -14,10 +14,7 @@ import com.denvys5.uraniumswordmod.machines.uraniumduplicator.Duplicator;
 import com.denvys5.uraniumswordmod.machines.uraniumduplicator.TileEntityDuplicator;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.FurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
-import com.denvys5.uraniumswordmod.machines.windmill.TileEntityWindmill;
-import com.denvys5.uraniumswordmod.machines.windmill.WindmillBlock;
-import com.denvys5.uraniumswordmod.machines.windmill.WindmillItem;
-import com.denvys5.uraniumswordmod.machines.windmill.WindmillPlatform;
+import com.denvys5.uraniumswordmod.machines.windmill.*;
 import com.denvys5.uraniumswordmod.machines.nuke.Nuke;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -132,9 +129,10 @@ public class BlockList {
 		LanguageRegistry.instance().addStringLocalization("container.PoweredGrinder", "Powered Grinder");
 		
 		WindmillBlock = new WindmillBlock().setBlockName("Windmill");
-		WindmillPlatform = new WindmillPlatform().setBlockName("WindmillPlatform");
+		WindmillPlatform = new WindmillPlatform().setBlockName("WindmillPlatform").setCreativeTab(USM.USMTab);
 		WindmillItem = new WindmillItem().setUnlocalizedName("WindmillItem").setCreativeTab(USM.USMTab);
 		GameRegistry.registerTileEntity(TileEntityWindmill.class, "Windmill");
+		GameRegistry.registerTileEntity(TileEntityWindmillPlatform.class, "WindmillPlatform");
 		Util.regBlock(WindmillPlatform, "WindmillPlatform", "Windmill Platform");
 		Util.regBlock(WindmillBlock, "WindmillBlock", "Windmill Block");
 		Util.regItem(WindmillItem, "WindmillItem", "Windmill Item");

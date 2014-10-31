@@ -101,7 +101,7 @@ public class PoweredGrinderRecipes{
             entry = (Entry)iterator.next();
         }
         while (!this.func_151397_a(itemstack, (ItemStack)entry.getKey()));
-
-        return ((int)entry.getValue());
+        
+        return ((Integer)entry.getValue()).intValue();
     }
 }

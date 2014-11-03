@@ -15,8 +15,8 @@ import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.core.Config;
 import com.denvys5.uraniumswordmod.core.GuiHandler;
 import com.denvys5.uraniumswordmod.core.OreRegistration;
-import com.denvys5.uraniumswordmod.core.RecipeList;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
+import com.denvys5.uraniumswordmod.core.recipes.*;
 import com.denvys5.uraniumswordmod.effects.Radiation;
 import com.denvys5.uraniumswordmod.events.*;
 import com.denvys5.uraniumswordmod.machines.nuke.EntityNukePrimed;
@@ -41,7 +41,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM {
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.6.2";
+	public static final String version = "0.6.3";
 
 	@Instance(modid)
 	public static USM instance;
@@ -109,12 +109,12 @@ public class USM {
 		BlockList.itemRegister();
 		BlockList.tileEntityRegister();
 		BlockList.armorRegister();
-		RecipeList.ShapedOreCrafting();
-		RecipeList.ShapelessCrafting();
-		RecipeList.VanillaSmeltingRecipes();
-		RecipeList.UraniumFurnaceRecipes();
-		RecipeList.PoweredGrinderRecipes();
-		RecipeList.DuplicatorRecipes();
+		VanillaCraftingRecipes.ShapedOreCrafting();
+		VanillaCraftingRecipes.ShapelessCrafting();
+		VanillaCraftingRecipes.VanillaSmeltingRecipes();
+		MachineRecipes.UraniumFurnaceRecipes();
+		MachineRecipes.PoweredGrinderRecipes();
+		MachineRecipes.DuplicatorRecipes();
 		proxy.registerProxy();
 		AchievementPage.registerAchievementPage(USMAchievPage);
 		OreRegistration.BooleanRegister();

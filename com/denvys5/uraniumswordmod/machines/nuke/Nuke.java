@@ -39,9 +39,9 @@ public class Nuke extends Block{
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister){
-		this.blockIcon = iconRegister.registerIcon(USM.modid + ":" + "nuclearBombSide");
-		this.iconTop = iconRegister.registerIcon(USM.modid + ":" + "nuclearBombTopAndBottom");
-		this.iconBottom = iconRegister.registerIcon(USM.modid + ":" + "nuclearBombTopAndBottom");
+		this.blockIcon = iconRegister.registerIcon(USM.modid + ":" + "Nuke_side");
+		this.iconTop = iconRegister.registerIcon(USM.modid + ":" + "Nuke_top");
+		this.iconBottom = iconRegister.registerIcon(USM.modid + ":" + "Nuke_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)

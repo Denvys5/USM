@@ -1,16 +1,15 @@
-package com.denvys5.uraniumswordmod.block;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+package com.denvys5.uraniumswordmod.machines.machineparts;
 
 import com.denvys5.uraniumswordmod.USM;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 
-public class BasicMachineCore extends Block {
-	public BasicMachineCore() {
+public class MachineCore extends Block{
+	public MachineCore() {
 		super(Material.rock);
 		this.setCreativeTab(USM.USMTab);
 		this.setHardness(3.0F);

@@ -161,7 +161,7 @@ public class TileEntityPoweredGrinder extends TileEntityCore{
 	}
 
 	public void updateEntity() {
-		boolean flag = this.power > 0;
+		boolean flag = this.power > this.powerUsage;
 		boolean flag1 = false;
 		if(operationSpeed() != 0){
 			this.grinderSpeed = operationSpeed();
@@ -190,8 +190,10 @@ public class TileEntityPoweredGrinder extends TileEntityCore{
 						}
 					}
 				}
-			if (flag != this.hasPower()) {
-				PoweredGrinder.updatePoweredGrinderBlockState(this.hasPower() && this.canGrind(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			if(flag && this.canGrind()) {
+				PoweredGrinder.updatePoweredGrinderBlockState(this.canGrind(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			}else{
+				PoweredGrinder.updatePoweredGrinderBlockState(this.canGrind(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			}
 		}
 		if (this.hasPower() && this.canGrind()) {
@@ -202,8 +204,7 @@ public class TileEntityPoweredGrinder extends TileEntityCore{
 				this.grindItem();
 				flag1 = true;
 			}
-		}else if(this.canGrind()){
-		}else{
+		}else if(!this.canGrind()){
 			this.cookTime = 0;
 		}
 		if (flag1) {
@@ -303,6 +304,9 @@ public class TileEntityPoweredGrinder extends TileEntityCore{
 	}
 
 	public int getGrinderProgressScaled(int i) {
+		if(operationSpeed() != 0){
+			this.grinderSpeed = operationSpeed();
+		}
 		return this.cookTime * i / this.grinderSpeed;
 
 	}

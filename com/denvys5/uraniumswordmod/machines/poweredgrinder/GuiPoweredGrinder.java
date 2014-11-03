@@ -33,9 +33,9 @@ public class GuiPoweredGrinder extends GuiContainer {
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		if (this.PoweredGrinder.hasPower()) {
+		if(this.PoweredGrinder.hasPower()) {
 			int k = this.PoweredGrinder.getPowerRemainingScaled(44);
-			drawTexturedModalRect(guiLeft + 10, guiTop + 53 - k, 176, 74 - k, 11, k + 2);
+			drawTexturedModalRect(guiLeft + 10, guiTop + 52 - k, 176, 74 - k, 11, k + 2);
 		}
 		int k = this.PoweredGrinder.getGrinderProgressScaled(25);
 		drawTexturedModalRect(guiLeft + 79, guiTop + 29, 176, 0, k + 1, 29);

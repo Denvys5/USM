@@ -18,6 +18,7 @@ public class WindmillPlatform extends BlockContainer{
 
 	public WindmillPlatform() {
 		super(Material.rock);
+		this.setHardness(1F);
 		this.setBlockBounds(0, 0, 0, 1, 0.3F, 1);
 	}
 	

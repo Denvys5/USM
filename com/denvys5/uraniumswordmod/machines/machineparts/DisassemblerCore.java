@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.block;
+package com.denvys5.uraniumswordmod.machines.machineparts;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -9,11 +9,9 @@ import com.denvys5.uraniumswordmod.USM;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class DisassemblerCore extends Block{
+public class DisassemblerCore extends MachineCore{
 	public DisassemblerCore() {
-		super(Material.rock);
-		this.setCreativeTab(USM.USMTab);
-		this.setHardness(3.0F);
+		super();
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -174,10 +174,8 @@ public class TileEntityFurnaceUranium extends TileEntity implements
 					}
 				}
 			}
-			if (flag != this.isBurning()) {
-				FurnaceUranium.updateFurnaceUraniumBlockState(
-						this.burnTime > 0, this.worldObj, this.xCoord,
-						this.yCoord, this.zCoord);
+			if(flag != this.isBurning()){
+				FurnaceUranium.updateFurnaceUraniumBlockState(this.burnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			}
 		}
 		if (this.isBurning() && this.canSmelt()) {

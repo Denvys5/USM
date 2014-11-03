@@ -15,6 +15,8 @@ import com.denvys5.uraniumswordmod.machines.uraniumduplicator.TileEntityDuplicat
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.FurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.windmill.*;
+import com.denvys5.uraniumswordmod.machines.machineparts.BasicMachineCore;
+import com.denvys5.uraniumswordmod.machines.machineparts.DisassemblerCore;
 import com.denvys5.uraniumswordmod.machines.nuke.Nuke;
 
 import cpw.mods.fml.common.registry.GameRegistry;

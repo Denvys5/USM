@@ -1,5 +1,6 @@
 package com.denvys5.uraniumswordmod.machines.poweredgrinder;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -17,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -45,10 +47,10 @@ public class PoweredGrinder extends BlockContainer{
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister){
-		side = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_side");
-		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "PoweredGrinder_active" : "PoweredGrinder_idle"));
-		top = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_top");
-		bottom = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_bottom");
+		side = iconRegister.registerIcon(USM.modid + ":Machine_side");
+		front = iconRegister.registerIcon(USM.modid + ":PoweredGrinder_front");
+		top = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "PoweredGrinder_active" : "PoweredGrinder_idle"));
+		bottom = iconRegister.registerIcon(USM.modid + ":Machine_bottom");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -146,22 +148,15 @@ public class PoweredGrinder extends BlockContainer{
 						float f = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-						while(itemstack.stackSize > 0){
-							int j = this.rand.nextInt(21) + 10;
-							if(j < itemstack.stackSize){
-								j = itemstack.stackSize;
-							}
-							itemstack.stackSize -= j;
-							EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-							if(itemstack.hasTagCompound()){
-								item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-							}
-							float f3 = 0.05F;
-							item.motionX = (double)((float)this.rand.nextGaussian() * f3);
-							item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-							item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
-							world.spawnEntityInWorld(item);
+						EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), itemstack);
+						if(itemstack.hasTagCompound()){
+							item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
 						}
+						float f3 = 0.05F;
+						item.motionX = (double)((float)this.rand.nextGaussian() * f3);
+						item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
+						item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
+						world.spawnEntityInWorld(item);
 					}
 				}
 				world.func_147453_f(x, y, z, oldBlock);

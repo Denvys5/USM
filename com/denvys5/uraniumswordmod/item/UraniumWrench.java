@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -29,6 +30,7 @@ public class UraniumWrench extends Item implements IToolWrench {
     private int USMTilesMetaVar;
     public static Set<String> blocksFromOtherMods = new HashSet();
     public static Set<String> USMBlocks = new HashSet();
+    public static Set<String> USMBlocksActive = new HashSet();
 
     public UraniumWrench(){
         super();
@@ -53,11 +55,18 @@ public class UraniumWrench extends Item implements IToolWrench {
         
         
         USMBlocks.add("uraniumswordmod:furnaceuraniumidle");
-        USMBlocks.add("uraniumswordmod:furnaceuraniumactive");
         USMBlocks.add("uraniumswordmod:PoweredGrinderidle");
-        USMBlocks.add("uraniumswordmod:PoweredGrinderactive");
-
+        USMBlocks.add("uraniumswordmod:duplicatoridle");
+        
+        USMBlocksActive.add("uraniumswordmod:duplicatoractive");
+        USMBlocksActive.add("uraniumswordmod:PoweredGrinderactive");
+        USMBlocksActive.add("uraniumswordmod:furnaceuraniumactive");
     }
+    
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IIconRegister reg) {
+		this.itemIcon = reg.registerIcon(USM.modid + ":UraniumWrench");
+	}
 
     public boolean canWrench(EntityPlayer entityPlayer, int x, int y, int z){
         return true;
@@ -147,6 +156,16 @@ public class UraniumWrench extends Item implements IToolWrench {
                 return true;
             }
             
+            for (String str : USMBlocksActive)
+                if (TargetBlock == Block.getBlockFromName(str) && (USMBlocksActive.contains(str))) {
+                	if(Meta == 2) USMTilesMetaVar = 5;
+                	if(Meta == 5) USMTilesMetaVar = 3;
+                	if(Meta == 3) USMTilesMetaVar = 4;
+                	if(Meta == 4) USMTilesMetaVar = 2;
+                    par3World.setBlockMetadataWithNotify(X, Y, Z, USMTilesMetaVar, 3);
+                return true;
+            }
+            
             //interaction with other mods
             //place for advertising
             //end of interaction
@@ -186,10 +205,18 @@ public class UraniumWrench extends Item implements IToolWrench {
             
             for (String str : USMBlocks)
                 if (par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (USMBlocks.contains(str))) {
-                EntityItem blockDropped = new EntityItem(par3World, X+0.5, Y+0.5, Z+0.5, is);
-                par3World.setBlockToAir(X, Y, Z);
-                par3World.spawnEntityInWorld(blockDropped);
-                return true;
+	                EntityItem blockDropped = new EntityItem(par3World, X+0.5, Y+0.5, Z+0.5, is);
+	                par3World.setBlockToAir(X, Y, Z);
+	                par3World.spawnEntityInWorld(blockDropped);
+	                return true;
+            }
+            ItemStack itemstack = new ItemStack(TargetBlock, 1, Meta);
+            for (String str : USMBlocksActive)
+                if (par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (USMBlocksActive.contains(str))) {
+	                EntityItem blockDropped = new EntityItem(par3World, X+0.5, Y+0.5, Z+0.5, itemstack);
+	                par3World.setBlockToAir(X, Y, Z);
+	                par3World.spawnEntityInWorld(blockDropped);
+	                return true;
             }
 
             //end of interaction

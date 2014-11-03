@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.denvys5.uraniumswordmod.USM;
@@ -20,7 +21,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class NuclearWaste extends Block{
-
+	private IIcon top, side;
 	public NuclearWaste(){
 		super(Material.ground);
 		this.setCreativeTab(USM.USMTab);
@@ -33,12 +34,18 @@ public class NuclearWaste extends Block{
 	}
 
 	public int quantityDropped(Random random){
-		return random.nextInt(4) + 1;
+		return 0;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
-		this.blockIcon = reg.registerIcon(USM.modid + ":NuclearWaste");
+		side = reg.registerIcon(USM.modid + ":NuclearWaste_side");
+		top = reg.registerIcon(USM.modid + ":NuclearWaste_top");
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side, int metadata){
+		return side == 1 ? this.top : (side == 0 ? this.top : this.side);
 	}
 
 	public boolean isOpaqueCube(){

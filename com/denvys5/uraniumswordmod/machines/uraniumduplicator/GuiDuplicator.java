@@ -34,7 +34,7 @@ public class GuiDuplicator extends GuiContainer {
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		if (this.Duplicator.hasPower()) {
 			int k = this.Duplicator.getPowerRemainingScaled(44);
-			drawTexturedModalRect(guiLeft + 10, guiTop + 53 - k, 176, 74 - k, 11, k + 2);
+			drawTexturedModalRect(guiLeft + 10, guiTop + 52 - k, 176, 74 - k, 11, k + 2);
 		}
 		int k = this.Duplicator.getGrinderProgressScaled(25);
 		drawTexturedModalRect(guiLeft + 79, guiTop + 29, 176, 0, k + 1, 29);

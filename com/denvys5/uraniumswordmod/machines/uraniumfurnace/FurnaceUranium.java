@@ -171,13 +171,7 @@ public class FurnaceUranium extends BlockContainer{
 						float f = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-						while(itemstack.stackSize > 0){
-							int j = this.rand.nextInt(21) + 10;
-							if(j < itemstack.stackSize){
-								j = itemstack.stackSize;
-							}
-							itemstack.stackSize -= j;
-							EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+							EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), itemstack);
 							if(itemstack.hasTagCompound()){
 								item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
 							}
@@ -186,7 +180,6 @@ public class FurnaceUranium extends BlockContainer{
 							item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
 							item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
 							world.spawnEntityInWorld(item);
-						}
 					}
 				}
 				world.func_147453_f(x, y, z, oldBlock);

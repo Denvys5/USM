@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.BlockList;
-import com.denvys5.uraniumswordmod.effects.ArmourIgnoreDamage;
+import com.denvys5.uraniumswordmod.legacy.ArmourIgnoreDamage;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,13 +36,13 @@ public class NuclearWaste extends Block{
 	public int quantityDropped(Random random){
 		return 0;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
+	public void registerIcons(IIconRegister reg){
 		side = reg.registerIcon(USM.modid + ":NuclearWaste_side");
 		top = reg.registerIcon(USM.modid + ":NuclearWaste_top");
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata){
 		return side == 1 ? this.top : (side == 0 ? this.top : this.side);

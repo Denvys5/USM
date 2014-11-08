@@ -9,13 +9,13 @@ import com.denvys5.uraniumswordmod.USM;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BasicMachineCore extends MachineCore {
-	public BasicMachineCore() {
+public class BasicMachineCore extends MachineCore{
+	public BasicMachineCore(){
 		super();
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
+	public void registerBlockIcons(IIconRegister reg){
 		this.blockIcon = reg.registerIcon(USM.modid + ":BasicMachineCore");
 	}
 }

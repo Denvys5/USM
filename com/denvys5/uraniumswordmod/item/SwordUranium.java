@@ -14,14 +14,14 @@ import net.minecraft.util.StatCollector;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class SwordUranium extends ItemSword {
-	public SwordUranium() {
+public class SwordUranium extends ItemSword{
+	public SwordUranium(){
 		super(USM.UraniumSword);
 		this.setCreativeTab(USM.USMTab);
 	}
 
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase) {
-		//par1ItemStack.damageItem(1, par3EntityLivingBase);
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase){
+		// par1ItemStack.damageItem(1, par3EntityLivingBase);
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 0));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 0));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(18, 20, 0));
@@ -31,10 +31,10 @@ public class SwordUranium extends ItemSword {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
+	public void registerIcons(IIconRegister reg){
 		this.itemIcon = reg.registerIcon(USM.modid + ":SwordUranium");
 	}
-    public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
-        l.add(StatCollector.translateToLocal("UraniumSword.tooltip"));
-    }
+	public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
+		l.add(StatCollector.translateToLocal("UraniumSword.tooltip"));
+	}
 }

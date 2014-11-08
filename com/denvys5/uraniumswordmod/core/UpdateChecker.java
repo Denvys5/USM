@@ -12,12 +12,12 @@ public class UpdateChecker{
 	public static boolean isNewUpdate = false;
 	public static String latestVersion;
 	public static void updateCheck(){
-	   	latestVersion = getHTML(updateUrl);
-	   	if(USM.version != latestVersion){
-	   		isNewUpdate = true;
-	   	}else{
-	   		isNewUpdate = false;
-	   	}
+		latestVersion = getHTML(updateUrl);
+		if(USM.version != latestVersion){
+			isNewUpdate = true;
+		} else{
+			isNewUpdate = false;
+		}
 	}
 	public static String getHTML(String urlToRead){
 		StringBuilder sb = new StringBuilder();
@@ -28,19 +28,18 @@ public class UpdateChecker{
 		String result = "";
 		try{
 			url = new URL(urlToRead);
-			conn = (HttpURLConnection) url.openConnection();
+			conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("GET");
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((line = rd.readLine()) != null){
+			while((line = rd.readLine()) != null){
 				result += line;
 				sb.append(line);
 			}
 			rd.close();
-		}
-		catch (Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			result = USM.version;
 		}
 		return result;
-   }
+	}
 }

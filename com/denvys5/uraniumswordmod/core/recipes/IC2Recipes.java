@@ -14,7 +14,7 @@ public class IC2Recipes{
 	private static int PowerPerOreGrind = MachineRecipes.PowerPerOreGrind;
 	private static int PowerPerIngotGrind = MachineRecipes.PowerPerIngotGrind;
 	private static int PowerPerOreDuplicate = MachineRecipes.PowerPerOreDuplicate;
-	
+
 	@Optional.Method(modid = "IC2")
 	public static void PoweredGrinderRecipes(){
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.iron_ore, new ItemStack(IC2Items.getItem("ironDust").getItem(), 2, IC2Items.getItem("ironDust").getItemDamage()), PowerPerOreGrind);
@@ -25,10 +25,10 @@ public class IC2Recipes{
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(Items.gold_ingot, IC2Items.getItem("goldDust"), PowerPerIngotGrind);
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(IC2Items.getItem("uraniumOre"), new ItemStack(IC2Items.getItem("crushedUraniumOre").getItem(), 2, IC2Items.getItem("crushedUraniumOre").getItemDamage()), PowerPerOreGrind);
 	}
-	
+
 	@Optional.Method(modid = "IC2")
 	public static void DuplicatorRecipes(){
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(IC2Items.getItem("uraniumOre"), new ItemStack(IC2Items.getItem("crushedUraniumOre").getItem(), 2, IC2Items.getItem("crushedUraniumOre").getItemDamage()), PowerPerOreGrind);
 	}
-	
+
 }

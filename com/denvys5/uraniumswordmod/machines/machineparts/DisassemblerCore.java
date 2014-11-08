@@ -10,12 +10,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class DisassemblerCore extends MachineCore{
-	public DisassemblerCore() {
+	public DisassemblerCore(){
 		super();
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
+	public void registerBlockIcons(IIconRegister reg){
 		this.blockIcon = reg.registerIcon(USM.modid + ":DisassemblerCore");
 	}
 }

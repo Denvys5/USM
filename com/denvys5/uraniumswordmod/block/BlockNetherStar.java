@@ -13,9 +13,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class BlockNetherStar extends Block {
+public class BlockNetherStar extends Block{
 
-	public BlockNetherStar() {
+	public BlockNetherStar(){
 		super(Material.rock);
 		this.setCreativeTab(USM.USMTab);
 		this.setHardness(3.0F);
@@ -24,7 +24,7 @@ public class BlockNetherStar extends Block {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
+	public void registerBlockIcons(IIconRegister reg){
 		this.blockIcon = reg.registerIcon(USM.modid + ":BlockNetherStar");
 	}
 }

@@ -10,43 +10,43 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidStack;
 
-public class RecipeInputFluidContainer implements IRecipeInput {
-	public RecipeInputFluidContainer(Fluid fluid) {
+public class RecipeInputFluidContainer implements IRecipeInput{
+	public RecipeInputFluidContainer(Fluid fluid){
 		this(fluid, FluidContainerRegistry.BUCKET_VOLUME);
 	}
 
-	public RecipeInputFluidContainer(Fluid fluid, int amount) {
+	public RecipeInputFluidContainer(Fluid fluid, int amount){
 		this.fluid = fluid;
 		this.amount = amount;
 	}
 
 	@Override
-	public boolean matches(ItemStack subject) {
+	public boolean matches(ItemStack subject){
 		FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(subject);
-		if (fs == null) return false;
+		if(fs == null) return false;
 
 		return fs.getFluid() == fluid;
 	}
 
 	@Override
-	public int getAmount() {
+	public int getAmount(){
 		return amount;
 	}
 
 	@Override
-	public List<ItemStack> getInputs() {
+	public List<ItemStack> getInputs(){
 		List<ItemStack> ret = new ArrayList<ItemStack>();
 
-		for (FluidContainerData data : FluidContainerRegistry.getRegisteredFluidContainerData()) {
-			if (data.fluid.getFluid() == fluid) ret.add(data.filledContainer);
+		for(FluidContainerData data : FluidContainerRegistry.getRegisteredFluidContainerData()){
+			if(data.fluid.getFluid() == fluid) ret.add(data.filledContainer);
 		}
 
 		return ret;
 	}
 
 	@Override
-	public String toString() {
-		return "RInputFluidContainer<"+amount+"x"+fluid.getName()+">";
+	public String toString(){
+		return "RInputFluidContainer<" + amount + "x" + fluid.getName() + ">";
 	}
 
 	public final Fluid fluid;

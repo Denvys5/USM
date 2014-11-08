@@ -1,12 +1,11 @@
 package com.denvys5.uraniumswordmod.core;
 
+public class OreRegistration{
 
-public class OreRegistration {
-	
 	public static boolean OreUraniumRegister;
 	public static boolean IngotUraniumRegister;
 	public static boolean IronStickRegister;
-	
+
 	public static void BooleanRegister(){
 		if(OreRegistration.OreUraniumRegister == true){
 			OreUraniumRegister();
@@ -17,7 +16,7 @@ public class OreRegistration {
 		if(OreRegistration.IronStickRegister == true){
 			IronStickRegister();
 		}
-		
+
 	}
 	public static void OreUraniumRegister(){
 		Util.OreBlockRegister(BlockList.oreuranium, "oreUranium");

@@ -11,25 +11,25 @@ import com.denvys5.uraniumswordmod.core.BlockList;
 import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
 
-public class NEIUSMConfig implements IConfigureNEI {
+public class NEIUSMConfig implements IConfigureNEI{
 
-	public void loadConfig() {
+	public void loadConfig(){
 		API.registerRecipeHandler(new FurnaceUraniumRecipeHandler());
 		API.registerUsageHandler(new FurnaceUraniumRecipeHandler());
-		//API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
-		//API.registerUsageHandler(new PoweredGrinderRecipeHandler());
+		// API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
+		// API.registerUsageHandler(new PoweredGrinderRecipeHandler());
 		API.hideItem(new ItemStack(BlockList.furnaceuraniumactive));
 		API.hideItem(new ItemStack(BlockList.PoweredGrinderactive));
 		API.hideItem(new ItemStack(BlockList.duplicatoractive));
-		//API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
-		//API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
+		// API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
+		// API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
 	}
 
-	public String getName() {
+	public String getName(){
 		return USM.name;
 	}
 
-	public String getVersion() {
+	public String getVersion(){
 		return USM.version;
 	}
 

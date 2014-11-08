@@ -15,9 +15,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class BlockInfusedUranium extends Block {
+public class BlockInfusedUranium extends Block{
 
-	public BlockInfusedUranium() {
+	public BlockInfusedUranium(){
 		super(Material.rock);
 		this.setCreativeTab(USM.USMTab);
 		this.setHardness(30.0F);
@@ -26,8 +26,7 @@ public class BlockInfusedUranium extends Block {
 	}
 
 	@Override
-	public void onBlockClicked(World par1World, int par2, int par3, int par4,
-			EntityPlayer par5EntityPlayer) {
+	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer){
 		par5EntityPlayer.addPotionEffect(new PotionEffect(17, 100, 1));
 		par5EntityPlayer.addPotionEffect(new PotionEffect(15, 100, 1));
 		par5EntityPlayer.addPotionEffect(new PotionEffect(18, 100, 1));
@@ -35,18 +34,16 @@ public class BlockInfusedUranium extends Block {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
+	public void registerBlockIcons(IIconRegister reg){
 		this.blockIcon = reg.registerIcon(USM.modid + ":BlockInfusedUranium");
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack par1ItemStack) {
+	public boolean hasEffect(ItemStack par1ItemStack){
 		return true;
 	}
 
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,
-			int par4, Entity par5Entity) {
+	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity){
 		par5Entity.attackEntityFrom(DamageSource.cactus, 5.0F);
 	}
 }
-

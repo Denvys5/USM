@@ -14,11 +14,14 @@ public class UraniumOreGenerator implements IWorldGenerator{
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider){
 		switch(world.provider.dimensionId){
-			case -1 : generateNether(world, random, chunkZ, chunkZ);
+			case -1 :
+				generateNether(world, random, chunkZ, chunkZ);
 				// break;
-			case 0 : generateSurface(world, random, chunkX * 16, chunkZ * 16);
+			case 0 :
+				generateSurface(world, random, chunkX * 16, chunkZ * 16);
 				// break;
-			case 1 : generateEnd(world, random, chunkZ, chunkZ);
+			case 1 :
+				generateEnd(world, random, chunkZ, chunkZ);
 				// break;
 		}
 	}

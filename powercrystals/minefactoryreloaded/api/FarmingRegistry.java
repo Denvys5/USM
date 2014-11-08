@@ -9,35 +9,32 @@ import powercrystals.minefactoryreloaded.api.rednet.IRedNetLogicCircuit;
 /**
  * @author PowerCrystals
  * 
- * Class used to register plants and other farming-related things with MFR. Will do nothing if MFR does not exist, but your mod should be set to load
- * after MFR or things may not work properly.
+ *         Class used to register plants and other farming-related things with
+ *         MFR. Will do nothing if MFR does not exist, but your mod should be
+ *         set to load after MFR or things may not work properly.
  * 
- * To avoid breaking the API, additional FactoryRegistry##s will appear on major MFR versions that contain API additions. On a Minecraft version change, 
- * these will be rolled back into this class.
+ *         To avoid breaking the API, additional FactoryRegistry##s will appear
+ *         on major MFR versions that contain API additions. On a Minecraft
+ *         version change, these will be rolled back into this class.
  * 
- * This class will be replaced by FactoryRegistry in 1.6.
+ *         This class will be replaced by FactoryRegistry in 1.6.
  * 
  */
-public class FarmingRegistry
-{
+public class FarmingRegistry{
 	/**
 	 * Registers a plantable object with the Planter.
 	 * 
-	 * @param plantable The thing to plant.
+	 * @param plantable
+	 *            The thing to plant.
 	 */
-	public static void registerPlantable(IFactoryPlantable plantable)
-	{
-		try
-		{
+	public static void registerPlantable(IFactoryPlantable plantable){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerPlantable", IFactoryPlantable.class);
 				reg.invoke(registry, plantable);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -45,21 +42,17 @@ public class FarmingRegistry
 	/**
 	 * Registers a harvestable block with the Harvester.
 	 * 
-	 * @param harvestable The thing to harvest.
+	 * @param harvestable
+	 *            The thing to harvest.
 	 */
-	public static void registerHarvestable(IFactoryHarvestable harvestable)
-	{
-		try
-		{
+	public static void registerHarvestable(IFactoryHarvestable harvestable){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerHarvestable", IFactoryHarvestable.class);
 				reg.invoke(registry, harvestable);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -67,21 +60,17 @@ public class FarmingRegistry
 	/**
 	 * Registers a fertilizable block with the Fertilizer.
 	 * 
-	 * @param fertilizable The thing to fertilize.
+	 * @param fertilizable
+	 *            The thing to fertilize.
 	 */
-	public static void registerFertilizable(IFactoryFertilizable fertilizable)
-	{
-		try
-		{
+	public static void registerFertilizable(IFactoryFertilizable fertilizable){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerFertilizable", IFactoryFertilizable.class);
 				reg.invoke(registry, fertilizable);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -89,21 +78,17 @@ public class FarmingRegistry
 	/**
 	 * Registers a fertilizer item Fertilizer.
 	 * 
-	 * @param fertilizable The thing to fertilize with.
+	 * @param fertilizable
+	 *            The thing to fertilize with.
 	 */
-	public static void registerFertilizer(IFactoryFertilizer fertilizer)
-	{
-		try
-		{
+	public static void registerFertilizer(IFactoryFertilizer fertilizer){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerFertilizer", IFactoryFertilizer.class);
 				reg.invoke(registry, fertilizer);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -111,21 +96,17 @@ public class FarmingRegistry
 	/**
 	 * Registers a ranchable entity with the Rancher.
 	 * 
-	 * @param ranchable The entity to ranch.
+	 * @param ranchable
+	 *            The entity to ranch.
 	 */
-	public static void registerRanchable(IFactoryRanchable ranchable)
-	{
-		try
-		{
+	public static void registerRanchable(IFactoryRanchable ranchable){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerRanchable", IFactoryRanchable.class);
 				reg.invoke(registry, ranchable);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -133,45 +114,40 @@ public class FarmingRegistry
 	/**
 	 * Registers a possible output with the sludge boiler.
 	 * 
-	 * @param weight Likelihood that this item will be produced. Lower means rarer.
-	 * @param drop The thing being produced by the sludge boiler.
+	 * @param weight
+	 *            Likelihood that this item will be produced. Lower means rarer.
+	 * @param drop
+	 *            The thing being produced by the sludge boiler.
 	 */
-	public static void registerSludgeDrop(int weight, ItemStack drop)
-	{
-		try
-		{
+	public static void registerSludgeDrop(int weight, ItemStack drop){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerSludgeDrop", int.class, ItemStack.class);
 				reg.invoke(registry, weight, drop);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Registers specific food to use in the Breeder (instead of wheat) for a given mob.
+	 * Registers specific food to use in the Breeder (instead of wheat) for a
+	 * given mob.
 	 * 
-	 * @param entityToBreed Entity this food will be used with.
-	 * @param food The item to use when breeding this entity.
+	 * @param entityToBreed
+	 *            Entity this food will be used with.
+	 * @param food
+	 *            The item to use when breeding this entity.
 	 */
-	public static void registerBreederFood(Class<?> entityToBreed, ItemStack food)
-	{
-		try
-		{
+	public static void registerBreederFood(Class<?> entityToBreed, ItemStack food){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerBreederFood", Class.class, ItemStack.class);
 				reg.invoke(registry, entityToBreed, food);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -179,21 +155,17 @@ public class FarmingRegistry
 	/**
 	 * Registers a Safari Net handler to properly serialize a type of mob.
 	 * 
-	 * @param handler The Safari Net handler.
+	 * @param handler
+	 *            The Safari Net handler.
 	 */
-	public static void registerSafariNetHandler(ISafariNetHandler handler)
-	{
-		try
-		{
+	public static void registerSafariNetHandler(ISafariNetHandler handler){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerSafariNetHandler", ISafariNetHandler.class);
 				reg.invoke(registry, handler);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -201,21 +173,17 @@ public class FarmingRegistry
 	/**
 	 * Allows Rubber Trees to spawn in the specified biome.
 	 * 
-	 * @param biome The biome name.
+	 * @param biome
+	 *            The biome name.
 	 */
-	public static void registerRubberTreeBiome(String biome)
-	{
-		try
-		{
+	public static void registerRubberTreeBiome(String biome){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerRubberTreeBiome", String.class);
 				reg.invoke(registry, biome);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -223,21 +191,17 @@ public class FarmingRegistry
 	/**
 	 * Bans an entity class from being collected by Safari Nets
 	 * 
-	 * @param blacklistedEntity Class to blacklist
+	 * @param blacklistedEntity
+	 *            Class to blacklist
 	 */
-	public static void registerSafariNetBlacklist(Class<?> blacklistedEntity)
-	{
-		try
-		{
+	public static void registerSafariNetBlacklist(Class<?> blacklistedEntity){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerSafariNetBlacklist", Class.class);
 				reg.invoke(registry, blacklistedEntity);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -245,44 +209,35 @@ public class FarmingRegistry
 	/**
 	 * Bans an entity class from being automatically ground by the Grinder
 	 * 
-	 * @param blacklistedEntity Class to blacklist
+	 * @param blacklistedEntity
+	 *            Class to blacklist
 	 */
-	/*public static void registerGrinderBlacklist(Class<?> blacklistedEntity)
-	{
-		try
-		{
-			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
-				Method reg = registry.getMethod("registerGrinderBlacklist", Class.class);
-				reg.invoke(registry, blacklistedEntity);
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}//*/
+	/*
+	 * public static void registerGrinderBlacklist(Class<?> blacklistedEntity) {
+	 * try { Class<?> registry =
+	 * Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
+	 * if(registry != null) { Method reg =
+	 * registry.getMethod("registerGrinderBlacklist", Class.class);
+	 * reg.invoke(registry, blacklistedEntity); } } catch(Exception e) {
+	 * e.printStackTrace(); } }//
+	 */
 
 	/**
 	 * Registers a handler for drinking liquids with the straw.
 	 * 
-	 * @param liquidId The block ID the handler handles.
-	 * @param liquidDrinkHandler The drink handler instance.
+	 * @param liquidId
+	 *            The block ID the handler handles.
+	 * @param liquidDrinkHandler
+	 *            The drink handler instance.
 	 */
-	public static void registerLiquidDrinkHandler(int liquidId, ILiquidDrinkHandler liquidDrinkHandler)
-	{
-		try
-		{
+	public static void registerLiquidDrinkHandler(int liquidId, ILiquidDrinkHandler liquidDrinkHandler){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerLiquidDrinkHandler", int.class, ILiquidDrinkHandler.class);
 				reg.invoke(registry, liquidId, liquidDrinkHandler);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -290,74 +245,69 @@ public class FarmingRegistry
 	/**
 	 * Registers a possible output with the laser drill.
 	 * 
-	 * @param weight Likelihood that this item will be produced. Lower means rarer.
-	 * @param drop The thing being produced by the laser drill.
+	 * @param weight
+	 *            Likelihood that this item will be produced. Lower means rarer.
+	 * @param drop
+	 *            The thing being produced by the laser drill.
 	 */
-	public static void registerLaserOre(int weight, ItemStack drop)
-	{
-		try
-		{
+	public static void registerLaserOre(int weight, ItemStack drop){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerLaserOre", int.class, ItemStack.class);
 				reg.invoke(registry, weight, drop);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Registers a preferred ore with the laser drill. Focuses with the specified color will make the specified ore more likely.
-	 * Note that this will overwrite existing ore preferences - you may want to coordinate with PC before using this one.
-	 * Used by MFR itself for vanilla: Black (Coal), Light Blue (Diamond), Lime (Emerald), Yellow (Gold), Brown (Iron), Blue (Lapis),
-	 * Red (Redstone), and White (nether quartz).
+	 * Registers a preferred ore with the laser drill. Focuses with the
+	 * specified color will make the specified ore more likely. Note that this
+	 * will overwrite existing ore preferences - you may want to coordinate with
+	 * PC before using this one. Used by MFR itself for vanilla: Black (Coal),
+	 * Light Blue (Diamond), Lime (Emerald), Yellow (Gold), Brown (Iron), Blue
+	 * (Lapis), Red (Redstone), and White (nether quartz).
 	 * 
-	 * In 2.7 this will be replaced by addLaserPreferredOre, because it'll no longer overwrite existing ore preferences.
+	 * In 2.7 this will be replaced by addLaserPreferredOre, because it'll no
+	 * longer overwrite existing ore preferences.
 	 * 
-	 * @param color The color that the preferred ore is being set for. White is 0.
-	 * @param ore The ore that will be preferred by the drill when a focus with the specified color is present.
+	 * @param color
+	 *            The color that the preferred ore is being set for. White is 0.
+	 * @param ore
+	 *            The ore that will be preferred by the drill when a focus with
+	 *            the specified color is present.
 	 */
 	@Deprecated
-	public static void setLaserPreferredOre(int color, ItemStack ore)
-	{
-		try
-		{
+	public static void setLaserPreferredOre(int color, ItemStack ore){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("setLaserPreferredOre", int.class, ItemStack.class);
 				reg.invoke(registry, color, ore);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Registers a block ID as a fruit tree log. When the Fruit Picker sees this block on the ground, it will
-	 * begin a search in tree mode for any fruit nearby.
+	 * Registers a block ID as a fruit tree log. When the Fruit Picker sees this
+	 * block on the ground, it will begin a search in tree mode for any fruit
+	 * nearby.
 	 * 
-	 * @param fruitLogBlockId The block ID to mark as a fruit tree log.
+	 * @param fruitLogBlockId
+	 *            The block ID to mark as a fruit tree log.
 	 */
-	public static void registerFruitLogBlockId(Integer fruitLogBlockId)
-	{
-		try
-		{
+	public static void registerFruitLogBlockId(Integer fruitLogBlockId){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerFruitLogBlockId", Integer.class);
 				reg.invoke(registry, fruitLogBlockId);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -365,66 +315,56 @@ public class FarmingRegistry
 	/**
 	 * Registers a fruit for the Fruit Picker.
 	 * 
-	 * @param fruit The fruit to be picked.
+	 * @param fruit
+	 *            The fruit to be picked.
 	 */
-	public static void registerFruit(IFactoryFruit fruit)
-	{
-		try
-		{
+	public static void registerFruit(IFactoryFruit fruit){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerFruit", IFactoryFruit.class);
 				reg.invoke(registry, fruit);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Registers an entity string as an invalid entry for the autospawner.
-	 * See also: {@link net.minecraft.entity.EntityList}'s classToStringMapping and stringToClassMapping.
+	 * Registers an entity string as an invalid entry for the autospawner. See
+	 * also: {@link net.minecraft.entity.EntityList}'s classToStringMapping and
+	 * stringToClassMapping.
 	 * 
-	 * @param entityString The entity string to blacklist.
+	 * @param entityString
+	 *            The entity string to blacklist.
 	 */
-	public static void registerAutoSpawnerBlacklist(String entityString)
-	{
-		try
-		{
+	public static void registerAutoSpawnerBlacklist(String entityString){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerAutoSpawnerBlacklist", String.class);
 				reg.invoke(registry, entityString);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Registers logic circuit to be usable in the Programmable RedNet Controller.
+	 * Registers logic circuit to be usable in the Programmable RedNet
+	 * Controller.
 	 * 
-	 * @param circuit The circuit to be registered.
+	 * @param circuit
+	 *            The circuit to be registered.
 	 */
-	public static void registerRedNetLogicCircuit(IRedNetLogicCircuit circuit)
-	{
-		try
-		{
+	public static void registerRedNetLogicCircuit(IRedNetLogicCircuit circuit){
+		try{
 			Class<?> registry = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry");
-			if(registry != null)
-			{
+			if(registry != null){
 				Method reg = registry.getMethod("registerRedNetLogicCircuit", IRedNetLogicCircuit.class);
 				reg.invoke(registry, circuit);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}

@@ -4,14 +4,16 @@ import java.util.Map;
 
 import net.minecraftforge.fluids.Fluid;
 
-
-public interface ISemiFluidFuelManager extends ILiquidAcceptManager {
+public interface ISemiFluidFuelManager extends ILiquidAcceptManager{
 	/**
 	 * Add a new fluid to the semi fluid generator.
 	 * 
-	 * @param fluidName the fluid to burn
-	 * @param amount amount of fluid to consume per tick
-	 * @param power amount of energy generated per tick
+	 * @param fluidName
+	 *            the fluid to burn
+	 * @param amount
+	 *            amount of fluid to consume per tick
+	 * @param power
+	 *            amount of energy generated per tick
 	 */
 	void addFluid(String fluidName, int amount, double power);
 
@@ -19,9 +21,8 @@ public interface ISemiFluidFuelManager extends ILiquidAcceptManager {
 
 	Map<String, BurnProperty> getBurnProperties();
 
-
-	public static class BurnProperty {
-		public BurnProperty(int amount1, double power1) {
+	public static class BurnProperty{
+		public BurnProperty(int amount1, double power1){
 			this.amount = amount1;
 			this.power = power1;
 		}

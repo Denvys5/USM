@@ -18,13 +18,13 @@ public class RenderNukePrimed extends Render{
 		this.shadowSize = 0.5F;
 	}
 
-	public void doRender(EntityNukePrimed entityNuclearBombPrimed, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_){
+	public void doRender(EntityNukePrimed entityNukePrimed, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_){
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
 		float var10;
 
-		if((float)entityNuclearBombPrimed.fuse - p_76986_9_ + 1.0F < 10.0F){
-			var10 = 1.0F - ((float)entityNuclearBombPrimed.fuse - p_76986_9_ + 1.0F) / 10.0F;
+		if((float)entityNukePrimed.fuse - p_76986_9_ + 1.0F < 10.0F){
+			var10 = 1.0F - ((float)entityNukePrimed.fuse - p_76986_9_ + 1.0F) / 10.0F;
 
 			if(var10 < 0.0F){
 				var10 = 0.0F;
@@ -40,11 +40,11 @@ public class RenderNukePrimed extends Render{
 			GL11.glScalef(var11, var11, var11);
 		}
 
-		var10 = (1.0F - ((float)entityNuclearBombPrimed.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
-		this.bindEntityTexture(entityNuclearBombPrimed);
-		this.blockRenderer.renderBlockAsItem(BlockList.Nuke, 0, entityNuclearBombPrimed.getBrightness(p_76986_9_));
+		var10 = (1.0F - ((float)entityNukePrimed.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
+		this.bindEntityTexture(entityNukePrimed);
+		this.blockRenderer.renderBlockAsItem(BlockList.Nuke, 0, entityNukePrimed.getBrightness(p_76986_9_));
 
-		if(entityNuclearBombPrimed.fuse / 5 % 2 == 0){
+		if(entityNukePrimed.fuse / 5 % 2 == 0){
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_BLEND);
@@ -68,7 +68,7 @@ public class RenderNukePrimed extends Render{
 		return this.getEntityTexture((EntityNukePrimed)entity);
 	}
 
-	public void doRender(Entity entityNuclearBombPrimed, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_){
-		this.doRender((EntityNukePrimed)entityNuclearBombPrimed, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+	public void doRender(Entity entityNukePrimed, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_){
+		this.doRender((EntityNukePrimed)entityNukePrimed, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
 	}
 }

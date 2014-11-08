@@ -43,7 +43,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 		setMaxDamage(1000);
 		this.setCreativeTab(USM.USMTab);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister){
 		this.itemIcon = iconRegister.registerIcon(USM.modid + ":UraniumHelmet");

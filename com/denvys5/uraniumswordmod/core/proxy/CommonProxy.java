@@ -1,8 +1,10 @@
 package com.denvys5.uraniumswordmod.core.proxy;
 
-public class CommonProxy {
-	public void registerProxy() {
+import com.denvys5.uraniumswordmod.core.RightsForUsingMod;
 
+public class CommonProxy{
+	public void registerProxy(){
+		//RightsForUsingMod.hasRights();
 	}
 
 }

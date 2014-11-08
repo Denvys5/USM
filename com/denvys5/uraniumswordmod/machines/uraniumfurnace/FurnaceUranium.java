@@ -171,15 +171,15 @@ public class FurnaceUranium extends BlockContainer{
 						float f = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-							EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), itemstack);
-							if(itemstack.hasTagCompound()){
-								item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-							}
-							float f3 = 0.05F;
-							item.motionX = (double)((float)this.rand.nextGaussian() * f3);
-							item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-							item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
-							world.spawnEntityInWorld(item);
+						EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), itemstack);
+						if(itemstack.hasTagCompound()){
+							item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+						}
+						float f3 = 0.05F;
+						item.motionX = (double)((float)this.rand.nextGaussian() * f3);
+						item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
+						item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
+						world.spawnEntityInWorld(item);
 					}
 				}
 				world.func_147453_f(x, y, z, oldBlock);

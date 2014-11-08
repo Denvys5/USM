@@ -4,11 +4,12 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
-public interface IRecipeInput {
+public interface IRecipeInput{
 	/**
 	 * Check if subject matches this recipe input, ignoring the amount.
 	 * 
-	 * @param subject ItemStack to check
+	 * @param subject
+	 *            ItemStack to check
 	 * @return true if it matches the requirement
 	 */
 	boolean matches(ItemStack subject);

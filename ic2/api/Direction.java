@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * Represents the 6 possible directions along the axis of a block.
  */
-public enum Direction {
+public enum Direction{
 	/**
 	 * -X
 	 */
@@ -21,7 +21,7 @@ public enum Direction {
 	/**
 	 * -Y
 	 */
-	YN, //MC-Code starts with 0 here
+	YN, // MC-Code starts with 0 here
 	/**
 	 * +Y
 	 */
@@ -36,45 +36,50 @@ public enum Direction {
 	 */
 	ZP;
 
-	public static Direction fromSideValue(int side) {
+	public static Direction fromSideValue(int side){
 		return directions[(side + 2) % 6];
 	}
 
-	public static Direction fromForgeDirection(ForgeDirection dir) {
-		if (dir == ForgeDirection.UNKNOWN) return null;
+	public static Direction fromForgeDirection(ForgeDirection dir){
+		if(dir == ForgeDirection.UNKNOWN) return null;
 
 		return fromSideValue(dir.ordinal());
 	}
 
 	/**
 	 * Get the tile entity next to a tile entity following this direction.
-	 *
-	 * @param tileEntity tile entity to check
+	 * 
+	 * @param tileEntity
+	 *            tile entity to check
 	 * @return Adjacent tile entity or null if none exists
 	 */
-	public TileEntity applyToTileEntity(TileEntity te) {
+	public TileEntity applyToTileEntity(TileEntity te){
 		return applyTo(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
 	}
 
 	/**
 	 * Get the tile entity next to a position following this direction.
-	 *
-	 * @param world World to check
-	 * @param x X coordinate to check from
-	 * @param y Y coordinate to check from
-	 * @param z Z coordinate to check from
+	 * 
+	 * @param world
+	 *            World to check
+	 * @param x
+	 *            X coordinate to check from
+	 * @param y
+	 *            Y coordinate to check from
+	 * @param z
+	 *            Z coordinate to check from
 	 * @return Adjacent tile entity or null if none exists
 	 */
-	public TileEntity applyTo(World world, int x, int y, int z) {
-		int coords[] = { x, y, z };
+	public TileEntity applyTo(World world, int x, int y, int z){
+		int coords[] = {x, y, z};
 
 		coords[ordinal() / 2] += getSign();
 
-		if (world != null && world.blockExists(coords[0], coords[1], coords[2])) {
-			try {
+		if(world != null && world.blockExists(coords[0], coords[1], coords[2])){
+			try{
 				return world.getTileEntity(coords[0], coords[1], coords[2]);
-			} catch (Exception e) {
-				throw new RuntimeException("error getting TileEntity at dim "+world.provider.dimensionId+" "+coords[0]+"/"+coords[1]+"/"+coords[2]);
+			} catch(Exception e){
+				throw new RuntimeException("error getting TileEntity at dim " + world.provider.dimensionId + " " + coords[0] + "/" + coords[1] + "/" + coords[2]);
 			}
 		}
 
@@ -86,7 +91,7 @@ public enum Direction {
 	 * 
 	 * @return Inverse direction
 	 */
-	public Direction getInverse() {
+	public Direction getInverse(){
 		return directions[ordinal() ^ 1];
 	}
 
@@ -95,23 +100,22 @@ public enum Direction {
 	 * 
 	 * @return Minecraft side value
 	 */
-	public int toSideValue() {
+	public int toSideValue(){
 		return (ordinal() + 4) % 6;
 	}
 
 	/**
 	 * Determine direction sign (N for negative or P for positive).
-	 *
+	 * 
 	 * @return -1 if the direction is negative, +1 if the direction is positive
 	 */
-	private int getSign() {
+	private int getSign(){
 		return (ordinal() % 2) * 2 - 1;
 	}
 
-	public ForgeDirection toForgeDirection() {
+	public ForgeDirection toForgeDirection(){
 		return ForgeDirection.getOrientation(toSideValue());
 	}
 
 	public static final Direction[] directions = Direction.values();
 }
-

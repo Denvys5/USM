@@ -7,15 +7,15 @@ import net.minecraft.item.Item;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class StickIron extends Item {
-	public StickIron() {
+public class StickIron extends Item{
+	public StickIron(){
 		super();
 		this.setCreativeTab(USM.USMTab);
 
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
+	public void registerIcons(IIconRegister reg){
 		this.itemIcon = reg.registerIcon(USM.modid + ":StickIron");
 	}
 }

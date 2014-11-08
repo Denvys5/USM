@@ -10,15 +10,13 @@ import net.minecraft.potion.PotionEffect;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class UraniumOnStick extends Item {
-	public UraniumOnStick() {
+public class UraniumOnStick extends Item{
+	public UraniumOnStick(){
 		super();
 		this.setCreativeTab(USM.USMTab);
 	}
 
-	public boolean hitEntity(ItemStack par1ItemStack,
-			EntityLivingBase par2EntityLivingBase,
-			EntityLivingBase par3EntityLivingBase) {
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase){
 		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(17, 600, 1));
 		par2EntityLivingBase.addPotionEffect(new PotionEffect(15, 600, 1));
@@ -28,7 +26,7 @@ public class UraniumOnStick extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
+	public void registerIcons(IIconRegister reg){
 		this.itemIcon = reg.registerIcon(USM.modid + ":UraniumOnStick");
 	}
 }

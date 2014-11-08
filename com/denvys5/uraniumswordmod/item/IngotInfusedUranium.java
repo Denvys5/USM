@@ -10,16 +10,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class IngotInfusedUranium extends Item {
-	public IngotInfusedUranium() {
+public class IngotInfusedUranium extends Item{
+	public IngotInfusedUranium(){
 		super();
 		this.setCreativeTab(USM.USMTab);
 
 	}
 
-	public boolean hitEntity(ItemStack par1ItemStack,
-			EntityLivingBase par2EntityLivingBase,
-			EntityLivingBase par3EntityLivingBase)
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
 
 	{
 		par3EntityLivingBase.addPotionEffect(new PotionEffect(5, 200, 1));
@@ -31,12 +29,12 @@ public class IngotInfusedUranium extends Item {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack par1ItemStack) {
+	public boolean hasEffect(ItemStack par1ItemStack){
 		return true;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg) {
+	public void registerIcons(IIconRegister reg){
 		this.itemIcon = reg.registerIcon(USM.modid + ":IngotUranium");
 	}
 }

@@ -2,7 +2,7 @@ package ic2.api.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 
-public interface IKeyboard {
+public interface IKeyboard{
 	boolean isAltKeyDown(EntityPlayer player);
 	boolean isBoostKeyDown(EntityPlayer player);
 	boolean isForwardKeyDown(EntityPlayer player);

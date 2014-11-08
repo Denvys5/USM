@@ -15,15 +15,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class WindmillBlock extends BlockContainer{
-	public WindmillBlock() {
+	public WindmillBlock(){
 		super(Material.rock);
 		this.setHardness(3.0F);
 	}
-	
+
 	public int getRenderType(){
 		return -1;
 	}
-	
+
 	public boolean isOpaqueCube(){
 		return false;
 	}
@@ -31,11 +31,11 @@ public class WindmillBlock extends BlockContainer{
 	public boolean renderAsNormalBlock(){
 		return false;
 	}
-	
-	public TileEntity createNewTileEntity(World world, int i) {
+
+	public TileEntity createNewTileEntity(World world, int i){
 		return new TileEntityWindmill();
 	}
-	
+
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_){
 		return BlockList.WindmillItem;
 	}

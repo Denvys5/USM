@@ -2,7 +2,7 @@ package com.denvys5.uraniumswordmod.legacy;
 
 import net.minecraft.item.ItemStack;
 
-public class PoweredGrinderRecipe {
+public class PoweredGrinderRecipe{
 	public ItemStack Ingredient;
 	public ItemStack Result;
 	public int RequiredPower;

@@ -1,5 +1,8 @@
 package com.denvys5.uraniumswordmod.core;
 
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.item.USMItems;
+
 public class OreRegistration{
 
 	public static boolean OreUraniumRegister;
@@ -19,14 +22,14 @@ public class OreRegistration{
 
 	}
 	public static void OreUraniumRegister(){
-		Util.OreBlockRegister(BlockList.oreuranium, "oreUranium");
+		Util.OreBlockRegister(USMBlocks.oreuranium, "oreUranium");
 	}
 	public static void IngotUraniumRegister(){
-		Util.OreItemRegister(BlockList.ingoturanium, "ingotUranium");
+		Util.OreItemRegister(USMItems.ingoturanium, "ingotUranium");
 	}
 	public static void IronStickRegister(){
-		Util.OreItemRegister(BlockList.stickiron, "stickIron");
-		Util.OreItemRegister(BlockList.stickiron, "ironStick");
-		Util.OreItemRegister(BlockList.stickiron, "ironRod");
+		Util.OreItemRegister(USMItems.stickiron, "stickIron");
+		Util.OreItemRegister(USMItems.stickiron, "ironStick");
+		Util.OreItemRegister(USMItems.stickiron, "ironRod");
 	}
 }

@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.machines.poweredgrinder;
 
+import com.denvys5.uraniumswordmod.machines.SlotMachine;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +23,7 @@ public class ContainerPoweredGrinder extends Container{
 		// Положение слотов
 		this.addSlotToContainer(new Slot(tileentity, 0, 56, 35));
 		this.addSlotToContainer(new Slot(tileentity, 1, 8, 56));
-		this.addSlotToContainer(new SlotPoweredGrinder(inventory.player, tileentity, 2, 116, 35));
+		this.addSlotToContainer(new SlotMachine(inventory.player, tileentity, 2, 116, 35));
 		// Карманы игрока
 		for(int i = 0; i < 9; i++){
 			this.addSlotToContainer(new Slot(inventory, i + 9, 8 + i * 18, 84));

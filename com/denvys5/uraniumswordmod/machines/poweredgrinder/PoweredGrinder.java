@@ -25,7 +25,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 public class PoweredGrinder extends BlockContainer{
 
@@ -59,7 +60,7 @@ public class PoweredGrinder extends BlockContainer{
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3){
-		return Item.getItemFromBlock(BlockList.PoweredGrinderidle);
+		return Item.getItemFromBlock(USMTiles.PoweredGrinderidle);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z){
@@ -126,9 +127,9 @@ public class PoweredGrinder extends BlockContainer{
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord, zCoord);
 		keepInventory = true;
 		if(active){
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.PoweredGrinderactive);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.PoweredGrinderactive);
 		} else{
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.PoweredGrinderidle);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.PoweredGrinderidle);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -174,6 +175,6 @@ public class PoweredGrinder extends BlockContainer{
 	}
 
 	public Item getItem(World world, int x, int y, int z){
-		return Item.getItemFromBlock(BlockList.PoweredGrinderidle);
+		return Item.getItemFromBlock(USMTiles.PoweredGrinderidle);
 	}
 }

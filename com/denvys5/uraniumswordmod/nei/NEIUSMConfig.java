@@ -7,7 +7,8 @@ import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.recipe.IUsageHandler;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
 
@@ -18,9 +19,9 @@ public class NEIUSMConfig implements IConfigureNEI{
 		API.registerUsageHandler(new FurnaceUraniumRecipeHandler());
 		// API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
 		// API.registerUsageHandler(new PoweredGrinderRecipeHandler());
-		API.hideItem(new ItemStack(BlockList.furnaceuraniumactive));
-		API.hideItem(new ItemStack(BlockList.PoweredGrinderactive));
-		API.hideItem(new ItemStack(BlockList.duplicatoractive));
+		API.hideItem(new ItemStack(USMTiles.furnaceuraniumactive));
+		API.hideItem(new ItemStack(USMTiles.PoweredGrinderactive));
+		API.hideItem(new ItemStack(USMTiles.duplicatoractive));
 		// API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
 		// API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
 	}

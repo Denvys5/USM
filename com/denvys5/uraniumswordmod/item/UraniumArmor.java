@@ -22,8 +22,9 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.core.Config;
+import com.denvys5.uraniumswordmod.core.Util;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -55,19 +56,19 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int par1){
-		if(this == BlockList.UraniumHelmet){
+		if(this == USMItems.UraniumHelmet){
 			return this.helmetIcon;
 		}
 
-		if(this == BlockList.UraniumChest){
+		if(this == USMItems.UraniumChest){
 			return this.plateIcon;
 		}
 
-		if(this == BlockList.UraniumLeggins){
+		if(this == USMItems.UraniumLeggins){
 			return this.leggingsIcon;
 		}
 
-		if(this == BlockList.UraniumBoots){
+		if(this == USMItems.UraniumBoots){
 			return this.bootsIcon;
 		}
 
@@ -92,7 +93,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 			return new ArmorProperties(-1, 0, 0);
 		}
 
-		if(helmet.getItem() == BlockList.UraniumHelmet || plate.getItem() == BlockList.UraniumChest || leggings.getItem() == BlockList.UraniumLeggins || boots.getItem() == BlockList.UraniumBoots){
+		if(helmet.getItem() == USMItems.UraniumHelmet || plate.getItem() == USMItems.UraniumChest || leggings.getItem() == USMItems.UraniumLeggins || boots.getItem() == USMItems.UraniumBoots){
 			if(source.isUnblockable()){
 				return new ArmorProperties(-1, 3, 3);
 			}
@@ -108,9 +109,9 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 	}
 
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String type){
-		if(itemstack.getItem() == BlockList.UraniumHelmet || itemstack.getItem() == BlockList.UraniumChest || itemstack.getItem() == BlockList.UraniumBoots){
+		if(itemstack.getItem() == USMItems.UraniumHelmet || itemstack.getItem() == USMItems.UraniumChest || itemstack.getItem() == USMItems.UraniumBoots){
 			return USM.modid + ":models/armor/UraniumArmor_layer_1.png";
-		} else if(itemstack.getItem() == BlockList.UraniumLeggins){
+		} else if(itemstack.getItem() == USMItems.UraniumLeggins){
 			return USM.modid + ":models/armor/UraniumArmor_layer_2.png";
 		} else{
 			return null;
@@ -124,19 +125,19 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot){
-		if(this == BlockList.UraniumHelmet){
+		if(this == USMItems.UraniumHelmet){
 			return 3;
 		}
 
-		if(this == BlockList.UraniumChest){
+		if(this == USMItems.UraniumChest){
 			return 8;
 		}
 
-		if(this == BlockList.UraniumLeggins){
+		if(this == USMItems.UraniumLeggins){
 			return 6;
 		}
 
-		if(this == BlockList.UraniumBoots){
+		if(this == USMItems.UraniumBoots){
 			return 3;
 		}
 
@@ -144,7 +145,8 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 	}
 
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
-		if(!(player.getTotalArmorValue() < 10)){
+		//if(!(player.getTotalArmorValue() < 10)){
+		if(Util.isFullArmorSetEquiped(player)){
 			if(Config.FullCheatyArmor == true){
 				player.capabilities.disableDamage = true;
 			} else{

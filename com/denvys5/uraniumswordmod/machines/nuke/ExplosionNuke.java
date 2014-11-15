@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,7 +31,7 @@ public class ExplosionNuke extends Explosion{
 	public boolean spawnNuclearWaste;
 
 	public boolean destroyBlocks = true;
-	private int field_77289_h = 16;
+	private int field_77289_h = 64;
 	private Random explosionRNG = new Random();
 	private World worldObj;
 	public double explosionX;
@@ -190,7 +190,7 @@ public class ExplosionNuke extends Explosion{
 				var7 = this.worldObj.getBlock(var4, var5, var6);
 				Block var24 = this.worldObj.getBlock(var4, var5 - 1, var6);
 				if(var7.getMaterial() == Material.air && var24.func_149730_j() && this.explosionRNG.nextInt(24) == 0){
-					this.worldObj.setBlock(var4, var5, var6, BlockList.NuclearWaste);
+					this.worldObj.setBlock(var4, var5, var6, USMBlocks.NuclearWaste);
 				}
 			}
 		}

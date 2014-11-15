@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.tools.IToolWrench;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,7 +30,6 @@ public class UraniumWrench extends Item implements IToolWrench{
 	private int USMTilesMetaVar;
 	public static Set<String> blocksFromOtherMods = new HashSet();
 	public static Set<String> USMBlocks = new HashSet();
-	public static Set<String> USMBlocksActive = new HashSet();
 
 	public UraniumWrench(){
 		super();
@@ -56,10 +55,9 @@ public class UraniumWrench extends Item implements IToolWrench{
 		USMBlocks.add("uraniumswordmod:furnaceuraniumidle");
 		USMBlocks.add("uraniumswordmod:PoweredGrinderidle");
 		USMBlocks.add("uraniumswordmod:duplicatoridle");
-
-		USMBlocksActive.add("uraniumswordmod:duplicatoractive");
-		USMBlocksActive.add("uraniumswordmod:PoweredGrinderactive");
-		USMBlocksActive.add("uraniumswordmod:furnaceuraniumactive");
+		USMBlocks.add("uraniumswordmod:duplicatoractive");
+		USMBlocks.add("uraniumswordmod:PoweredGrinderactive");
+		USMBlocks.add("uraniumswordmod:furnaceuraniumactive");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -155,16 +153,6 @@ public class UraniumWrench extends Item implements IToolWrench{
 					return true;
 				}
 
-			for(String str : USMBlocksActive)
-				if(TargetBlock == Block.getBlockFromName(str) && (USMBlocksActive.contains(str))){
-					if(Meta == 2) USMTilesMetaVar = 5;
-					if(Meta == 5) USMTilesMetaVar = 3;
-					if(Meta == 3) USMTilesMetaVar = 4;
-					if(Meta == 4) USMTilesMetaVar = 2;
-					par3World.setBlockMetadataWithNotify(X, Y, Z, USMTilesMetaVar, 3);
-					return true;
-				}
-
 				// interaction with other mods
 				// place for advertising
 				// end of interaction
@@ -201,16 +189,18 @@ public class UraniumWrench extends Item implements IToolWrench{
 
 				for(String str : USMBlocks)
 					if(par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (USMBlocks.contains(str))){
-						EntityItem blockDropped = new EntityItem(par3World, X + 0.5, Y + 0.5, Z + 0.5, is);
-						par3World.setBlockToAir(X, Y, Z);
-						par3World.spawnEntityInWorld(blockDropped);
-						return true;
-					}
-				for(String str : USMBlocksActive)
-					if(par3World.isRemote == false && (TargetBlock == Block.getBlockFromName(str)) && (USMBlocksActive.contains(str))){
-						EntityItem blockDropped = new EntityItem(par3World, X + 0.5, Y + 0.5, Z + 0.5, is);
-						par3World.setBlockToAir(X, Y, Z);
-						par3World.spawnEntityInWorld(blockDropped);
+						String string = str;
+						if(string.endsWith("active")){
+							String string1 = string.replaceFirst("active", "idle");
+							ItemStack itemstack = new ItemStack(Block.getBlockFromName(string1), 1, Meta);
+							EntityItem blockDropped = new EntityItem(par3World, X + 0.5, Y + 0.5, Z + 0.5, itemstack);
+							par3World.setBlockToAir(X, Y, Z);
+							par3World.spawnEntityInWorld(blockDropped);
+						}else{
+							EntityItem blockDropped = new EntityItem(par3World, X + 0.5, Y + 0.5, Z + 0.5, is);
+							par3World.setBlockToAir(X, Y, Z);
+							par3World.spawnEntityInWorld(blockDropped);
+						}
 						return true;
 					}
 

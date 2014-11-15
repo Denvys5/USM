@@ -1,30 +1,72 @@
-package com.denvys5.uraniumswordmod.core;
+package com.denvys5.uraniumswordmod.machines;
 
-import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyStorage;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import cofh.api.energy.IEnergyStorage;
+
+import com.denvys5.uraniumswordmod.item.USMItems;
 
 public abstract class TileEntityCore extends TileEntity implements ISidedInventory, IEnergyStorage{
 
-	protected String localizedName;
-	// Доступ к слотам
-	protected static int[] slots_top;
-	protected static int[] slots_bottom;
-	protected static int[] slots_sides;
-	protected ItemStack[] slots;
-	protected static int resultSlot;
-	protected static int fuelSlot;
-	protected static int ingredSlot;
-	protected int grinderSpeed;
-	protected static int batteryChargeSpeed;
-	protected static int powerUsage;
-	protected int power;
-	protected static int maxPower;
-	protected int cookTime;
+	public String localizedName;
+	public static int[] slots_top;
+	public static int[] slots_bottom;
+	public static int[] slots_sides;
+	public ItemStack[] slots;
+	public static int resultSlot;
+	public static int fuelSlot;
+	public static int ingredSlot;
+	public int machineSpeed;
+	public static int batteryChargeSpeed;
+	public static int powerUsage;
+	public int power;
+	public static int maxPower;
+	public int cookTime;
+
+	public boolean isInvNameLocalized(){
+		return false;
+	}
+
+	public static boolean hasItemPower(ItemStack itemstack){
+		if(!getBattery(itemstack)){
+			return getItemPower(itemstack) > 0;
+		} else{
+			return true;
+		}
+	}
+
+	public static boolean getBattery(ItemStack itemstack){
+		if(itemstack == null){
+			return false;
+		} else{
+			Item item = itemstack.getItem();
+			if(item == USMItems.BasicBattery) return true;
+			return false;
+		}
+	}
+
+	public static int getItemPower(ItemStack itemstack){
+		if(itemstack == null){
+			return 0;
+		} else{
+			Item item = itemstack.getItem();
+			Block block = Block.getBlockFromItem(item);
+			if(item == Items.glowstone_dust) return 1000;
+			if(item == Items.redstone) return 500;
+			if(block == Blocks.redstone_block) return 4500;
+			if(block == Blocks.glowstone) return 4000;
+			
+			return 0;
+		}
+	}
 
 	@Override
 	public int getSizeInventory(){
@@ -115,12 +157,7 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int var1){
-		return var1 == 0 ? slots_bottom : (var1 == 1 ? slots_top : slots_sides);
-	}
-
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_){
-		return false;
+		return var1 == 0 ? this.slots_bottom : (var1 == 1 ? this.slots_top : this.slots_sides);
 	}
 
 	@Override
@@ -152,9 +189,46 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 		return this.power * i / this.maxPower;
 	}
 
-	public int getGrinderProgressScaled(int i){
-		return this.cookTime * i / this.grinderSpeed;
+	public int getCraftingProgressScaled(int i){
+		return this.cookTime * i / this.machineSpeed;
+	}
 
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		NBTTagList list = nbt.getTagList("Items", 10);
+		this.slots = new ItemStack[this.getSizeInventory()];
+		for(int i = 0; i < list.tagCount(); i++){
+			NBTTagCompound compound = (NBTTagCompound)list.getCompoundTagAt(i);
+			byte b = compound.getByte("Slot");
+			if(b >= 0 && b < this.slots.length){
+				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
+			}
+		}
+		this.power = nbt.getShort("Power");
+		this.cookTime = nbt.getShort("CookTime");
+		if(nbt.hasKey("CustomName")){
+			this.localizedName = nbt.getString("CustomName");
+		}
+	}
+
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		nbt.setShort("Power", (short)this.power);
+		nbt.setShort("CookTime", (short)this.cookTime);
+
+		NBTTagList list = new NBTTagList();
+		for(int i = 0; i < this.slots.length; i++){
+			if(this.slots[i] != null){
+				NBTTagCompound compound = new NBTTagCompound();
+				compound.setByte("Slot", (byte)i);
+				this.slots[i].writeToNBT(compound);
+				list.appendTag(compound);
+			}
+		}
+		nbt.setTag("Items", list);
+		if(this.hasCustomInventoryName()){
+			nbt.setString("CustomName", this.localizedName);
+		}
 	}
 
 	// ThermalExpansion Part
@@ -164,33 +238,38 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 	protected int maxReceive;
 	protected int maxExtract;
 
-	/*
-	 * public TileEntityCore(int capacity) {
-	 * 
-	 * this(capacity, capacity, capacity); }
-	 * 
-	 * public TileEntityCore(int capacity, int maxTransfer) {
-	 * 
-	 * this(capacity, maxTransfer, maxTransfer); }
-	 * 
-	 * public TileEntityCore(int capacity, int maxReceive, int maxExtract) {
-	 * 
-	 * this.capacity = capacity; this.maxReceive = maxReceive; this.maxExtract =
-	 * maxExtract; }
-	 */
+	public TileEntityCore(int capacity){
+		this(capacity, capacity, capacity);
+	}
 
-	/*
-	 * public TileEntityCore readFromNBT(NBTTagCompound nbt) {
-	 * 
-	 * this.energy = nbt.getInteger("Energy");
-	 * 
-	 * if (energy > capacity) { energy = capacity; } return this; }
-	 * 
-	 * public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-	 * 
-	 * if (energy < 0) { energy = 0; } nbt.setInteger("Energy", energy); return
-	 * nbt; }
-	 */
+	public TileEntityCore(int capacity, int maxTransfer){
+		this(capacity, maxTransfer, maxTransfer);
+	}
+
+	public TileEntityCore(int capacity, int maxReceive, int maxExtract){
+		this.capacity = capacity;
+		this.maxReceive = maxReceive;
+		this.maxExtract = maxExtract;
+	}
+
+	/*public TileEntityCore readFromNBT(NBTTagCompound nbt){
+
+		this.energy = nbt.getInteger("Energy");
+
+		if(energy > capacity){
+			energy = capacity;
+		}
+		return this;
+	}
+
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt){
+
+		if(energy < 0){
+			energy = 0;
+		}
+		nbt.setInteger("Energy", energy);
+		return nbt;
+	}*/
 
 	public void setCapacity(int capacity){
 

@@ -3,7 +3,8 @@ package com.denvys5.uraniumswordmod.machines.windmill;
 import java.util.Random;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -37,6 +38,6 @@ public class WindmillBlock extends BlockContainer{
 	}
 
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_){
-		return BlockList.WindmillItem;
+		return USMTiles.WindmillItem;
 	}
 }

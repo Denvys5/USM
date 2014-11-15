@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.core;
 
+import com.denvys5.uraniumswordmod.item.USMItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,8 +54,10 @@ public class Util{
 		ItemStack plate = player.getEquipmentInSlot(3);
 		ItemStack leggings = player.getEquipmentInSlot(2);
 		ItemStack boots = player.getEquipmentInSlot(1);
-		if(helmet.getItem().equals(BlockList.UraniumHelmet) && plate.getItem().equals(BlockList.UraniumChest) && leggings.getItem().equals(BlockList.UraniumLeggins) && boots.getItem().equals(BlockList.UraniumBoots)){
-			return true;
+		if(!(helmet == null || plate == null || leggings == null || boots == null)){
+			if((helmet.getItem()).equals(USMItems.UraniumHelmet) && (plate.getItem()).equals(USMItems.UraniumChest) && (leggings.getItem()).equals(USMItems.UraniumLeggins) && (boots.getItem()).equals(USMItems.UraniumBoots)){
+				return true;
+			}
 		}
 		return false;
 	}

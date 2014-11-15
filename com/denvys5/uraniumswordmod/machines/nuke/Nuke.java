@@ -1,7 +1,8 @@
 package com.denvys5.uraniumswordmod.machines.nuke;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.item.USMItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -57,7 +58,7 @@ public class Nuke extends Block{
 	}
 
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityPlayer, int l, float f1, float f2, float f3){
-		if(entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().getItem() == BlockList.UraniumWrench){
+		if(entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().getItem() == USMItems.UraniumWrench){
 			world.setBlockToAir(i, j, k);
 			this.primeNuclearBomb(world, i, j, k, 1, entityPlayer);
 			return true;

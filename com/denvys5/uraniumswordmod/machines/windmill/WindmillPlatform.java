@@ -1,7 +1,8 @@
 package com.denvys5.uraniumswordmod.machines.windmill;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -61,7 +62,7 @@ public class WindmillPlatform extends BlockContainer{
 					currentCheckStructure = true;
 					for(int x3 = 0; x3 < 3; x3++){
 						for(int z3 = 0; z3 < 3; z3++){
-							if(!world.getBlock(x1 - x3 + x2, y1, z1 - z3 + z2).equals(BlockList.WindmillPlatform) && currentCheckStructure){
+							if(!world.getBlock(x1 - x3 + x2, y1, z1 - z3 + z2).equals(USMTiles.WindmillPlatform) && currentCheckStructure){
 								currentCheckStructure = false;
 							}
 						}

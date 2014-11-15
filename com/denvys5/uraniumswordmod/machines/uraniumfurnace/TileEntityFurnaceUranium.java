@@ -13,7 +13,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.item.USMItems;
 
 public class TileEntityFurnaceUranium extends TileEntity implements ISidedInventory{
 
@@ -227,7 +228,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 			}
 
 			// Время горения в тиках
-			if(item == Item.getItemFromBlock(BlockList.blocknetherstar)) return 31250;
+			if(item == Item.getItemFromBlock(USMBlocks.blocknetherstar)) return 31250;
 			if(item == Items.nether_star) return 3125;
 
 			// return GameRegistry.getFuelValue(itemstack);
@@ -257,7 +258,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 	public boolean canInsertItem(int i, ItemStack itemstack, int j){
 		if(itemstack != null){
 			Item stackItem = itemstack.getItem();
-			if(i == this.ingredSlot && stackItem == BlockList.ingoturanium){
+			if(i == this.ingredSlot && stackItem == USMItems.ingoturanium){
 				return true;
 			} else if(i == this.fuelSlot && this.isItemValidForSlot(i, itemstack)){
 				return this.isItemValidForSlot(i, itemstack);
@@ -272,7 +273,7 @@ public class TileEntityFurnaceUranium extends TileEntity implements ISidedInvent
 		} else if(i != this.resultSlot){
 			return false;
 		}
-		return itemstack.getItem() == BlockList.ingotinfuseduranium;
+		return itemstack.getItem() == USMItems.ingotinfuseduranium;
 	}
 
 	public int getBurnTimeRemainingScaled(int i){

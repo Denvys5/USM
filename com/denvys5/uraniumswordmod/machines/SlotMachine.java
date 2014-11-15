@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.machines.poweredgrinder;
+package com.denvys5.uraniumswordmod.machines;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -10,13 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.MathHelper;
 
-public class SlotPoweredGrinder extends Slot{
+public class SlotMachine extends Slot{
 	/** The player that is using the GUI where this slot resides. */
 	private EntityPlayer thePlayer;
 	private int field_75228_b;
 	private static final String __OBFID = "CL_00001749";
 
-	public SlotPoweredGrinder(EntityPlayer p_i1813_1_, IInventory p_i1813_2_, int p_i1813_3_, int p_i1813_4_, int p_i1813_5_){
+	public SlotMachine(EntityPlayer p_i1813_1_, IInventory p_i1813_2_, int p_i1813_3_, int p_i1813_4_, int p_i1813_5_){
 		super(p_i1813_2_, p_i1813_3_, p_i1813_4_, p_i1813_5_);
 		this.thePlayer = p_i1813_1_;
 	}

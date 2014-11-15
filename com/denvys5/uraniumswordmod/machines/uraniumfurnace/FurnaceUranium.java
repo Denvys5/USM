@@ -23,7 +23,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 public class FurnaceUranium extends BlockContainer{
 
@@ -57,7 +58,7 @@ public class FurnaceUranium extends BlockContainer{
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3){
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(USMTiles.furnaceuraniumidle);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z){
@@ -149,9 +150,9 @@ public class FurnaceUranium extends BlockContainer{
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord, zCoord);
 		keepInventory = true;
 		if(active){
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.furnaceuraniumactive);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.furnaceuraniumactive);
 		} else{
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.furnaceuraniumidle);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.furnaceuraniumidle);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -197,6 +198,6 @@ public class FurnaceUranium extends BlockContainer{
 	}
 
 	public Item getItem(World world, int x, int y, int z){
-		return Item.getItemFromBlock(BlockList.furnaceuraniumidle);
+		return Item.getItemFromBlock(USMTiles.furnaceuraniumidle);
 	}
 }

@@ -36,7 +36,7 @@ public class GuiPoweredGrinder extends GuiContainer{
 			int k = this.PoweredGrinder.getPowerRemainingScaled(44);
 			drawTexturedModalRect(guiLeft + 10, guiTop + 52 - k, 176, 74 - k, 11, k + 2);
 		}
-		int k = this.PoweredGrinder.getGrinderProgressScaled(25);
+		int k = this.PoweredGrinder.getCraftingProgressScaled(25);
 		drawTexturedModalRect(guiLeft + 79, guiTop + 29, 176, 0, k + 1, 29);
 	}
 

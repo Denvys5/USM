@@ -23,7 +23,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 public class Duplicator extends BlockContainer{
 
@@ -57,7 +58,7 @@ public class Duplicator extends BlockContainer{
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3){
-		return Item.getItemFromBlock(BlockList.duplicatoridle);
+		return Item.getItemFromBlock(USMTiles.duplicatoridle);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z){
@@ -124,9 +125,9 @@ public class Duplicator extends BlockContainer{
 		TileEntity tileentity = worldObj.getTileEntity(xCoord, yCoord, zCoord);
 		keepInventory = true;
 		if(active){
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.duplicatoractive);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.duplicatoractive);
 		} else{
-			worldObj.setBlock(xCoord, yCoord, zCoord, BlockList.duplicatoridle);
+			worldObj.setBlock(xCoord, yCoord, zCoord, USMTiles.duplicatoridle);
 		}
 		keepInventory = false;
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
@@ -179,6 +180,6 @@ public class Duplicator extends BlockContainer{
 	}
 
 	public Item getItem(World world, int x, int y, int z){
-		return Item.getItemFromBlock(BlockList.duplicatoridle);
+		return Item.getItemFromBlock(USMTiles.duplicatoridle);
 	}
 }

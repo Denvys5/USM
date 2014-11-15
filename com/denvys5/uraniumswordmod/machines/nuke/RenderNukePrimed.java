@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 public class RenderNukePrimed extends Render{
 
@@ -42,7 +42,7 @@ public class RenderNukePrimed extends Render{
 
 		var10 = (1.0F - ((float)entityNukePrimed.fuse - p_76986_9_ + 1.0F) / 100.0F) * 0.8F;
 		this.bindEntityTexture(entityNukePrimed);
-		this.blockRenderer.renderBlockAsItem(BlockList.Nuke, 0, entityNukePrimed.getBrightness(p_76986_9_));
+		this.blockRenderer.renderBlockAsItem(USMBlocks.Nuke, 0, entityNukePrimed.getBrightness(p_76986_9_));
 
 		if(entityNukePrimed.fuse / 5 % 2 == 0){
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -50,7 +50,7 @@ public class RenderNukePrimed extends Render{
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, var10);
-			this.blockRenderer.renderBlockAsItem(BlockList.Nuke, 0, 1.0F);
+			this.blockRenderer.renderBlockAsItem(USMBlocks.Nuke, 0, 1.0F);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_LIGHTING);

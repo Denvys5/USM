@@ -1,6 +1,7 @@
 package com.denvys5.uraniumswordmod.events;
 
-import com.denvys5.uraniumswordmod.core.BlockList;
+import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.item.USMItems;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ public class UraniumSwordKillingEvent{
 				EntityPlayer player = (EntityPlayer)event.source.getSourceOfDamage();
 				String user = player.getGameProfile().getName();
 				String entity = event.entityLiving.getCommandSenderName();
-				if(event.entityLiving.getEquipmentInSlot(0) == new ItemStack(BlockList.sworduranium)){
+				if(event.entityLiving.getEquipmentInSlot(0) == new ItemStack(USMItems.sworduranium)){
 					MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(user + "was killed by" + entity + "using Uranium Sword"));
 				}
 			}

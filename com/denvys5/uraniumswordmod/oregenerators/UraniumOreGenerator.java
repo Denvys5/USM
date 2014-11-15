@@ -7,7 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
-import com.denvys5.uraniumswordmod.core.BlockList;
+
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 public class UraniumOreGenerator implements IWorldGenerator{
 
@@ -31,7 +32,7 @@ public class UraniumOreGenerator implements IWorldGenerator{
 	}
 
 	public void generateSurface(World world, Random random, int x, int y){
-		this.addOreSpawn(BlockList.oreuranium, world, random, x, y, 16, 16, 1 + random.nextInt(3), 15, 5, 50);
+		this.addOreSpawn(USMBlocks.oreuranium, world, random, x, y, 16, 16, 1 + random.nextInt(3), 30, 5, 50);
 	}
 
 	public void generateEnd(World world, Random random, int x, int y){

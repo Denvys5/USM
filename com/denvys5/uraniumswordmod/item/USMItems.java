@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.item;
 
+import java.util.ArrayList;
+
 import net.minecraft.item.Item;
 
 import com.denvys5.uraniumswordmod.core.Util;
@@ -18,6 +20,8 @@ public class USMItems{
 	public static Item UraniumBoots;
 	public static Item UraniumWrench;
 	public static Item BasicBattery;
+	
+	public static ArrayList<Item> AllItems = new ArrayList();
 	
 	public static void itemRegister(){
 		sworduranium = new SwordUranium().setUnlocalizedName("Uranium Sword");

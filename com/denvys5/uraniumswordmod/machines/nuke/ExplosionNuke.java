@@ -31,7 +31,7 @@ public class ExplosionNuke extends Explosion{
 	public boolean spawnNuclearWaste;
 
 	public boolean destroyBlocks = true;
-	private int field_77289_h = 64;
+	private int field_77289_h = 128;
 	private Random explosionRNG = new Random();
 	private World worldObj;
 	public double explosionX;

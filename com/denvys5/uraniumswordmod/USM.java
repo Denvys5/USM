@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.EnumHelper;
 
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.core.Config;
-import com.denvys5.uraniumswordmod.core.GuiHandler;
+import com.denvys5.uraniumswordmod.core.MultiPartRegister;
 import com.denvys5.uraniumswordmod.core.OreRegistration;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
 import com.denvys5.uraniumswordmod.core.recipes.IC2Recipes;
@@ -23,7 +23,9 @@ import com.denvys5.uraniumswordmod.effects.Radiation;
 import com.denvys5.uraniumswordmod.events.OnPlayerLoginEvent;
 import com.denvys5.uraniumswordmod.events.USMEventHooks;
 import com.denvys5.uraniumswordmod.events.UraniumSwordKillingEvent;
+import com.denvys5.uraniumswordmod.events.WindmillHighlightEvent;
 import com.denvys5.uraniumswordmod.item.USMItems;
+import com.denvys5.uraniumswordmod.machines.GuiHandler;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.nuke.EntityNukePrimed;
 import com.denvys5.uraniumswordmod.oregenerators.UraniumOreGenerator;
@@ -41,11 +43,11 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = USM.modid, name = USM.name, version = USM.version/*, dependencies = "required-after:Denvys5Core@[1.0,)" */)
+@Mod(modid = USM.modid, name = USM.name, version = USM.version)
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.6.5";
+	public static final String version = "0.7.0";
 
 	@Instance(modid)
 	public static USM instance;
@@ -56,6 +58,7 @@ public class USM{
 	public static final int guiIdFurnaceUranium = 0;
 	public static final int guiIdDuplicator = 1;
 	public static final int guiIdPoweredGrinder = 2;
+	public static final int guiIdWindMill = 3;
 	public static CreativeTabs USMTab;
 
 	public static AchievementPage USMAchievPage = new AchievementPage("Uranium Sword Mod");
@@ -89,15 +92,17 @@ public class USM{
 		}
 
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
+		MinecraftForge.EVENT_BUS.register(new WindmillHighlightEvent());
 		FMLCommonHandler.instance().bus().register(new OnPlayerLoginEvent());
 		FMLCommonHandler.instance().bus().register(new UraniumSwordKillingEvent());
+		//if(Loader.isModLoaded("ForgeMultipart"))new MultiPartRegister().init();
+
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event){
 		EntityRegistry.registerGlobalEntityID(EntityNukePrimed.class, "entityNukePrimed", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityNukePrimed.class, "entityNukePrimed", 53, this, 256, 1, false);
-		// 
 		USMTab = new CreativeTabs("uraniumswordmodtab"){
 			public Item getTabIconItem(){
 				return USMItems.sworduranium;

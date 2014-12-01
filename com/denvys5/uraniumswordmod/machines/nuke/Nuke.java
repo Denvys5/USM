@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.machines.nuke;
 
+import buildcraft.api.tools.IToolWrench;
+
 import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.item.USMItems;
@@ -10,7 +12,9 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -34,7 +38,7 @@ public class Nuke extends Block{
 
 	public Nuke(){
 		super(Material.tnt);
-		this.setHardness(4.0F);
+		this.setHardness(30.0F);
 		this.setCreativeTab(USM.USMTab);
 	}
 
@@ -57,14 +61,13 @@ public class Nuke extends Block{
 		}
 	}
 
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityPlayer, int l, float f1, float f2, float f3){
-		if(entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().getItem() == USMItems.UraniumWrench){
-			world.setBlockToAir(i, j, k);
-			this.primeNuclearBomb(world, i, j, k, 1, entityPlayer);
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int l, float f1, float f2, float f3){
+		if(entityPlayer.getCurrentEquippedItem() != null && (entityPlayer.getCurrentEquippedItem().getItem() == USMItems.UraniumWrench || entityPlayer.getCurrentEquippedItem().getItem() instanceof IToolWrench)){
+			world.setBlockToAir(x, y, z);
+			this.primeNuclearBomb(world, x, y, z, 1, entityPlayer);
 			return true;
-		} else{
-			return super.onBlockActivated(world, i, j, k, entityPlayer, l, f1, f2, f3);
 		}
+		return true;
 	}
 
 	public void primeNuclearBomb(World world, int i, int j, int k, int l, EntityLivingBase entityPlayer){

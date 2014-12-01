@@ -1,5 +1,7 @@
 package com.denvys5.uraniumswordmod.block;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 
 import com.denvys5.uraniumswordmod.core.Util;
@@ -13,10 +15,11 @@ public class USMBlocks{
 	public static Block blockuranium;
 	public static Block blocknetherstar;
 	public static Block blockinfuseduranium;
-	public static Block BasicMachineCore;
-	public static Block DisassemblerCore;
+
 	public static Block NuclearWaste;
 	public static Block Nuke;
+	
+	public static ArrayList<Block> AllBlocks = new ArrayList();
 
 	public static void blockRegister(){
 		oreuranium = new OreUranium().setBlockName("Uranium Ore");
@@ -30,12 +33,6 @@ public class USMBlocks{
 
 		blockinfuseduranium = new BlockInfusedUranium().setBlockName("Block Infused Uranium");
 		Util.regBlock(blockinfuseduranium, "blockinfuseduranium", "Block Infused Uranium");
-
-		BasicMachineCore = new BasicMachineCore().setBlockName("Basic Machine Core");
-		Util.regBlock(BasicMachineCore, "BasicMachineCore", "Basic Machine Core");
-
-		DisassemblerCore = new DisassemblerCore().setBlockName("Disassembler Core");
-		Util.regBlock(DisassemblerCore, "DisassemblerCore", "Disassembler Core");
 
 		NuclearWaste = new NuclearWaste().setBlockName("Nuclear Waste").setLightLevel(0.8F);
 		Util.regBlock(NuclearWaste, "NuclearWaste", "Nuclear Waste");

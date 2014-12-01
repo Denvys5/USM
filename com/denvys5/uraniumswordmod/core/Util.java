@@ -1,5 +1,6 @@
 package com.denvys5.uraniumswordmod.core;
 
+import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.item.USMItems;
 
 import net.minecraft.block.Block;
@@ -20,12 +21,14 @@ public class Util{
 		GameRegistry.registerBlock(block, blockName);
 		LanguageRegistry.instance().addNameForObject(block, "en_US", name);
 		LanguageRegistry.instance().addNameForObject(block, "ru_RU", russianLocalisation);
+		USMBlocks.AllBlocks.add(block);
 	}
 
 	public static void regItem(Item item, String unlocalizedName, String name){
 		GameRegistry.registerItem(item, unlocalizedName);
 		LanguageRegistry.instance().addNameForObject(item, "en_US", name);
 		LanguageRegistry.instance().addNameForObject(item, "ru_RU", russianLocalisation);
+		USMItems.AllItems.add(item);
 	}
 
 	public static void regTileEntity(Block tileEntityIdle, Block tileEntityActive, String name, String nameWithoutSpaces){
@@ -59,14 +62,15 @@ public class Util{
 				return true;
 			}
 		}
+		
 		return false;
 	}
-
-	public static Item getItemFromOreDict(String oreDictName){
+	
+	public static ItemStack getItemStackFromOreDict(String oreDictName){
 		for(ItemStack ore : OreDictionary.getOres(oreDictName)){
 			if(ore != null){
 				if(ore.getItemDamage() != OreDictionary.WILDCARD_VALUE){
-					return ore.getItem();
+					return ore;
 				}
 			}
 		}

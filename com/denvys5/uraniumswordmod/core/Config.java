@@ -13,6 +13,7 @@ public class Config{
 	public static boolean ArmorCrashFix;
 	public static boolean NewWIPPickMechanicks;
 	private static Configuration config;
+	public static boolean renderDrawInside;
 
 	//public static Configuration config = new Configuration(new File("config/USM/UraniumSwordMod.cfg"));
 
@@ -24,10 +25,9 @@ public class Config{
 		}
 		config = new Configuration(file);
 		config.load();
-		// ConfigBlockID();
-		// ConfigItemID();
 		ConfigItemsAndBlocksCreating();
 		ConfigTweakRegister();
+		ConfigGraphics();
 		ConfigCrafts();
 		config.save();
 	}
@@ -38,6 +38,10 @@ public class Config{
 	
 	private static void ConfigItemsAndBlocksCreating(){
 		
+	}
+	
+	private static void ConfigGraphics(){
+		renderDrawInside = config.getBoolean("renderDrawInside", "Graphic FX", true, "Render all custom rendered blocks inside too.");
 	}
 
 	private static void ConfigTweakRegister(){

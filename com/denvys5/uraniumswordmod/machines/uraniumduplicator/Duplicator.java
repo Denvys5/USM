@@ -18,79 +18,64 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
+import com.denvys5.uraniumswordmod.item.UraniumWrench;
+import com.denvys5.uraniumswordmod.machines.BlockBasicMachine;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 
-public class Duplicator extends BlockContainer{
+public class Duplicator extends BlockBasicMachine{
 
 	private Random rand = new Random();
 
 	private final boolean isActive;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon iconFront;
-	private IIcon top, bottom, side, front;
-
 	private static boolean keepInventory;
 
 	public Duplicator(boolean isActive){
-		super(Material.rock);
+		super();
 		this.isActive = isActive;
-		this.setHardness(10.0F);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister){
-		side = iconRegister.registerIcon(USM.modid + ":Duplicator_side");
-		front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "Duplicator_active" : "Duplicator_idle"));
-		top = iconRegister.registerIcon(USM.modid + ":Duplicator_top");
-		bottom = iconRegister.registerIcon(USM.modid + ":Duplicator_bottom");
-	}
-
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metadata){
-		return side == 1 ? this.top : (side == 0 ? this.bottom : (metadata == 2 && side == 2 ? this.front : (metadata == 5 && side == 5 ? this.front : (metadata == 3 && side == 3 ? this.front : (metadata == 4 && side == 4 ? this.front : this.side)))));
+		this.side = iconRegister.registerIcon(USM.modid + ":Machine_side");
+		this.front = iconRegister.registerIcon(USM.modid + ":" + (this.isActive ? "Duplicator_active" : "Duplicator_idle"));
+		this.top = iconRegister.registerIcon(USM.modid + ":Machine_bottom");
+		this.bottom = iconRegister.registerIcon(USM.modid + ":Machine_bottom");
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3){
 		return Item.getItemFromBlock(USMTiles.duplicatoridle);
 	}
 
-	public void onBlockAdded(World world, int x, int y, int z){
-		super.onBlockAdded(world, x, y, z);
-		this.setDefautDirection(world, x, y, z);
-	}
-
-	private void setDefautDirection(World world, int x, int y, int z){
-		if(!world.isRemote){
-			Block block1 = world.getBlock(x, y, z - 1);
-			Block block2 = world.getBlock(x, y, z + 1);
-			Block block3 = world.getBlock(x - 1, y, z);
-			Block block4 = world.getBlock(x + 1, y, z);
-			byte b0 = 3;
-			if(block1.func_149730_j() && !block2.func_149730_j()){
-				b0 = 3;
-			}
-			if(block2.func_149730_j() && !block1.func_149730_j()){
-				b0 = 2;
-			}
-			if(block3.func_149730_j() && !block4.func_149730_j()){
-				b0 = 5;
-			}
-			if(block4.func_149730_j() && !block3.func_149730_j()){
-				b0 = 4;
-			}
-			world.setBlockMetadataWithNotify(x, y, z, b0, 2);
-		}
-
-	}
-
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
+		Item equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem().getItem() : null;
+		if (equipped instanceof IToolWrench && !(equipped instanceof UraniumWrench)) {
+			if(!player.isSneaking()){
+				int USMTilesMetaVar = 0;
+				byte Meta = (byte)world.getBlockMetadata(x, y, z);
+				if(Meta == 2) USMTilesMetaVar = 5;
+				if(Meta == 5) USMTilesMetaVar = 3;
+				if(Meta == 3) USMTilesMetaVar = 4;
+				if(Meta == 4) USMTilesMetaVar = 2;
+				world.setBlockMetadataWithNotify(x, y, z, USMTilesMetaVar, 3);
+				return true;
+			} else{
+				Block TargetBlock = world.getBlock(x, y, z);
+				if(TargetBlock == null) return false;
+				byte Meta = (byte)world.getBlockMetadata(x, y, z);
+				final ItemStack itemstack = new ItemStack(TargetBlock, 1, Meta);
+				EntityItem blockDropped = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, itemstack);
+				world.setBlockToAir(x, y, z);
+				world.spawnEntityInWorld(blockDropped);
+			}
+		}
 		if(!world.isRemote){
 			FMLNetworkHandler.openGui(player, USM.instance, USM.instance.guiIdDuplicator, world, x, y, z);
 		}
@@ -169,14 +154,6 @@ public class Duplicator extends BlockContainer{
 			}
 		}
 		super.breakBlock(world, x, y, z, oldBlock, oldMetadata);
-	}
-
-	public boolean hasComparatorInputOverride(){
-		return true;
-	}
-
-	public int getComparatorInputOverride(World world, int x, int y, int z, int i){
-		return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(x, y, z));
 	}
 
 	public Item getItem(World world, int x, int y, int z){

@@ -37,7 +37,7 @@ public class NuclearWaste extends Block{
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg){
+	public void registerBlockIcons(IIconRegister reg){
 		side = reg.registerIcon(USM.modid + ":NuclearWaste_side");
 		top = reg.registerIcon(USM.modid + ":NuclearWaste_top");
 	}

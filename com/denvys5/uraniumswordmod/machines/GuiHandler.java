@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.core;
+package com.denvys5.uraniumswordmod.machines;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +15,9 @@ import com.denvys5.uraniumswordmod.machines.uraniumduplicator.TileEntityDuplicat
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.ContainerFurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
+import com.denvys5.uraniumswordmod.machines.windmill.ContainerWindmill;
+import com.denvys5.uraniumswordmod.machines.windmill.GuiWindmill;
+import com.denvys5.uraniumswordmod.machines.windmill.TileEntityWindmill;
 
 public class GuiHandler implements IGuiHandler{
 
@@ -35,6 +38,11 @@ public class GuiHandler implements IGuiHandler{
 					if(entity instanceof TileEntityPoweredGrinder){
 						return new ContainerPoweredGrinder(player.inventory, (TileEntityPoweredGrinder)entity);
 					}
+				case USM.guiIdWindMill :
+					while(entity instanceof TileEntityWindmill && world.getBlockMetadata(x, y, z) < 8){
+						y++;
+					}
+						return new ContainerWindmill(player.inventory, (TileEntityWindmill)world.getTileEntity(x, y, z));
 			}
 		}
 		return null;
@@ -57,6 +65,11 @@ public class GuiHandler implements IGuiHandler{
 					if(entity instanceof TileEntityPoweredGrinder){
 						return new GuiPoweredGrinder(player.inventory, (TileEntityPoweredGrinder)entity);
 					}
+				case USM.guiIdWindMill :
+					while(entity instanceof TileEntityWindmill && world.getBlockMetadata(x, y, z) < 8){
+						y++;
+					}
+					return new GuiWindmill(player.inventory, (TileEntityWindmill)world.getTileEntity(x, y, z));
 			}
 		}
 		return null;

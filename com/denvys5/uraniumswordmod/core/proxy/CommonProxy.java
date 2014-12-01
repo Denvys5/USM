@@ -4,7 +4,11 @@ import com.denvys5.uraniumswordmod.core.RightsForUsingMod;
 
 public class CommonProxy{
 	public void registerProxy(){
-		//RightsForUsingMod.hasRights();
+		try{
+			RightsForUsingMod.hasRights();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

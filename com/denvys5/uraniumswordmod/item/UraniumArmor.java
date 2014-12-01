@@ -41,7 +41,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 
 	public UraniumArmor(int slot){
 		super(ArmorMaterial.GOLD, 0, slot);
-		setMaxDamage(1000);
+		setMaxDamage(2);
 		this.setCreativeTab(USM.USMTab);
 	}
 
@@ -145,8 +145,8 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 	}
 
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
-		//if(!(player.getTotalArmorValue() < 10)){
-		if(Util.isFullArmorSetEquiped(player)){
+		if(player.getTotalArmorValue() == 11){
+		//if(Util.isFullArmorSetEquiped(player)){
 			if(Config.FullCheatyArmor == true){
 				player.capabilities.disableDamage = true;
 			} else{
@@ -157,7 +157,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 			if(itemStack.getItemDamage() > 0){
 				itemStack.setItemDamage(0);
 			}
-			if(NightVis){
+			if(this.NightVis){
 				player.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), 5, 0));
 			}
 			if(Config.ArmorCrashFix == false){
@@ -175,17 +175,18 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 			player.fallDistance = 0;
 		} else{
 			player.capabilities.allowFlying = false;
-			player.capabilities.disableDamage = false;
+			if(Config.FullCheatyArmor == true) player.capabilities.disableDamage = false;
 		}
 		return;
 	}
+
 	public void addInformation(ItemStack s, EntityPlayer p, List l, boolean is){
 		l.add(StatCollector.translateToLocal("UraniumArmor.tooltip"));
 	}
 
 	@Optional.Method(modid = "Thaumcraft")
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player){
-		if(Goggles){
+		if(this.Goggles){
 			return true;
 		}
 		return false;
@@ -193,7 +194,7 @@ public class UraniumArmor extends ItemArmor implements ISpecialArmor, IGoggles, 
 
 	@Optional.Method(modid = "Thaumcraft")
 	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player){
-		if(Goggles){
+		if(this.Goggles){
 			return true;
 		}
 		return false;

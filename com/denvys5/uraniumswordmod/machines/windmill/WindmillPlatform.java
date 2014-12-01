@@ -11,8 +11,10 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class WindmillPlatform extends BlockContainer{
@@ -20,11 +22,33 @@ public class WindmillPlatform extends BlockContainer{
 	public WindmillPlatform(){
 		super(Material.rock);
 		this.setHardness(1F);
-		this.setBlockBounds(0, 0, 0, 1, 0.3F, 1);
+	}
+	
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z){
+    	if(world.getBlockMetadata(x, y, z) == 0) setBlockBounds(0, 0, 0, 1, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 1) setBlockBounds(0, 0, 0, 0.5F, 1, 0.5F);
+    	if(world.getBlockMetadata(x, y, z) == 2) setBlockBounds(0, 0, 0, 0.5F, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 3) setBlockBounds(0, 0, 0.5F, 0.5F, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 4) setBlockBounds(0, 0, 0, 1, 1, 0.5F);
+    	if(world.getBlockMetadata(x, y, z) == 5) setBlockBounds(0, 0, 0, 1, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 6) setBlockBounds(0, 0, 0.5F, 1, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 7) setBlockBounds(0.5F, 0, 0, 1, 1, 0.5F);
+    	if(world.getBlockMetadata(x, y, z) == 8) setBlockBounds(0.5F, 0, 0, 1, 1, 1);
+    	if(world.getBlockMetadata(x, y, z) == 9) setBlockBounds(0.5F, 0, 0.5F, 1, 1, 1);
+    	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
+    }
+    
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z){
+    	
+    	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
+    }
+    
+	public int getRenderType(){
+		return -1;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg){
+	public void registerBlockIcons(IIconRegister reg){
 		this.blockIcon = reg.registerIcon(USM.modid + ":WindmillPlatform");
 	}
 
@@ -43,11 +67,11 @@ public class WindmillPlatform extends BlockContainer{
 		updateMultiblockStructure(world, x, y, z);
 	}
 
-	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec){
+	/*public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec){
 		int metadata = world.getBlockMetadata(x, y, z);
 		this.setBlockBounds(0, 0, 0, 1, (1F / 16) * metadata, 1);
 		return super.collisionRayTrace(world, x, y, z, startVec, endVec);
-	}
+	}*/
 
 	public void updateMultiblockStructure(World world, int x, int y, int z){
 		isMultiblockStructure(world, x, y, z);

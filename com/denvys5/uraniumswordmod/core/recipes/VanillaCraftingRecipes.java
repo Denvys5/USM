@@ -14,9 +14,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class VanillaCraftingRecipes{
 	public static void ShapedOreCrafting(){
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumWrench, true, new Object[]{"X!X", "@@@", "!@!", Character.valueOf('X'), "ingotUranium", ('@'), Items.iron_ingot}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.BasicMachineCore, true, new Object[]{"XXX", "@#@", "X!X", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), Items.redstone, ('!'), USMItems.ingoturanium}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.DisassemblerCore, true, new Object[]{"X!X", "@#@", "$$$", Character.valueOf('X'), Items.flint, ('@'), Items.iron_ingot, ('#'), USMBlocks.BasicMachineCore, ('!'), Items.iron_pickaxe, ('$'), Blocks.stonebrick}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.PoweredGrinderidle, true, new Object[]{"X!X", "X#X", "$@$", Character.valueOf('X'), Items.iron_ingot, ('@'), Blocks.glowstone, ('#'), USMBlocks.blockuranium, ('!'), USMBlocks.DisassemblerCore, ('$'), Items.redstone}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.duplicatoridle, true, new Object[]{"X!X", "V@V", "G#G", Character.valueOf('V'), "ingotUranium", ('@'), Blocks.furnace, ('X'), Items.iron_ingot, ('G'), Items.gold_ingot, ('#'), USMTiles.DisassemblerCore, ('!'), USMTiles.BasicMachineCore}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.BasicMachineCore, true, new Object[]{"XXX", "@#@", "X!X", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), Items.redstone, ('!'), USMItems.ingoturanium}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.DisassemblerCore, true, new Object[]{"X!X", "@#@", "$$$", Character.valueOf('X'), Items.flint, ('@'), Items.iron_ingot, ('#'), USMTiles.BasicMachineCore, ('!'), Items.iron_pickaxe, ('$'), Blocks.stonebrick}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.PoweredGrinderidle, true, new Object[]{"X!X", "X#X", "$@$", Character.valueOf('X'), Items.iron_ingot, ('@'), Blocks.glowstone, ('#'), USMBlocks.blockuranium, ('!'), USMTiles.DisassemblerCore, ('$'), Items.redstone}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumHelmet, true, new Object[]{"XXX", "X@X", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumChest, true, new Object[]{"X#X", "X@X", "XXX", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumLeggins, true, new Object[]{"X@X", "X#X", "X#X", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));

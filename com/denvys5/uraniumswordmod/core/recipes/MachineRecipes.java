@@ -29,7 +29,7 @@ public class MachineRecipes{
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(Util.getItemStackFromOreDict("oreCopper"), new ItemStack(Util.getItemStackFromOreDict("dustCopper").getItem(), 2, Util.getItemStackFromOreDict("dustCopper").getItemDamage()), PowerPerOreGrind);
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(Util.getItemStackFromOreDict("oreTin"), new ItemStack(Util.getItemStackFromOreDict("dustTin").getItem(), 2, Util.getItemStackFromOreDict("dustTin").getItemDamage()), PowerPerOreGrind);
 		PoweredGrinderRecipes.smelting().addGrinderRecipe(Util.getItemStackFromOreDict("oreLead"), new ItemStack(Util.getItemStackFromOreDict("dustLead").getItem(), 2, Util.getItemStackFromOreDict("dustLead").getItemDamage()), PowerPerOreGrind);
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Util.getItemStackFromOreDict("oreSilver"), new ItemStack(Util.getItemStackFromOreDict("dustSilver").getItem(), 2, Util.getItemStackFromOreDict("dustSilver").getItemDamage()), PowerPerOreGrind);
+		//PoweredGrinderRecipes.smelting().addGrinderRecipe(Util.getItemStackFromOreDict("oreSilver"), new ItemStack(Util.getItemStackFromOreDict("dustSilver").getItem(), 2, Util.getItemStackFromOreDict("dustSilver").getItemDamage()), PowerPerOreGrind);
 	}
 
 	public static void DuplicatorRecipes(){
@@ -39,6 +39,6 @@ public class MachineRecipes{
 		DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreCopper"), new ItemStack(Util.getItemStackFromOreDict("ingotCopper").getItem(), 2, Util.getItemStackFromOreDict("ingotCopper").getItemDamage()), PowerPerOreDuplicate);
 		DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreTin"), new ItemStack(Util.getItemStackFromOreDict("ingotTin").getItem(), 2, Util.getItemStackFromOreDict("ingotTin").getItemDamage()), PowerPerOreDuplicate);
 		DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreLead"), new ItemStack(Util.getItemStackFromOreDict("ingotLead").getItem(), 2, Util.getItemStackFromOreDict("ingotLead").getItemDamage()), PowerPerOreDuplicate);
-		DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreSilver"), new ItemStack(Util.getItemStackFromOreDict("ingotSilver").getItem(), 2, Util.getItemStackFromOreDict("ingotSilver").getItemDamage()), PowerPerOreDuplicate);
+		//DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreSilver"), new ItemStack(Util.getItemStackFromOreDict("ingotSilver").getItem(), 2, Util.getItemStackFromOreDict("ingotSilver").getItemDamage()), PowerPerOreDuplicate);
 	}
 }

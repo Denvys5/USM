@@ -17,10 +17,10 @@ public class WindmillHighlightEvent{
 	public void onDrawHighLight(DrawBlockHighlightEvent event){
 		if(event.target.typeOfHit.equals(MovingObjectType.BLOCK)){
 			if(event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ).equals(USMTiles.WindmillBlock) && event.player.worldObj.getBlockMetadata(event.target.blockX, event.target.blockY, event.target.blockZ) <= 7){
-				//onDrawHighLightWindmill(event);
+				onDrawHighLightWindmill(event);
 			}
 			if(event.player.worldObj.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ).equals(USMTiles.WindmillPlatform)){
-				//onDrawHighLightWindmillPlatform(event);
+				onDrawHighLightWindmillPlatform(event);
 			}
 		}
 	}

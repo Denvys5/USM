@@ -1,13 +1,15 @@
 package com.denvys5.uraniumswordmod.machines.uraniumduplicator;
 
 import net.minecraft.item.ItemStack;
+import cofh.api.energy.EnergyStorage;
 
 import com.denvys5.uraniumswordmod.machines.TileEntityCore;
 
 public class TileEntityDuplicator extends TileEntityCore{
 
 	public TileEntityDuplicator(){
-		super(0);
+		super(maxPower, powerUsage*2);
+		this.storage = new EnergyStorage(maxPower, powerUsage*2);
 		this.slots_top = new int[]{0, 2};
 		this.slots_bottom = new int[]{0, 2};
 		this.slots_sides = new int[]{0, 2};

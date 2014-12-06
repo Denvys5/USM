@@ -1,6 +1,7 @@
 package com.denvys5.uraniumswordmod.machines.poweredgrinder;
 
 import net.minecraft.item.ItemStack;
+import cofh.api.energy.EnergyStorage;
 
 import com.denvys5.uraniumswordmod.machines.TileEntityCore;
 import com.denvys5.uraniumswordmod.machines.uraniumduplicator.DuplicatorRecipes;
@@ -8,7 +9,8 @@ import com.denvys5.uraniumswordmod.machines.uraniumduplicator.DuplicatorRecipes;
 public class TileEntityPoweredGrinder extends TileEntityCore{
 
 	public TileEntityPoweredGrinder(){
-		super(0);
+		super(maxPower, powerUsage*2);
+		this.storage = new EnergyStorage(maxPower, powerUsage*2);
 		this.slots_top = new int[]{0, 2};
 		this.slots_bottom = new int[]{0, 2};
 		this.slots_sides = new int[]{0, 2};

@@ -1,21 +1,18 @@
 package com.denvys5.uraniumswordmod.machines.windmill;
 
-import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.block.USMBlocks;
-import com.denvys5.uraniumswordmod.machines.USMTiles;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.machines.USMTiles;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class WindmillPlatform extends BlockContainer{
 
@@ -37,7 +34,8 @@ public class WindmillPlatform extends BlockContainer{
     	if(world.getBlockMetadata(x, y, z) == 9) setBlockBounds(0.5F, 0, 0.5F, 1, 1, 1);
     	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
     }
-    
+
+    @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z){
     	
     	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);

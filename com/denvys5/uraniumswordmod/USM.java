@@ -47,7 +47,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.7.0";
+	public static final String version = "0.7.1";
 
 	@Instance(modid)
 	public static USM instance;
@@ -87,12 +87,12 @@ public class USM{
 				}
 			} catch(Exception e){
 				System.err.println("Severe error, please report this to the mod author:");
-				System.err.println(e);
+				e.printStackTrace();
 			}
 		}
 
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
-		MinecraftForge.EVENT_BUS.register(new WindmillHighlightEvent());
+		//MinecraftForge.EVENT_BUS.register(new WindmillHighlightEvent());
 		FMLCommonHandler.instance().bus().register(new OnPlayerLoginEvent());
 		FMLCommonHandler.instance().bus().register(new UraniumSwordKillingEvent());
 		//if(Loader.isModLoaded("ForgeMultipart"))new MultiPartRegister().init();

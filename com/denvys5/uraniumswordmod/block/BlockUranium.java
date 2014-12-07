@@ -16,13 +16,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockUranium extends Block{
+public class BlockUranium extends USMBlock{
 
 	public BlockUranium(){
-		super(Material.rock);
-		this.setCreativeTab(USM.USMTab);
-		this.setHardness(3.0F);
-		this.setResistance(25F);
+		super();
 		this.setLightLevel(8.0F);
 	}
 

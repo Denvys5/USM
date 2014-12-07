@@ -35,7 +35,7 @@ public class PickUranium extends ItemPickaxe{
 		super(USM.UraniumPick);
 		this.maxStackSize = 1;
 		this.efficiencyOnProperMaterial = 20.0F;
-		setCreativeTab(USM.USMTab);
+		this.setCreativeTab(USM.USMTab);
 	}
 
 	@SideOnly(Side.CLIENT)

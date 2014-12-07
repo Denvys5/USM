@@ -13,13 +13,11 @@ import net.minecraft.world.World;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class OreUranium extends Block{
+public class OreUranium extends USMBlock{
 
 	public OreUranium(){
-		super(Material.rock);
-		this.setCreativeTab(USM.USMTab);
+		super();
 		this.setHardness(7.0F);
-		this.setResistance(25F);
 		this.setLightLevel(8.0F);
 	}
 

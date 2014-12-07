@@ -10,11 +10,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class IngotInfusedUranium extends Item{
+public class IngotInfusedUranium extends USMItem{
 	public IngotInfusedUranium(){
 		super();
-		this.setCreativeTab(USM.USMTab);
-
 	}
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)

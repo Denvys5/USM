@@ -15,13 +15,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class BlockInfusedUranium extends Block{
+public class BlockInfusedUranium extends USMBlock{
 
 	public BlockInfusedUranium(){
-		super(Material.rock);
-		this.setCreativeTab(USM.USMTab);
-		this.setHardness(30.0F);
-		this.setResistance(25F);
+		super();
 		this.setLightLevel(15.0F);
 	}
 

@@ -33,6 +33,11 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 	public int power;
 	public static int maxPower;
 	public int cookTime;
+	
+	public abstract void updateEntity();
+	public abstract boolean canOperate();
+	public abstract void operateItem();
+	public abstract boolean canInsertItem(int i, ItemStack itemstack, int j);
 
 	public boolean isInvNameLocalized(){
 		return false;
@@ -120,9 +125,7 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 	}
 
 	@Override
-	public String getInventoryName(){
-		return null;
-	}
+	public abstract String getInventoryName();
 
 	@Override
 	public boolean hasCustomInventoryName(){
@@ -176,9 +179,7 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 		return this.power > this.powerUsage;
 	}
 
-	public int getRequiredPowerForCrafting(ItemStack itemstack){
-		return 0;
-	}
+	public abstract int getRequiredPowerForCrafting(ItemStack itemstack);
 
 	public int operationSpeed(){
 		return getRequiredPowerForCrafting(this.slots[0]) / powerUsage;

@@ -56,7 +56,7 @@ public class Duplicator extends BlockBasicMachine{
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		Item equipped = player.getCurrentEquippedItem() != null ? player.getCurrentEquippedItem().getItem() : null;
-		if (equipped instanceof IToolWrench && !(equipped instanceof UraniumWrench)) {
+		if(equipped instanceof IToolWrench && !(equipped instanceof UraniumWrench)){
 			if(!player.isSneaking()){
 				int USMTilesMetaVar = 0;
 				byte Meta = (byte)world.getBlockMetadata(x, y, z);
@@ -132,22 +132,15 @@ public class Duplicator extends BlockBasicMachine{
 						float f = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
 						float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
-						while(itemstack.stackSize > 0){
-							int j = this.rand.nextInt(21) + 10;
-							if(j < itemstack.stackSize){
-								j = itemstack.stackSize;
-							}
-							itemstack.stackSize -= j;
-							EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
-							if(itemstack.hasTagCompound()){
-								item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-							}
-							float f3 = 0.05F;
-							item.motionX = (double)((float)this.rand.nextGaussian() * f3);
-							item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
-							item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
-							world.spawnEntityInWorld(item);
+						EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), itemstack);
+						if(itemstack.hasTagCompound()){
+							item.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
 						}
+						float f3 = 0.05F;
+						item.motionX = (double)((float)this.rand.nextGaussian() * f3);
+						item.motionY = (double)((float)this.rand.nextGaussian() * f3 + 0.2F);
+						item.motionZ = (double)((float)this.rand.nextGaussian() * f3);
+						world.spawnEntityInWorld(item);
 					}
 				}
 				world.func_147453_f(x, y, z, oldBlock);

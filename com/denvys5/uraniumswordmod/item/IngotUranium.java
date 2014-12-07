@@ -8,11 +8,9 @@ import net.minecraft.util.IIcon;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class IngotUranium extends Item{
+public class IngotUranium extends USMItem{
 	public IngotUranium(){
 		super();
-		this.setHasSubtypes(true);
-		this.setCreativeTab(USM.USMTab);
 
 	}
 

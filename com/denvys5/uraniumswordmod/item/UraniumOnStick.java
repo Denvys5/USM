@@ -10,10 +10,9 @@ import net.minecraft.potion.PotionEffect;
 
 import com.denvys5.uraniumswordmod.USM;
 
-public class UraniumOnStick extends Item{
+public class UraniumOnStick extends USMItem{
 	public UraniumOnStick(){
 		super();
-		this.setCreativeTab(USM.USMTab);
 	}
 
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase){

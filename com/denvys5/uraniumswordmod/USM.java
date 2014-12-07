@@ -47,7 +47,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.7.1";
+	public static final String version = "0.7.2";
 
 	@Instance(modid)
 	public static USM instance;

@@ -29,6 +29,12 @@ public class TileEntityWindmill extends TileEntityCore{
 		if(this.getWorldObj().getBlockMetadata(this.xCoord, this.yCoord, this.zCoord) > 6 && this.getWorldObj().getTileEntity(this.xCoord, this.yCoord-7, this.zCoord) != null && this.getWorldObj().getTileEntity(this.xCoord, this.yCoord-7, this.zCoord).getBlockMetadata() == 5){
 			boolean flag1 = false;
 			this.rotation++;
+			if(this.slots[0] != null){
+				if(this.slots[0].getItemDamage() == 0){
+					this.operateItem();
+					flag1 = true;
+				}
+			}
 			this.power += this.powerPerRotation;
 			if(this.power > this.maxPower) this.power = this.maxPower;
 			if(this.power > 0){
@@ -43,12 +49,6 @@ public class TileEntityWindmill extends TileEntityCore{
 							this.slots[0] = new ItemStack(this.slots[0].getItem(), this.slots[0].stackSize, this.slots[0].getItemDamage() - power1);	
 						}
 					}
-				}
-			}
-			if(this.slots[0] != null){
-				if(this.slots[0].getItemDamage() == 0){
-					this.operateItem();
-					flag1 = true;
 				}
 			}
 			if(flag1){
@@ -129,6 +129,16 @@ public class TileEntityWindmill extends TileEntityCore{
 		if(i == 0) return this.slots[0];
 		if(i == 1) return this.slots[1];
 		return null;
+	}
+
+	@Override
+	public String getInventoryName(){
+		return this.hasCustomInventoryName() ? this.localizedName : "container.Windmill";
+	}
+
+	@Override
+	public int getRequiredPowerForCrafting(ItemStack itemstack){
+		return 0;
 	}
 	
 }

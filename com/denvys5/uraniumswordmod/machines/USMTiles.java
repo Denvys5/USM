@@ -73,6 +73,7 @@ public class USMTiles{
 		WindmillItem = new WindmillItem().setUnlocalizedName("WindmillItem").setCreativeTab(USM.USMTab);
 		GameRegistry.registerTileEntity(TileEntityWindmill.class, "Windmill");
 		GameRegistry.registerTileEntity(TileEntityWindmillPlatform.class, "WindmillPlatform");
+		LanguageRegistry.instance().addStringLocalization("container.Windmill", "Windmill");
 		Util.regBlock(WindmillPlatform, "WindmillPlatform", "Windmill Platform");
 		Util.regBlock(WindmillBlock, "WindmillBlock", "Windmill Block");
 		Util.regItem(WindmillItem, "WindmillItem", "Windmill Item");

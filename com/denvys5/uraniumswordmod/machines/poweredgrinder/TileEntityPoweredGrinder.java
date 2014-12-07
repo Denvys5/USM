@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import cofh.api.energy.EnergyStorage;
 
 import com.denvys5.uraniumswordmod.machines.TileEntityCore;
-import com.denvys5.uraniumswordmod.machines.uraniumduplicator.DuplicatorRecipes;
 
 public class TileEntityPoweredGrinder extends TileEntityCore{
 

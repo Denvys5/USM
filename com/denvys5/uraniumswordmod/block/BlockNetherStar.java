@@ -13,13 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class BlockNetherStar extends Block{
+public class BlockNetherStar extends USMBlock{
 
 	public BlockNetherStar(){
-		super(Material.rock);
-		this.setCreativeTab(USM.USMTab);
-		this.setHardness(3.0F);
-		this.setResistance(25F);
+		super();
 		this.setLightLevel(8.0F);
 	}
 

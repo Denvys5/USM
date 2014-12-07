@@ -1,27 +1,21 @@
 package com.denvys5.uraniumswordmod.item;
 
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import com.denvys5.uraniumswordmod.USM;
-import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BasicBattery extends Item{
+public class BasicBattery extends USMItem{
 	private int FullBattery = 0;
 	private int EmptyBattery = 10000;
 	private IIcon Full;
 	private IIcon Empty;
 	public BasicBattery(int maxCharge){
 		super();
-		this.setCreativeTab(USM.USMTab);
 		this.setMaxDamage(maxCharge);
 		this.maxStackSize = 1;
 		this.setHasSubtypes(true);

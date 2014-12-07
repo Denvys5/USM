@@ -25,7 +25,7 @@ import com.denvys5.uraniumswordmod.block.USMBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class UraniumWrench extends Item implements IToolWrench{
+public class UraniumWrench extends USMItem implements IToolWrench{
 	private float damageVsEntity;
 	private int USMTilesMetaVar;
 	public static Set<String> blocksFromOtherMods = new HashSet();
@@ -33,8 +33,7 @@ public class UraniumWrench extends Item implements IToolWrench{
 
 	public UraniumWrench(){
 		super();
-		maxStackSize = 1;
-		setCreativeTab(USM.USMTab);
+		this.maxStackSize = 1;
 
 		blocksFromOtherMods.add("IronChest:BlockIronChest");
 		blocksFromOtherMods.add("Forestry:tile.for.factory");

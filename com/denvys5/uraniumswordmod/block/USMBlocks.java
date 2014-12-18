@@ -3,11 +3,15 @@ package com.denvys5.uraniumswordmod.block;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 import com.denvys5.uraniumswordmod.core.Util;
 import com.denvys5.uraniumswordmod.machines.machineparts.BasicMachineCore;
 import com.denvys5.uraniumswordmod.machines.machineparts.DisassemblerCore;
 import com.denvys5.uraniumswordmod.machines.nuke.Nuke;
+import com.denvys5.uraniumswordmod.machines.safenuke.SafeNuke;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class USMBlocks{
 
@@ -15,9 +19,11 @@ public class USMBlocks{
 	public static Block blockuranium;
 	public static Block blocknetherstar;
 	public static Block blockinfuseduranium;
+	public static Block oreMetal;
 
 	public static Block NuclearWaste;
 	public static Block Nuke;
+	public static Block SafeNuke;
 	
 	public static ArrayList<Block> AllBlocks = new ArrayList();
 
@@ -39,5 +45,17 @@ public class USMBlocks{
 
 		Nuke = new Nuke().setBlockName("Nuke");
 		Util.regBlock(Nuke, "Nuke", "Nuke");
+		
+		SafeNuke = new SafeNuke().setBlockName("Safe Nuke");
+		Util.regBlock(SafeNuke, "SafeNuke", "Safe Nuke");
+		
+		GameRegistry.registerBlock(oreMetal = new OreMetal("ore"), OreMetal.ItemMetaOre.class, "ore");
+	}
+	
+	public static void oreRegister(){
+		Util.OreRegister(new ItemStack(oreMetal, 1, 0), "ore" + "Copper");
+		Util.OreRegister(new ItemStack(oreMetal, 1, 1), "ore" + "Tin");
+		Util.OreRegister(new ItemStack(oreMetal, 1, 2), "ore" + "Lead");
+		Util.OreRegister(new ItemStack(oreMetal, 1, 3), "ore" + "Silver");
 	}
 }

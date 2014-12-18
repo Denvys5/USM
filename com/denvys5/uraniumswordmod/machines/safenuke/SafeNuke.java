@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.machines.nuke;
+package com.denvys5.uraniumswordmod.machines.safenuke;
 
 import buildcraft.api.tools.IToolWrench;
 
@@ -22,7 +22,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Nuke extends Block{
+public class SafeNuke extends Block{
 
 	private Entity entity;
 	private boolean destroyBlocksOnExplosion = true;
@@ -36,9 +36,9 @@ public class Nuke extends Block{
 	@SideOnly(Side.CLIENT)
 	private IIcon iconBottom;
 
-	public Nuke(){
+	public SafeNuke(){
 		super(Material.tnt);
-		this.setHardness(30.0F);
+		this.setHardness(3.0F);
 		this.setCreativeTab(USM.USMTab);
 	}
 
@@ -56,7 +56,7 @@ public class Nuke extends Block{
 
 	public void onBlockDestroyedByExplosion(World world, int i, int j, int k, Explosion explosion){
 		if(!world.isRemote){
-			EntityNukePrimed explosionNuke = new EntityNukePrimed(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), explosion.getExplosivePlacedBy());
+			EntitySafeNukePrimed explosionNuke = new EntitySafeNukePrimed(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), explosion.getExplosivePlacedBy());
 			world.spawnEntityInWorld(explosionNuke);
 		}
 	}
@@ -73,7 +73,7 @@ public class Nuke extends Block{
 	public void primeNuclearBomb(World world, int i, int j, int k, int l, EntityLivingBase entityPlayer){
 		if(!world.isRemote){
 			if((l & 1) == 1){
-				EntityNukePrimed entityNuclearBombPrimed = new EntityNukePrimed(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), entityPlayer);
+				EntitySafeNukePrimed entityNuclearBombPrimed = new EntitySafeNukePrimed(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), entityPlayer);
 				world.spawnEntityInWorld(entityNuclearBombPrimed);
 				world.playSoundAtEntity(entityNuclearBombPrimed, "game.tnt.primed", 1.0F, 1.0F);
 			}

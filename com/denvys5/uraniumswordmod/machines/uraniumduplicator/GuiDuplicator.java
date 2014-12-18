@@ -33,7 +33,7 @@ public class GuiDuplicator extends GuiContainer{
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		if(this.Duplicator.hasPower()){
-			int k = this.Duplicator.getPowerRemainingScaled(44);
+			int k = this.Duplicator.getPowerRemainingScaled(43);
 			drawTexturedModalRect(guiLeft + 10, guiTop + 51 - k, 176, 69 - k, 11, k + 2);
 		}
 		int k = this.Duplicator.getCraftingProgressScaled(25);

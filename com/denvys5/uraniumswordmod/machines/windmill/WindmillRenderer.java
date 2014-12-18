@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.core.Config;
+import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.pipes.PipeRenderer;
 import com.denvys5.uraniumswordmod.machines.pipes.TileEntityPipe;
@@ -49,13 +50,13 @@ public class WindmillRenderer extends TileEntitySpecialRenderer{
 
 		if(metadata == 1){
 			TileEntity pipe = tileentity.getWorldObj().getTileEntity(tileentity.xCoord+1, tileentity.yCoord, tileentity.zCoord);
-			if(pipe instanceof TileEntityPipe) drawConnector(ForgeDirection.EAST);
+			if(pipe instanceof TileEntityPipe || pipe instanceof TileEntityMachine) drawConnector(ForgeDirection.EAST);
 			pipe = tileentity.getWorldObj().getTileEntity(tileentity.xCoord-1, tileentity.yCoord, tileentity.zCoord);
-			if(pipe instanceof TileEntityPipe) drawConnector(ForgeDirection.WEST);
+			if(pipe instanceof TileEntityPipe || pipe instanceof TileEntityMachine) drawConnector(ForgeDirection.WEST);
 			pipe = tileentity.getWorldObj().getTileEntity(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord+1);
-			if(pipe instanceof TileEntityPipe) drawConnector(ForgeDirection.SOUTH);
+			if(pipe instanceof TileEntityPipe || pipe instanceof TileEntityMachine) drawConnector(ForgeDirection.SOUTH);
 			pipe = tileentity.getWorldObj().getTileEntity(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord-1);
-			if(pipe instanceof TileEntityPipe) drawConnector(ForgeDirection.NORTH);
+			if(pipe instanceof TileEntityPipe || pipe instanceof TileEntityMachine) drawConnector(ForgeDirection.NORTH);
 		}
 		
 		Tessellator tessellator = Tessellator.instance;

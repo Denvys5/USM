@@ -28,7 +28,7 @@ import com.denvys5.uraniumswordmod.item.USMItems;
 import com.denvys5.uraniumswordmod.machines.GuiHandler;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.nuke.EntityNukePrimed;
-import com.denvys5.uraniumswordmod.oregenerators.UraniumOreGenerator;
+import com.denvys5.uraniumswordmod.oregenerators.USMOreGenerator;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -47,7 +47,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.7.2";
+	public static final String version = "0.7.3";
 
 	@Instance(modid)
 	public static USM instance;
@@ -111,12 +111,14 @@ public class USM{
 		if(Loader.isModLoaded("gregtech_addon")){
 			System.err.println("[USM] DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH");
 		}
-		GameRegistry.registerWorldGenerator(new UraniumOreGenerator(), 0);
+		GameRegistry.registerWorldGenerator(new USMOreGenerator(), 0);
 		GuiHandler guiHandler = new GuiHandler();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		USMBlocks.blockRegister();
+		USMBlocks.oreRegister();
 		USMItems.itemRegister();
 		USMItems.armorRegister();
+		USMItems.oreRegister();
 		USMTiles.tileEntityRegister();
 		VanillaCraftingRecipes.ShapedOreCrafting();
 		VanillaCraftingRecipes.ShapelessCrafting();

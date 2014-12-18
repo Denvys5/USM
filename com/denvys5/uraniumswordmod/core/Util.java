@@ -36,12 +36,16 @@ public class Util{
 		Util.regBlock(tileEntityActive, nameWithoutSpaces + "active", name + " Active");
 	}
 
-	public static void OreItemRegister(Item item, String orename){
+	public static void OreRegister(Item item, String orename){
 		OreDictionary.registerOre(orename, new ItemStack(item));
 	}
 
-	public static void OreBlockRegister(Block block, String orename){
+	public static void OreRegister(Block block, String orename){
 		OreDictionary.registerOre(orename, new ItemStack(block));
+	}
+	
+	public static void OreRegister(ItemStack itemstack, String orename){
+		OreDictionary.registerOre(orename, itemstack);
 	}
 
 	public static Vec3 getEntityBlockVector(Entity entity){

@@ -35,6 +35,7 @@ public class VanillaCraftingRecipes{
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.furnaceuraniumidle, true, new Object[]{"@@@", "@X@", "!!!", Character.valueOf('@'), Blocks.iron_block, ('X'), Items.nether_star, ('!'), Blocks.coal_block}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.furnaceuraniumidle, true, new Object[]{"@@@", "@X@", "!!!", Character.valueOf('@'), Blocks.iron_block, ('X'), Blocks.dragon_egg, ('!'), Blocks.coal_block}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.uraniumonstick, true, new Object[]{"@00", "0X0", "00@", Character.valueOf('@'), USMItems.ingotinfuseduranium, Character.valueOf('X'), Items.stick}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.SafeNuke, true, new Object[]{"@@@", "0X0", "!!!", Character.valueOf('@'), Items.iron_ingot, ('X'), USMBlocks.blockuranium, ('0'), USMItems.ingotinfuseduranium, ('!'), Blocks.tnt}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.Nuke, true, new Object[]{"@@@", "0X0", "!!!", Character.valueOf('@'), Items.iron_ingot, ('X'), USMBlocks.blockuranium, ('0'), Items.nether_star, ('!'), Blocks.tnt}));
 	}
 	public static void ShapelessCrafting(){
@@ -43,5 +44,9 @@ public class VanillaCraftingRecipes{
 	}
 	public static void VanillaSmeltingRecipes(){
 		GameRegistry.addSmelting(USMBlocks.oreuranium, new ItemStack(USMItems.ingoturanium, 1), 20.0F);
+		for(int i = 0; i < 5; i++){
+			GameRegistry.addSmelting(new ItemStack(USMBlocks.oreMetal, 1, i), new ItemStack(USMItems.IngotMetal, 1, i), 20.0F);
+			GameRegistry.addSmelting(new ItemStack(USMItems.DustMetal, 1, i), new ItemStack(USMItems.IngotMetal, 1, i), 20.0F);
+		}
 	}
 }

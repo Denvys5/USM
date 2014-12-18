@@ -6,6 +6,8 @@ import com.denvys5.uraniumswordmod.machines.nuke.EntityNukePrimed;
 import com.denvys5.uraniumswordmod.machines.nuke.RenderNukePrimed;
 import com.denvys5.uraniumswordmod.machines.pipes.PipeRenderer;
 import com.denvys5.uraniumswordmod.machines.pipes.TileEntityPipe;
+import com.denvys5.uraniumswordmod.machines.safenuke.EntitySafeNukePrimed;
+import com.denvys5.uraniumswordmod.machines.safenuke.RenderSafeNukePrimed;
 import com.denvys5.uraniumswordmod.machines.windmill.TileEntityWindmill;
 import com.denvys5.uraniumswordmod.machines.windmill.TileEntityWindmillPlatform;
 import com.denvys5.uraniumswordmod.machines.windmill.WindMillPlatformRenderer;
@@ -21,6 +23,7 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWindmill.class, new WindmillRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWindmillPlatform.class, new WindMillPlatformRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderNukePrimed());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySafeNukePrimed.class, new RenderSafeNukePrimed());
 		FMLCommonHandler.instance().bus().register(new KeyHandler());
 	}
 }

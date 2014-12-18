@@ -3,8 +3,12 @@ package com.denvys5.uraniumswordmod.item;
 import java.util.ArrayList;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
+import com.denvys5.uraniumswordmod.block.OreMetal;
 import com.denvys5.uraniumswordmod.core.Util;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class USMItems{
 	
@@ -20,6 +24,8 @@ public class USMItems{
 	public static Item UraniumBoots;
 	public static Item UraniumWrench;
 	public static Item BasicBattery;
+	public static Item IngotMetal;
+	public static Item DustMetal;
 	
 	public static ArrayList<Item> AllItems = new ArrayList();
 	
@@ -47,6 +53,9 @@ public class USMItems{
 
 		BasicBattery = new BasicBattery(10000).setUnlocalizedName("Basic Battery");
 		Util.regItem(BasicBattery, "BasicBattery", "Basic Battery");
+		
+		GameRegistry.registerItem(IngotMetal = new IngotMetal("ingot"), "ingot");
+		GameRegistry.registerItem(DustMetal = new DustMetal("dust"), "dust");
 	}
 	
 	public static void armorRegister(){
@@ -58,5 +67,17 @@ public class USMItems{
 		Util.regItem(UraniumLeggins, "UraniumLeggins", "Uranium Leggins");
 		UraniumBoots = new UraniumArmor(3).setUnlocalizedName("UraniumBoots");
 		Util.regItem(UraniumBoots, "UraniumBoots", "Uranium Boots");
+	}
+	
+	public static void oreRegister(){
+		Util.OreRegister(new ItemStack(IngotMetal, 1, 0), "ingot" + "Copper");
+		Util.OreRegister(new ItemStack(IngotMetal, 1, 1), "ingot" + "Tin");
+		Util.OreRegister(new ItemStack(IngotMetal, 1, 2), "ingot" + "Lead");
+		Util.OreRegister(new ItemStack(IngotMetal, 1, 3), "ingot" + "Silver");
+		
+		Util.OreRegister(new ItemStack(DustMetal, 1, 0), "dust" + "Copper");
+		Util.OreRegister(new ItemStack(DustMetal, 1, 1), "dust" + "Tin");
+		Util.OreRegister(new ItemStack(DustMetal, 1, 2), "dust" + "Lead");
+		Util.OreRegister(new ItemStack(DustMetal, 1, 3), "dust" + "Silver");
 	}
 }

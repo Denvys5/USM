@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.machines.nuke;
+package com.denvys5.uraniumswordmod.machines.safenuke;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -6,27 +6,27 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public class EntityNukePrimed extends Entity{
+public class EntitySafeNukePrimed extends Entity{
 
 	public int fuse;
 	private EntityLivingBase tntPlacedBy;
 	private float explosionSize = 30.0F;
 
-	public EntityNukePrimed(World p_i1729_1_){
+	public EntitySafeNukePrimed(World p_i1729_1_){
 		super(p_i1729_1_);
 		this.preventEntitySpawning = true;
 		this.setSize(0.98F, 0.98F);
 		this.yOffset = this.height / 2.0F;
 	}
 
-	public EntityNukePrimed(World p_i1730_1_, double p_i1730_2_, double p_i1730_4_, double p_i1730_6_, EntityLivingBase p_i1730_8_){
+	public EntitySafeNukePrimed(World p_i1730_1_, double p_i1730_2_, double p_i1730_4_, double p_i1730_6_, EntityLivingBase p_i1730_8_){
 		this(p_i1730_1_);
 		this.setPosition(p_i1730_2_, p_i1730_4_, p_i1730_6_);
 		float var9 = (float)(Math.random() * Math.PI * 2.0D);
 		this.motionX = (double)(-((float)Math.sin((double)var9)) * 0.02F);
 		this.motionY = 0.20000000298023224D;
 		this.motionZ = (double)(-((float)Math.cos((double)var9)) * 0.02F);
-		this.fuse = 20;
+		this.fuse = 200;
 		this.prevPosX = p_i1730_2_;
 		this.prevPosY = p_i1730_4_;
 		this.prevPosZ = p_i1730_6_;
@@ -73,8 +73,7 @@ public class EntityNukePrimed extends Entity{
 
 	private void explode(){
 		float f = explosionSize;
-		ExplosionNuke explosion = new ExplosionNuke(this.worldObj, this, this.posX, this.posY, this.posZ, f);
-		explosion.spawnNuclearWaste = true;
+		ExplosionSafeNuke explosion = new ExplosionSafeNuke(this.worldObj, this, this.posX, this.posY, this.posZ, f);
 		explosion.destroyBlocks = true;
 		explosion.doExplosionA();
 		explosion.doExplosionB(true);

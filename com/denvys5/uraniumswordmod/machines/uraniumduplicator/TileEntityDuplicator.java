@@ -3,9 +3,9 @@ package com.denvys5.uraniumswordmod.machines.uraniumduplicator;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.EnergyStorage;
 
-import com.denvys5.uraniumswordmod.machines.TileEntityCore;
+import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
 
-public class TileEntityDuplicator extends TileEntityCore{
+public class TileEntityDuplicator extends TileEntityMachine{
 
 	public TileEntityDuplicator(){
 		super(maxPower, powerUsage*2);
@@ -56,9 +56,23 @@ public class TileEntityDuplicator extends TileEntityCore{
 						}
 					}
 				} else{
-					if(this.slots[1].getItemDamage() < this.slots[1].getMaxDamage()){
+					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed < this.slots[1].getMaxDamage()){
 						this.power += this.batteryChargeSpeed;
 						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + this.batteryChargeSpeed);
+					}
+				}
+				if(this.power >= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+					int a = this.maxPower - this.power;
+					if(this.slots[1].getItemDamage() + a < this.slots[1].getMaxDamage()){
+						this.power = this.maxPower;
+						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + a);
+					}
+				}
+				if(this.power <= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed >= this.slots[1].getMaxDamage()){
+						int a = this.slots[1].getMaxDamage() - this.slots[1].getItemDamage();
+						this.power += a;
+						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getMaxDamage());
 					}
 				}
 			}

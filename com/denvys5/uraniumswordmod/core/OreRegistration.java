@@ -19,17 +19,16 @@ public class OreRegistration{
 		if(OreRegistration.IronStickRegister == true){
 			IronStickRegister();
 		}
-
 	}
 	public static void OreUraniumRegister(){
-		Util.OreBlockRegister(USMBlocks.oreuranium, "oreUranium");
+		Util.OreRegister(USMBlocks.oreuranium, "oreUranium");
 	}
 	public static void IngotUraniumRegister(){
-		Util.OreItemRegister(USMItems.ingoturanium, "ingotUranium");
+		Util.OreRegister(USMItems.ingoturanium, "ingotUranium");
 	}
 	public static void IronStickRegister(){
-		Util.OreItemRegister(USMItems.stickiron, "stickIron");
-		Util.OreItemRegister(USMItems.stickiron, "ironStick");
-		Util.OreItemRegister(USMItems.stickiron, "ironRod");
+		Util.OreRegister(USMItems.stickiron, "stickIron");
+		Util.OreRegister(USMItems.stickiron, "ironStick");
+		Util.OreRegister(USMItems.stickiron, "ironRod");
 	}
 }

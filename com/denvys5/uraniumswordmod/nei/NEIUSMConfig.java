@@ -22,6 +22,7 @@ public class NEIUSMConfig implements IConfigureNEI{
 		API.hideItem(new ItemStack(USMTiles.furnaceuraniumactive));
 		API.hideItem(new ItemStack(USMTiles.PoweredGrinderactive));
 		API.hideItem(new ItemStack(USMTiles.duplicatoractive));
+		API.hideItem(new ItemStack(USMTiles.WindmillBlock));
 		// API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
 		// API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
 	}

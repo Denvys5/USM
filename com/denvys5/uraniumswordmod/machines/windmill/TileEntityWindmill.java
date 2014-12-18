@@ -1,16 +1,16 @@
 package com.denvys5.uraniumswordmod.machines.windmill;
 
-import com.denvys5.uraniumswordmod.machines.TileEntityCore;
-import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinderRecipes;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
+import cofh.api.energy.EnergyStorage;
 
-public class TileEntityWindmill extends TileEntityCore{
+import com.denvys5.uraniumswordmod.machines.TileEntityGenerator;
+
+public class TileEntityWindmill extends TileEntityGenerator{
 	public TileEntityWindmill(){
-		super(0);
+		super(maxPower, batteryChargeSpeed);
+		this.storage = new EnergyStorage(maxPower, batteryChargeSpeed);
 		this.localizedName = "Windmill";
 		this.slots_top = new int[]{0, 1};
 		this.slots_bottom = new int[]{0, 1};
@@ -135,10 +135,9 @@ public class TileEntityWindmill extends TileEntityCore{
 	public String getInventoryName(){
 		return this.hasCustomInventoryName() ? this.localizedName : "container.Windmill";
 	}
-
-	@Override
+	
 	public int getRequiredPowerForCrafting(ItemStack itemstack){
 		return 0;
 	}
-	
+
 }

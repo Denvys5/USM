@@ -12,12 +12,13 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyConnection;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyStorage;
 
 import com.denvys5.uraniumswordmod.item.USMItems;
 
-public abstract class TileEntityCore extends TileEntity implements ISidedInventory, IEnergyStorage, IEnergyHandler{
+public abstract class TileEntityGenerator extends TileEntity implements ISidedInventory, IEnergyStorage, IEnergyHandler, IEnergyConnection{
 	public EnergyStorage storage;// = new EnergyStorage(maxPower, powerUsage*2);
 	public String localizedName;
 	public static int[] slots_top;
@@ -179,14 +180,12 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 		return this.power > this.powerUsage;
 	}
 
-	public abstract int getRequiredPowerForCrafting(ItemStack itemstack);
-
 	public int operationSpeed(){
-		return getRequiredPowerForCrafting(this.slots[0]) / powerUsage;
+		return 0;
 	}
 
 	public int craftTime(ItemStack itemstack){
-		return getRequiredPowerForCrafting(itemstack) / this.powerUsage;
+		return 0;
 	}
 
 	public int getPowerRemainingScaled(int i){
@@ -240,15 +239,15 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 	protected int maxReceive;
 	protected int maxExtract;
 
-	public TileEntityCore(int capacity){
+	public TileEntityGenerator(int capacity){
 		this(capacity, capacity, capacity);
 	}
 
-	public TileEntityCore(int capacity, int maxTransfer){
+	public TileEntityGenerator(int capacity, int maxTransfer){
 		this(capacity, maxTransfer, maxTransfer);
 	}
 
-	public TileEntityCore(int capacity, int maxReceive, int maxExtract){
+	public TileEntityGenerator(int capacity, int maxReceive, int maxExtract){
 		this.maxPower = capacity;
 		this.maxReceive = maxReceive;
 		this.maxExtract = maxExtract;
@@ -281,43 +280,43 @@ public abstract class TileEntityCore extends TileEntity implements ISidedInvento
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate){
-		if (!simulate) {
-			if(!(this.power >= this.maxPower)){
-				if(!(this.power + maxReceive >= this.maxPower)){
-					this.power += maxReceive;
-				}else{
-					int a = this.maxPower - this.power;
-					this.power = this.maxPower;
-					return a;
-				}
-			}
-		}
-		return maxReceive;
+		return 0;
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate){
-		return 0;
-	}
-	
-	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
 		if (!simulate) {
-			if(!(this.power >= this.maxPower)){
-				if(!(this.power + maxReceive >= this.maxPower)){
-					this.power += maxReceive;
+			if(this.power > 0){
+				if(this.power - maxExtract >= 0){
+					this.power -= maxExtract;
 				}else{
-					int a = this.maxPower - this.power;
-					this.power = this.maxPower;
+					int a = this.power;
+					this.power = 0;
 					return a;
 				}
 			}
 		}
-		return maxReceive;
+		return maxExtract;
+	}
+	
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
+		return 0;
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return 0;
+		if (!simulate) {
+			if(this.power > 0){
+				if(this.power - maxExtract >= 0){
+					this.power -= maxExtract;
+				}else{
+					int a = this.power;
+					this.power = 0;
+					return a;
+				}
+			}
+		}
+		return maxExtract;
 	}
 }

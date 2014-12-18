@@ -8,9 +8,10 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
 
+import com.denvys5.uraniumswordmod.block.USMBlock;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 
-public class UraniumOreGenerator implements IWorldGenerator{
+public class USMOreGenerator implements IWorldGenerator{
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider){
@@ -33,6 +34,10 @@ public class UraniumOreGenerator implements IWorldGenerator{
 
 	public void generateSurface(World world, Random random, int x, int y){
 		this.addOreSpawn(USMBlocks.oreuranium, world, random, x, y, 16, 16, 1 + random.nextInt(3), 30, 5, 50);
+		this.addOreSpawn(USMBlocks.oreMetal, 0, world, random, x, y, 16, 16, 1 + random.nextInt(6), 120, 14, 40);
+		this.addOreSpawn(USMBlocks.oreMetal, 1, world, random, x, y, 16, 16, 1 + random.nextInt(6), 120, 14, 40);
+		this.addOreSpawn(USMBlocks.oreMetal, 2, world, random, x, y, 16, 16, 1 + random.nextInt(4), 100, 5, 38);
+		this.addOreSpawn(USMBlocks.oreMetal, 3, world, random, x, y, 16, 16, 1 + random.nextInt(4), 100, 5, 35);
 	}
 
 	public void generateEnd(World world, Random random, int x, int y){
@@ -44,7 +49,16 @@ public class UraniumOreGenerator implements IWorldGenerator{
 			int PosX = blockXPos + random.nextInt(maxX);
 			int PosY = minY + random.nextInt(maxY - minY);
 			int PosZ = blockZPos + random.nextInt(maxZ);
-			(new WorldGenMinable(block, maxVeinSize)).generate(world, random, PosX, PosY, PosZ);
+			(new USMWorldGenerator(block, maxVeinSize, 0)).generate(world, random, PosX, PosY, PosZ);
+		}
+	}
+	
+	public void addOreSpawn(Block block, int metadata, World world, Random random, int blockXPos, int blockZPos, int maxX, int maxZ, int maxVeinSize, int chancesToSpawn, int minY, int maxY){
+		for(int i = 0; i < chancesToSpawn; i++){
+			int PosX = blockXPos + random.nextInt(maxX);
+			int PosY = minY + random.nextInt(maxY - minY);
+			int PosZ = blockZPos + random.nextInt(maxZ);
+			(new USMWorldGenerator(block, maxVeinSize, metadata)).generate(world, random, PosX, PosY, PosZ);
 		}
 	}
 }

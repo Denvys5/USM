@@ -20,6 +20,7 @@ public class USMBlocks{
 	public static Block blocknetherstar;
 	public static Block blockinfuseduranium;
 	public static Block oreMetal;
+	public static Block blockMetal;
 
 	public static Block NuclearWaste;
 	public static Block Nuke;
@@ -50,6 +51,7 @@ public class USMBlocks{
 		Util.regBlock(SafeNuke, "SafeNuke", "Safe Nuke");
 		
 		GameRegistry.registerBlock(oreMetal = new OreMetal("ore"), OreMetal.ItemMetaOre.class, "ore");
+		GameRegistry.registerBlock(blockMetal = new BlockMetal("block"), BlockMetal.ItemMetaOre.class, "block");
 	}
 	
 	public static void oreRegister(){

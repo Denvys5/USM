@@ -83,8 +83,14 @@ public class TileEntityDuplicator extends TileEntityMachine{
 			}
 		}
 		if(this.hasPower() && this.canOperate()){
-			this.cookTime++;
-			this.power -= this.powerUsage;
+			if(this.power < this.powerUsage){
+				this.cookTime+=(this.power/this.powerUsage);
+				this.power = 0;
+			}else{
+				this.cookTime++;
+				this.power -= this.powerUsage;
+			}
+			
 			if(this.cookTime == this.machineSpeed){
 				this.cookTime = 0;
 				this.operateItem();
@@ -129,7 +135,7 @@ public class TileEntityDuplicator extends TileEntityMachine{
 	@Override
 	public boolean canInsertItem(int i, ItemStack itemstack, int j){
 		if(itemstack != null){
-			if(i == this.ingredSlot && DuplicatorRecipes.smelting().getSmeltingResult(this.slots[this.ingredSlot]) != null){
+			if(i == this.ingredSlot && DuplicatorRecipes.smelting().getSmeltingResult(itemstack) != null){
 				return true;
 			}
 		}

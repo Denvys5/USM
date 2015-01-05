@@ -47,7 +47,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.7.3";
+	public static final String version = "0.7.4";
 
 	@Instance(modid)
 	public static USM instance;
@@ -92,7 +92,6 @@ public class USM{
 		}
 
 		MinecraftForge.EVENT_BUS.register(new USMEventHooks());
-		//MinecraftForge.EVENT_BUS.register(new WindmillHighlightEvent());
 		FMLCommonHandler.instance().bus().register(new OnPlayerLoginEvent());
 		FMLCommonHandler.instance().bus().register(new UraniumSwordKillingEvent());
 		//if(Loader.isModLoaded("ForgeMultipart"))new MultiPartRegister().init();
@@ -123,6 +122,7 @@ public class USM{
 		VanillaCraftingRecipes.ShapedOreCrafting();
 		VanillaCraftingRecipes.ShapelessCrafting();
 		VanillaCraftingRecipes.VanillaSmeltingRecipes();
+		MachineRecipes.SettingOres();
 		MachineRecipes.UraniumFurnaceRecipes();
 		MachineRecipes.PoweredGrinderRecipes();
 		MachineRecipes.DuplicatorRecipes();

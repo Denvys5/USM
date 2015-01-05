@@ -14,10 +14,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class VanillaCraftingRecipes{
 	public static void ShapedOreCrafting(){
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumWrench, true, new Object[]{"X!X", "@@@", "!@!", Character.valueOf('X'), "ingotUranium", ('@'), Items.iron_ingot}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.duplicatoridle, true, new Object[]{"X!X", "V@V", "G#G", Character.valueOf('V'), "ingotUranium", ('@'), Blocks.furnace, ('X'), Items.iron_ingot, ('G'), Items.gold_ingot, ('#'), USMTiles.DisassemblerCore, ('!'), USMTiles.BasicMachineCore}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.BasicMachineCore, true, new Object[]{"XXX", "@#@", "X!X", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), Items.redstone, ('!'), USMItems.ingoturanium}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.duplicatoridle, true, new Object[]{"X!X", "V@V", "G#G", Character.valueOf('V'), Items.bucket, ('@'), Blocks.furnace, ('X'), Items.iron_ingot, ('G'), Items.gold_ingot, ('#'), USMTiles.DisassemblerCore, ('!'), USMTiles.BasicMachineCore}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.BasicMachineCore, true, new Object[]{"XXX", "@#@", "X!X", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), Items.redstone, ('!'), "ingotUranium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.DisassemblerCore, true, new Object[]{"X!X", "@#@", "$$$", Character.valueOf('X'), Items.flint, ('@'), Items.iron_ingot, ('#'), USMTiles.BasicMachineCore, ('!'), Items.iron_pickaxe, ('$'), Blocks.stonebrick}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.PoweredGrinderidle, true, new Object[]{"X!X", "X#X", "$@$", Character.valueOf('X'), Items.iron_ingot, ('@'), Blocks.glowstone, ('#'), USMBlocks.blockuranium, ('!'), USMTiles.DisassemblerCore, ('$'), Items.redstone}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.PoweredGrinderidle, true, new Object[]{"X!X", "X#X", "$@$", Character.valueOf('X'), Items.iron_ingot, ('@'), Items.gold_ingot, ('#'), "ingotUranium", ('!'), USMTiles.DisassemblerCore, ('$'), Items.redstone}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumHelmet, true, new Object[]{"XXX", "X@X", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumChest, true, new Object[]{"X#X", "X@X", "XXX", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMItems.UraniumLeggins, true, new Object[]{"X@X", "X#X", "X#X", Character.valueOf('X'), USMBlocks.blockinfuseduranium, ('@'), USMBlocks.blocknetherstar}));
@@ -31,6 +31,9 @@ public class VanillaCraftingRecipes{
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(USMBlocks.blockuranium, 4), new Object[]{"@@", "@@", Character.valueOf('@'), "blockUranium"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.blocknetherstar, true, new Object[]{"@@@", "@@@", "@@@", Character.valueOf('@'), Items.nether_star}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.blockuranium, true, new Object[]{"@@@", "@@@", "@@@", Character.valueOf('@'), USMItems.ingoturanium}));
+		for(int i = 0; i < 4; i++){
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(USMBlocks.blockMetal, 1, i), true, new Object[]{"@@@", "@@@", "@@@", Character.valueOf('@'), new ItemStack(USMItems.IngotMetal, 1, i)}));
+		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMBlocks.blockinfuseduranium, true, new Object[]{"@@@", "@@@", "@@@", Character.valueOf('@'), USMItems.ingotinfuseduranium}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.furnaceuraniumidle, true, new Object[]{"@@@", "@X@", "!!!", Character.valueOf('@'), Blocks.iron_block, ('X'), Items.nether_star, ('!'), Blocks.coal_block}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(USMTiles.furnaceuraniumidle, true, new Object[]{"@@@", "@X@", "!!!", Character.valueOf('@'), Blocks.iron_block, ('X'), Blocks.dragon_egg, ('!'), Blocks.coal_block}));
@@ -41,10 +44,13 @@ public class VanillaCraftingRecipes{
 	public static void ShapelessCrafting(){
 		GameRegistry.addShapelessRecipe(new ItemStack(USMItems.ingoturanium, 9), new Object[]{USMBlocks.blockuranium});
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.nether_star, 9), new Object[]{USMBlocks.blocknetherstar});
+		for(int i = 0; i < 4; i++){
+			GameRegistry.addShapelessRecipe(new ItemStack(USMItems.IngotMetal, 9, i), new Object[]{new ItemStack(USMBlocks.blockMetal, 1, i)});
+		}
 	}
 	public static void VanillaSmeltingRecipes(){
 		GameRegistry.addSmelting(USMBlocks.oreuranium, new ItemStack(USMItems.ingoturanium, 1), 20.0F);
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 4; i++){
 			GameRegistry.addSmelting(new ItemStack(USMBlocks.oreMetal, 1, i), new ItemStack(USMItems.IngotMetal, 1, i), 20.0F);
 			GameRegistry.addSmelting(new ItemStack(USMItems.DustMetal, 1, i), new ItemStack(USMItems.IngotMetal, 1, i), 20.0F);
 		}

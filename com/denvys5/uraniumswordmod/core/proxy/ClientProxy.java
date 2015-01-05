@@ -25,5 +25,6 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderNukePrimed());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySafeNukePrimed.class, new RenderSafeNukePrimed());
 		FMLCommonHandler.instance().bus().register(new KeyHandler());
+		//MinecraftForge.EVENT_BUS.register(new WindmillHighlightEvent());
 	}
 }

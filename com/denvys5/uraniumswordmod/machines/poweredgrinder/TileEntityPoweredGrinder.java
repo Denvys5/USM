@@ -8,7 +8,9 @@ import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
 public class TileEntityPoweredGrinder extends TileEntityMachine{
 
 	public TileEntityPoweredGrinder(){
-		super(maxPower, powerUsage*2);
+		super(32000, 32*2);
+		this.powerUsage = 32;
+		this.maxPower = 32000;
 		this.storage = new EnergyStorage(maxPower, powerUsage*2);
 		this.slots_top = new int[]{0, 2};
 		this.slots_bottom = new int[]{0, 2};
@@ -19,8 +21,6 @@ public class TileEntityPoweredGrinder extends TileEntityMachine{
 		this.ingredSlot = 0;
 		this.machineSpeed = 80;
 		this.batteryChargeSpeed = 100;
-		this.powerUsage = 32;
-		this.maxPower = 32000;
 	}
 
 	

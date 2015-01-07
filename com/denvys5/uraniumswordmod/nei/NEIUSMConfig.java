@@ -10,6 +10,7 @@ import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.uraniumfurnace.ContainerFurnaceUranium;
 import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
 
 public class NEIUSMConfig implements IConfigureNEI{
@@ -17,14 +18,10 @@ public class NEIUSMConfig implements IConfigureNEI{
 	public void loadConfig(){
 		API.registerRecipeHandler(new FurnaceUraniumRecipeHandler());
 		API.registerUsageHandler(new FurnaceUraniumRecipeHandler());
-		// API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
-		// API.registerUsageHandler(new PoweredGrinderRecipeHandler());
 		API.hideItem(new ItemStack(USMTiles.furnaceuraniumactive));
 		API.hideItem(new ItemStack(USMTiles.PoweredGrinderactive));
 		API.hideItem(new ItemStack(USMTiles.duplicatoractive));
 		API.hideItem(new ItemStack(USMTiles.WindmillBlock));
-		// API.setGuiOffset(GuiFurnaceUranium.class, 0, 0);
-		// API.setGuiOffset(GuiPoweredGrinder.class, 0, 0);
 	}
 
 	public String getName(){

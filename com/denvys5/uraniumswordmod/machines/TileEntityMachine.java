@@ -261,28 +261,28 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 
 	@Override
 	public int getEnergyStored(ForgeDirection from){
-		return this.storage.getEnergyStored();
+		return getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from){
-		return this.storage.getMaxEnergyStored();
+		return getMaxEnergyStored();
 	}
 
 	@Override
 	public int getEnergyStored(){
-		return this.storage.getMaxEnergyStored();
+		return this.power;
 	}
 
 	@Override
 	public int getMaxEnergyStored(){
-		return this.storage.getMaxEnergyStored();
+		return this.maxPower;
 	}
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate){
 		if (!simulate) {
-			if(this.power >= this.maxPower){
+			if(this.power == this.maxPower){
 				return 0;
 			}else{
 				if(!(this.power + maxReceive >= this.maxPower)){
@@ -304,20 +304,7 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
-		if (!simulate) {
-			if(this.power >= this.maxPower){
-				return 0;
-			}else{
-				if(!(this.power + maxReceive >= this.maxPower)){
-					this.power += maxReceive;
-				}else{
-					int a = this.maxPower - this.power;
-					this.power = this.maxPower;
-					return a;
-				}
-			}
-		}
-		return maxReceive;
+		return receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override

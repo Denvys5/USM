@@ -199,7 +199,7 @@ public class WindmillRenderer extends TileEntitySpecialRenderer{
 	private void drawRotor(TileEntity tileentity){
 		TileEntityWindmill windmill = (TileEntityWindmill)tileentity.getWorldObj().getTileEntity(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord);
 		GL11.glTranslatef(0, 0.5F, 0.5F);
-		GL11.glRotatef(windmill.rotation, 1, 0, 0);
+		//GL11.glRotatef(windmill.rotation, 1, 0, 0);
 		GL11.glTranslatef(0, -0.5F, -0.5F);
 		Tessellator tessellator = Tessellator.instance;
 		this.bindTexture(WindmillWing);
@@ -230,10 +230,10 @@ public class WindmillRenderer extends TileEntitySpecialRenderer{
 				tessellator.addVertexWithUV(-2 * pixel, 2.5F,  0.5F-1*pixel, 0, 0);
 				tessellator.addVertexWithUV(-2 * pixel, 0.5F+1*pixel,  0.5F-1*pixel, 0, 1);
 				
-				tessellator.addVertexWithUV(-2 * pixel, -1.5F,  0.5F+1*pixel, 1, 2);
-				tessellator.addVertexWithUV(-2 * pixel, 0.5F-1*pixel,  0.5F+1*pixel, 1, 0);
-				tessellator.addVertexWithUV(-2 * pixel, 0.5F-1*pixel,  0.5F-1*pixel, 0, 0);
-				tessellator.addVertexWithUV(-2 * pixel, -1.5F,  0.5F-1*pixel, 0, 1);
+				tessellator.addVertexWithUV(-2 * pixel, -1.5F,  0.5F+1*pixel, 0, 0);
+				tessellator.addVertexWithUV(-2 * pixel, 0.5F-1*pixel,  0.5F+1*pixel, 0, 1);
+				tessellator.addVertexWithUV(-2 * pixel, 0.5F-1*pixel,  0.5F-1*pixel, 1, 1);
+				tessellator.addVertexWithUV(-2 * pixel, -1.5F,  0.5F-1*pixel, 1, 0);
 				
 				tessellator.addVertexWithUV(-2 * pixel, 0.5F-1*pixel,  2.5F, 1, 1);
 				tessellator.addVertexWithUV(-2 * pixel, 0.5F+1*pixel,  2.5F, 1, 0);

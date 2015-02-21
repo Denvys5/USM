@@ -18,6 +18,8 @@ public class NEIUSMConfig implements IConfigureNEI{
 	public void loadConfig(){
 		API.registerRecipeHandler(new FurnaceUraniumRecipeHandler());
 		API.registerUsageHandler(new FurnaceUraniumRecipeHandler());
+		//API.registerRecipeHandler(new PoweredGrinderRecipeHandler());
+		//API.registerUsageHandler(new PoweredGrinderRecipeHandler());
 		API.hideItem(new ItemStack(USMTiles.furnaceuraniumactive));
 		API.hideItem(new ItemStack(USMTiles.PoweredGrinderactive));
 		API.hideItem(new ItemStack(USMTiles.duplicatoractive));

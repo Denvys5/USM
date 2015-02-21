@@ -17,8 +17,7 @@ import cofh.api.energy.IEnergyStorage;
 
 import com.denvys5.uraniumswordmod.item.USMItems;
 
-public abstract class TileEntityMachine extends TileEntity implements ISidedInventory, IEnergyStorage, IEnergyHandler{
-	public EnergyStorage storage;// = new EnergyStorage(maxPower, powerUsage*2);
+public abstract class TileEntityMachine extends TileEntity implements ISidedInventory, IEnergyHandler{
 	public String localizedName;
 	public static int[] slots_top;
 	public static int[] slots_bottom;
@@ -30,15 +29,22 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	public int machineSpeed;
 	public static int batteryChargeSpeed;
 	public static int powerUsage;
-	public int power;
 	public static int maxPower;
-	public int cookTime;
+	public int cookTime;	
+	public EnergyStorage storage;
+	public int maxReceive;
+	protected int antilagTimer = 0;
 	
+	public abstract String getInventoryName();
+	public abstract int getRequiredPowerForCrafting(ItemStack itemstack);
 	public abstract void updateEntity();
-	public abstract boolean canOperate();
-	public abstract void operateItem();
-	public abstract boolean canInsertItem(int i, ItemStack itemstack, int j);
-
+	public abstract ItemStack getResult(ItemStack itemstack);
+	
+	
+	public TileEntityMachine(){
+		
+	}
+	
 	public boolean isInvNameLocalized(){
 		return false;
 	}
@@ -55,25 +61,21 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 		if(itemstack == null){
 			return false;
 		} else{
-			Item item = itemstack.getItem();
-			if(item == USMItems.BasicBattery) return true;
+			if(itemstack.getItem() == USMItems.BasicBattery) return true;
 			return false;
 		}
 	}
 
 	public static int getItemPower(ItemStack itemstack){
-		if(itemstack == null){
-			return 0;
-		} else{
-			Item item = itemstack.getItem();
-			Block block = Block.getBlockFromItem(item);
-			if(item == Items.glowstone_dust) return 1000;
-			if(item == Items.redstone) return 500;
-			if(block == Blocks.redstone_block) return 4500;
-			if(block == Blocks.glowstone) return 4000;
+		if(itemstack == null) return 0;
+		Item item = itemstack.getItem();
+		if(item == Items.glowstone_dust) return 1000;
+		if(item == Items.redstone) return 500;
+		Block block = Block.getBlockFromItem(item);
+		if(block == Blocks.redstone_block) return 4500;
+		if(block == Blocks.glowstone) return 4000;
 			
-			return 0;
-		}
+		return 0;
 	}
 
 	@Override
@@ -125,9 +127,6 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	}
 
 	@Override
-	public abstract String getInventoryName();
-
-	@Override
 	public boolean hasCustomInventoryName(){
 		return this.localizedName != null && this.localizedName.length() > 0;
 	}
@@ -145,21 +144,14 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	public boolean isUseableByPlayer(EntityPlayer entityplayer){
 		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : entityplayer.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
 	}
-
-	@Override
-	public void openInventory(){
-
+	
+	public boolean canInsertItem(int i, ItemStack itemstack, int j){
+		return isItemValidForSlot(i, itemstack);
 	}
 
-	@Override
-	public void closeInventory(){
+	public void openInventory(){}
 
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_){
-		return false;
-	}
+	public void closeInventory(){}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int var1){
@@ -168,18 +160,13 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j){
-		if(i == this.resultSlot){
-			return true;
-		} else{
-			return false;
-		}
+		if(i == this.resultSlot) return true;
+		return false;
 	}
 
 	public boolean hasPower(){
-		return this.power > this.powerUsage;
+		return storage.energy > this.powerUsage;
 	}
-
-	public abstract int getRequiredPowerForCrafting(ItemStack itemstack);
 
 	public int operationSpeed(){
 		return getRequiredPowerForCrafting(this.slots[0]) / powerUsage;
@@ -190,15 +177,56 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	}
 
 	public int getPowerRemainingScaled(int i){
-		return this.power * i / this.maxPower;
+		return storage.energy * i / this.maxPower;
 	}
 
 	public int getCraftingProgressScaled(int i){
 		return this.cookTime * i / this.machineSpeed;
 	}
+	
+	public boolean canOperate(){
+		if(this.slots[0] == null){
+			return false;
+		} else{
+			ItemStack itemstack = getResult(this.slots[this.ingredSlot]);
+			if(itemstack == null) return false;
+			if(this.slots[2] == null) return true;
+			if(!this.slots[2].isItemEqual(itemstack)) return false;
+			int result = this.slots[2].stackSize + itemstack.stackSize;
+			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+		}
+	}
+	
+	public void operateItem(){
+		if(this.canOperate()){
+			ItemStack itemstack = getResult(this.slots[this.ingredSlot]);
+			if(this.slots[2] == null){
+				this.slots[2] = itemstack.copy();
+			} else if(this.slots[2].isItemEqual(itemstack)){
+				this.slots[2].stackSize += itemstack.stackSize;
+			}
+			this.slots[0].stackSize--;
+			if(this.slots[0].stackSize <= 0){
+				this.slots[0] = null;
+			}
+		}
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack){
+		if(itemstack != null){
+			if(i == ingredSlot){
+				if(getResult(itemstack) != null){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
+		storage.readFromNBT(nbt);
 		NBTTagList list = nbt.getTagList("Items", 10);
 		this.slots = new ItemStack[this.getSizeInventory()];
 		for(int i = 0; i < list.tagCount(); i++){
@@ -208,7 +236,7 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
 			}
 		}
-		this.power = nbt.getShort("Power");
+		//this.power = nbt.getShort("Power");
 		this.cookTime = nbt.getShort("CookTime");
 		if(nbt.hasKey("CustomName")){
 			this.localizedName = nbt.getString("CustomName");
@@ -217,7 +245,8 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
-		nbt.setShort("Power", (short)this.power);
+		storage.writeToNBT(nbt);
+		//nbt.setShort("Power", (short)this.power);
 		nbt.setShort("CookTime", (short)this.cookTime);
 
 		NBTTagList list = new NBTTagList();
@@ -235,80 +264,30 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 		}
 	}
 
+	
 	// ThermalExpansion Part
-
-	protected int maxReceive;
-	protected int maxExtract;
-
-	public TileEntityMachine(int capacity){
-		this(capacity, capacity, capacity);
-	}
-
-	public TileEntityMachine(int capacity, int maxTransfer){
-		this(capacity, maxTransfer, maxTransfer);
-	}
-
-	public TileEntityMachine(int capacity, int maxReceive, int maxExtract){
-		this.maxPower = capacity;
-		this.maxReceive = maxReceive;
-		this.maxExtract = maxExtract;
-	}
-
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from){
 		return true;
 	}
+	
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
+		return storage.receiveEnergy(maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate){
+		return 0;
+	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection from){
-		return getEnergyStored();
+		return storage.getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from){
-		return getMaxEnergyStored();
-	}
-
-	@Override
-	public int getEnergyStored(){
-		return this.power;
-	}
-
-	@Override
-	public int getMaxEnergyStored(){
-		return this.maxPower;
-	}
-
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate){
-		if (!simulate) {
-			if(this.power == this.maxPower){
-				return 0;
-			}else{
-				if(!(this.power + maxReceive >= this.maxPower)){
-					this.power += maxReceive;
-				}else{
-					int a = this.maxPower - this.power;
-					this.power = this.maxPower;
-					return a;
-				}
-			}
-		}
-		return maxReceive;
-	}
-
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate){
-		return 0;
-	}
-	
-	@Override
-	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
-		return receiveEnergy(maxReceive, simulate);
-	}
-
-	@Override
-	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-		return 0;
+		return storage.getMaxEnergyStored();
 	}
 }

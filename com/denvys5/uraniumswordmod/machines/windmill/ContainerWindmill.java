@@ -42,7 +42,7 @@ public class ContainerWindmill extends Container{
 
 	public void canCraftingToCrafters(ICrafting icrafting){
 		super.addCraftingToCrafters(icrafting);
-		icrafting.sendProgressBarUpdate(this, 1, (int)this.Windmill.power);
+		icrafting.sendProgressBarUpdate(this, 1, (int)this.Windmill.storage.energy);
 		icrafting.sendProgressBarUpdate(this, 2, this.Windmill.maxPower);
 	}
 
@@ -50,16 +50,16 @@ public class ContainerWindmill extends Container{
 		super.detectAndSendChanges();
 		for(int i = 0; i < this.crafters.size(); i++){
 			ICrafting icrafting = (ICrafting)this.crafters.get(i);
-			if(this.lastpower != this.Windmill.power){
-				icrafting.sendProgressBarUpdate(this, 1, (int)this.Windmill.power);
+			if(this.lastpower != this.Windmill.storage.energy){
+				icrafting.sendProgressBarUpdate(this, 1, (int)this.Windmill.storage.energy);
 			}
 		}
-		this.lastpower = (int)this.Windmill.power;
+		this.lastpower = (int)this.Windmill.storage.energy;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newValue){
-		if(slot == 1) this.Windmill.power = newValue;
+		if(slot == 1) this.Windmill.storage.energy = newValue;
 	}
 
 	public boolean canInteractWith(EntityPlayer entityplayer){

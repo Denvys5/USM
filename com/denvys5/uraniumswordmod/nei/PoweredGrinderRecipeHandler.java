@@ -21,20 +21,20 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 
 import com.denvys5.uraniumswordmod.USM;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
-import com.denvys5.uraniumswordmod.machines.uraniumfurnace.GuiFurnaceUranium;
-import com.denvys5.uraniumswordmod.machines.uraniumfurnace.TileEntityFurnaceUranium;
-import com.denvys5.uraniumswordmod.machines.uraniumfurnace.UraniumFurnaceRecipes;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.GuiPoweredGrinder;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.PoweredGrinderRecipes;
+import com.denvys5.uraniumswordmod.machines.poweredgrinder.TileEntityPoweredGrinder;
 
-public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
+public class PoweredGrinderRecipeHandler extends TemplateRecipeHandler{
 
 	@Override
 	public String getRecipeName(){
-		return "Uranium Furnace";
+		return "Powered Grinder";
 	}
 
 	@Override
 	public String getGuiTexture(){
-		return new ResourceLocation(USM.modid, "textures/gui/FurnaceUraniumNEI_gui.png").toString();
+		return new ResourceLocation(USM.modid, "textures/gui/PoweredGrinderNEI_gui.png").toString();
 	}
 
     public class SmeltingPair extends CachedRecipe
@@ -76,13 +76,13 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(55, 23, 18, 18), "Uranium Furnace fuel"));
-        transferRects.add(new RecipeTransferRect(new Rectangle(79, 23, 24, 18), "Uranium Furnace"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(55, 23, 18, 18), "Powered Grinder fuel"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(79, 23, 24, 18), "Powered Grinder"));
     }
 
     @Override
     public Class<? extends GuiContainer> getGuiClass() {
-        return GuiFurnaceUranium.class;
+        return GuiPoweredGrinder.class;
     }
 
     @Override
@@ -93,8 +93,8 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-        if (outputId.equals("Uranium Furnace") && getClass() == FurnaceUraniumRecipeHandler.class) {//don't want subclasses getting a hold of this
-            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+        if (outputId.equals("Powered Grinder") && getClass() == PoweredGrinderRecipeHandler.class) {//don't want subclasses getting a hold of this
+            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) PoweredGrinderRecipes.smelting().getSmeltingList();
             for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
         } else super.loadCraftingRecipes(outputId, results);
@@ -102,7 +102,7 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) PoweredGrinderRecipes.smelting().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameType(recipe.getValue(), result))
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
@@ -110,14 +110,14 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
 
     @Override
     public void loadUsageRecipes(String inputId, Object... ingredients) {
-        if (inputId.equals("Uranium Furnace fuel") && getClass() == FurnaceUraniumRecipeHandler.class)//don't want subclasses getting a hold of this
-            loadCraftingRecipes("Uranium Furnace");
+        if (inputId.equals("Powered Grinder fuel") && getClass() == PoweredGrinderRecipeHandler.class)//don't want subclasses getting a hold of this
+            loadCraftingRecipes("Powered Grinder");
         else super.loadUsageRecipes(inputId, ingredients);
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) UraniumFurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) PoweredGrinderRecipes.smelting().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
                 SmeltingPair arecipe = new SmeltingPair(recipe.getKey(), recipe.getValue());
@@ -144,14 +144,14 @@ public class FurnaceUraniumRecipeHandler extends TemplateRecipeHandler{
         for (ItemStack itemstack : ItemList.items)
             if (efuels.contains(itemstack.getItem())) {
 
-                int burnTime = TileEntityFurnaceUranium.getItemBurnTime(itemstack);
+                int burnTime = TileEntityPoweredGrinder.getItemPower(itemstack);
                 if (burnTime > 0) afuels.add(new FuelPair(itemstack.copy(), burnTime));
             }
     }
 
     @Override
     public String getOverlayIdentifier() {
-        return "Uranium Furnace";
+        return "Powered Grinder";
     }
 
 }

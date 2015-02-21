@@ -11,8 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class EnergyStorage implements IEnergyStorage{
 
-	protected int energy;
-	protected int capacity;
+	public int energy;
+	public int capacity;
 	protected int maxReceive;
 	protected int maxExtract;
 

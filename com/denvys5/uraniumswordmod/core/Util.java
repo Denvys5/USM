@@ -21,6 +21,7 @@ public class Util{
 		GameRegistry.registerBlock(block, blockName);
 		LanguageRegistry.instance().addNameForObject(block, "en_US", name);
 		LanguageRegistry.instance().addNameForObject(block, "ru_RU", russianLocalisation);
+		System.out.println("Registering " + name);
 		USMBlocks.AllBlocks.add(block);
 	}
 
@@ -28,6 +29,7 @@ public class Util{
 		GameRegistry.registerItem(item, unlocalizedName);
 		LanguageRegistry.instance().addNameForObject(item, "en_US", name);
 		LanguageRegistry.instance().addNameForObject(item, "ru_RU", russianLocalisation);
+		System.out.println("Registering " + name);
 		USMItems.AllItems.add(item);
 	}
 

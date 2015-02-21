@@ -45,7 +45,7 @@ public class ContainerPoweredGrinder extends Container{
 	public void canCraftingToCrafters(ICrafting icrafting){
 		super.addCraftingToCrafters(icrafting);
 		icrafting.sendProgressBarUpdate(this, 0, this.PoweredGrinder.cookTime);
-		icrafting.sendProgressBarUpdate(this, 1, this.PoweredGrinder.power);
+		icrafting.sendProgressBarUpdate(this, 1, this.PoweredGrinder.storage.energy);
 		icrafting.sendProgressBarUpdate(this, 2, this.PoweredGrinder.maxPower);
 	}
 
@@ -57,18 +57,18 @@ public class ContainerPoweredGrinder extends Container{
 				icrafting.sendProgressBarUpdate(this, 0, this.PoweredGrinder.cookTime);
 			}
 
-			if(this.lastpower != this.PoweredGrinder.power){
-				icrafting.sendProgressBarUpdate(this, 1, this.PoweredGrinder.power);
+			if(this.lastpower != this.PoweredGrinder.storage.energy){
+				icrafting.sendProgressBarUpdate(this, 1, this.PoweredGrinder.storage.energy);
 			}
 		}
 		this.lastCookTime = this.PoweredGrinder.cookTime;
-		this.lastpower = this.PoweredGrinder.power;
+		this.lastpower = this.PoweredGrinder.storage.energy;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newValue){
 		if(slot == 0) this.PoweredGrinder.cookTime = newValue;
-		if(slot == 1) this.PoweredGrinder.power = newValue;
+		if(slot == 1) this.PoweredGrinder.storage.energy = newValue;
 	}
 
 	public ItemStack transferStackInSlot(EntityPlayer player, int clickedSlotNumber){

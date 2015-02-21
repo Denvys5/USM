@@ -32,7 +32,7 @@ public class GuiWindmill extends GuiContainer{
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		if(this.Windmill.power > 0){
+		if(this.Windmill.storage.energy > 0){
 			int k = this.Windmill.getPowerRemainingScaled(44);
 			drawTexturedModalRect(guiLeft + 83, guiTop + 65 - k, 176, 44 - k, 11, k + 2);
 		}

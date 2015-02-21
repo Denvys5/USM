@@ -1,6 +1,7 @@
 package com.denvys5.uraniumswordmod.machines.uraniumduplicator;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 
 import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
@@ -8,10 +9,10 @@ import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
 public class TileEntityDuplicator extends TileEntityMachine{
 
 	public TileEntityDuplicator(){
-		super(32000, 32*2);
+		super();
+		this.maxReceive = 64;
 		this.powerUsage = 32;
 		this.maxPower = 32000;
-		this.storage = new EnergyStorage(maxPower, powerUsage*2);
 		this.slots_top = new int[]{0, 2};
 		this.slots_bottom = new int[]{0, 2};
 		this.slots_sides = new int[]{0, 2};
@@ -21,6 +22,7 @@ public class TileEntityDuplicator extends TileEntityMachine{
 		this.ingredSlot = 0;
 		this.machineSpeed = 80;
 		this.batteryChargeSpeed = 100;
+		this.storage = new EnergyStorage(maxPower, maxReceive);
 	}
 	
 	public String getInventoryName(){
@@ -42,10 +44,10 @@ public class TileEntityDuplicator extends TileEntityMachine{
 			this.machineSpeed = operationSpeed();
 		}
 		if(!this.worldObj.isRemote){
-			if(this.power <= (this.maxPower - this.getItemPower(this.slots[1])) && this.hasItemPower(this.slots[1])){
+			if(storage.energy <= (this.maxPower - this.getItemPower(this.slots[1])) && this.hasItemPower(this.slots[1])){
 				if(!getBattery(this.slots[1])){
-					int prevPower = this.power;
-					this.power += getItemPower(this.slots[1]);
+					int prevPower = storage.energy;
+					storage.energy += getItemPower(this.slots[1]);
 					if(prevPower > 0){
 						flag1 = true;
 						if(this.slots[1] != null){
@@ -57,21 +59,21 @@ public class TileEntityDuplicator extends TileEntityMachine{
 					}
 				} else{
 					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed < this.slots[1].getMaxDamage()){
-						this.power += this.batteryChargeSpeed;
+						storage.energy += this.batteryChargeSpeed;
 						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + this.batteryChargeSpeed);
 					}
 				}
-				if(this.power >= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
-					int a = this.maxPower - this.power;
+				if(storage.energy >= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+					int a = this.maxPower - storage.energy;
 					if(this.slots[1].getItemDamage() + a < this.slots[1].getMaxDamage()){
-						this.power = this.maxPower;
+						storage.energy = this.maxPower;
 						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + a);
 					}
 				}
-				if(this.power <= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+				if(storage.energy <= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
 					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed >= this.slots[1].getMaxDamage()){
 						int a = this.slots[1].getMaxDamage() - this.slots[1].getItemDamage();
-						this.power += a;
+						storage.energy += a;
 						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getMaxDamage());
 					}
 				}
@@ -83,12 +85,12 @@ public class TileEntityDuplicator extends TileEntityMachine{
 			}
 		}
 		if(this.hasPower() && this.canOperate()){
-			if(this.power < this.powerUsage){
-				this.cookTime+=(this.power/this.powerUsage);
-				this.power = 0;
+			if(storage.energy < this.powerUsage){
+				this.cookTime+=(storage.energy/this.powerUsage);
+				storage.energy = 0;
 			}else{
 				this.cookTime++;
-				this.power -= this.powerUsage;
+				storage.energy -= this.powerUsage;
 			}
 			
 			if(this.cookTime == this.machineSpeed){
@@ -103,42 +105,9 @@ public class TileEntityDuplicator extends TileEntityMachine{
 			this.markDirty();
 		}
 	}
-	
-	public boolean canOperate(){
-		if(this.slots[0] == null){
-			return false;
-		} else{
-			ItemStack itemstack = DuplicatorRecipes.smelting().getSmeltingResult(this.slots[this.ingredSlot]);
-			if(itemstack == null) return false;
-			if(this.slots[2] == null) return true;
-			if(!this.slots[2].isItemEqual(itemstack)) return false;
-			int result = this.slots[2].stackSize + itemstack.stackSize;
-			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-		}
-	}
 
-	public void operateItem(){
-		if(this.canOperate()){
-			ItemStack itemstack = DuplicatorRecipes.smelting().getSmeltingResult(this.slots[this.ingredSlot]);
-			if(this.slots[2] == null){
-				this.slots[2] = itemstack.copy();
-			} else if(this.slots[2].isItemEqual(itemstack)){
-				this.slots[2].stackSize += itemstack.stackSize;
-			}
-			this.slots[0].stackSize--;
-			if(this.slots[0].stackSize <= 0){
-				this.slots[0] = null;
-			}
-		}
-	}
-	
 	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, int j){
-		if(itemstack != null){
-			if(i == this.ingredSlot && DuplicatorRecipes.smelting().getSmeltingResult(itemstack) != null){
-				return true;
-			}
-		}
-		return false;
+	public ItemStack getResult(ItemStack itemstack){
+		return DuplicatorRecipes.smelting().getSmeltingResult(itemstack);
 	}
 }

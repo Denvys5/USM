@@ -13,7 +13,6 @@ import net.minecraftforge.common.util.EnumHelper;
 
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.core.Config;
-import com.denvys5.uraniumswordmod.core.MultiPartRegister;
 import com.denvys5.uraniumswordmod.core.OreRegistration;
 import com.denvys5.uraniumswordmod.core.proxy.CommonProxy;
 import com.denvys5.uraniumswordmod.core.recipes.IC2Recipes;
@@ -23,7 +22,6 @@ import com.denvys5.uraniumswordmod.effects.Radiation;
 import com.denvys5.uraniumswordmod.events.OnPlayerLoginEvent;
 import com.denvys5.uraniumswordmod.events.USMEventHooks;
 import com.denvys5.uraniumswordmod.events.UraniumSwordKillingEvent;
-import com.denvys5.uraniumswordmod.events.WindmillHighlightEvent;
 import com.denvys5.uraniumswordmod.item.USMItems;
 import com.denvys5.uraniumswordmod.machines.GuiHandler;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
@@ -47,7 +45,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class USM{
 	public static final String modid = "uraniumswordmod";
 	public static final String name = "Uranium Sword Mod";
-	public static final String version = "0.7.5";
+	public static final String version = "0.8.0";
 
 	@Instance(modid)
 	public static USM instance;
@@ -108,7 +106,7 @@ public class USM{
 			}
 		};
 		if(Loader.isModLoaded("gregtech_addon")){
-			System.err.println("[USM] DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH");
+			for(int i = 0; i < 10; i++) System.err.println("[USM] DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH DELETE GREGTECH");
 		}
 		GameRegistry.registerWorldGenerator(new USMOreGenerator(), 0);
 		GuiHandler guiHandler = new GuiHandler();

@@ -12,6 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMBlock;
 
 public class OreUranium extends USMBlock{
 

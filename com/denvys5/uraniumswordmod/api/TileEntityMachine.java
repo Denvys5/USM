@@ -1,6 +1,9 @@
-package com.denvys5.uraniumswordmod.machines;
+package com.denvys5.uraniumswordmod.api;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,8 +17,7 @@ import cofh.api.energy.IEnergyStorage;
 
 import com.denvys5.uraniumswordmod.item.USMItems;
 
-public abstract class TileEntityGenerator extends TileEntity implements ISidedInventory, IEnergyHandler{
-	public EnergyStorage storage;
+public abstract class TileEntityMachine extends TileEntity implements ISidedInventory, IEnergyHandler{
 	public String localizedName;
 	public static int[] slots_top;
 	public static int[] slots_bottom;
@@ -24,32 +26,56 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	public static int resultSlot;
 	public static int fuelSlot;
 	public static int ingredSlot;
+	public int machineSpeed;
 	public static int batteryChargeSpeed;
 	public static int powerUsage;
 	public static int maxPower;
+	public int cookTime;	
+	public EnergyStorage storage;
+	public int maxReceive;
+	protected int antilagTimer = 0;
 	
+	public abstract String getInventoryName();
+	public abstract int getRequiredPowerForCrafting(ItemStack itemstack);
 	public abstract void updateEntity();
-	public abstract ItemStack getResult(ItemStack itemStack);
-
+	public abstract ItemStack getResult(ItemStack itemstack);
+	
+	
+	public TileEntityMachine(){
+		
+	}
+	
 	public boolean isInvNameLocalized(){
 		return false;
 	}
 
 	public static boolean hasItemPower(ItemStack itemstack){
-		if(getBattery(itemstack)){
+		if(!getBattery(itemstack)){
+			return getItemPower(itemstack) > 0;
+		} else{
 			return true;
 		}
-		return false;
 	}
 
 	public static boolean getBattery(ItemStack itemstack){
 		if(itemstack == null){
 			return false;
 		} else{
-			Item item = itemstack.getItem();
-			if(item == USMItems.BasicBattery) return true;
+			if(itemstack.getItem() == USMItems.BasicBattery) return true;
 			return false;
 		}
+	}
+
+	public static int getItemPower(ItemStack itemstack){
+		if(itemstack == null) return 0;
+		Item item = itemstack.getItem();
+		if(item == Items.glowstone_dust) return 1000;
+		if(item == Items.redstone) return 500;
+		Block block = Block.getBlockFromItem(item);
+		if(block == Blocks.redstone_block) return 4500;
+		if(block == Blocks.glowstone) return 4000;
+			
+		return 0;
 	}
 
 	@Override
@@ -62,10 +88,6 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 		return this.slots[i];
 	}
 
-	public boolean canInsertItem(int i, ItemStack itemstack, int j){
-		return isItemValidForSlot(i, itemstack);
-	}
-	
 	@Override
 	public ItemStack decrStackSize(int i, int j){
 		if(this.slots[i] != null){
@@ -105,9 +127,6 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	}
 
 	@Override
-	public abstract String getInventoryName();
-
-	@Override
 	public boolean hasCustomInventoryName(){
 		return this.localizedName != null && this.localizedName.length() > 0;
 	}
@@ -125,16 +144,14 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	public boolean isUseableByPlayer(EntityPlayer entityplayer){
 		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : entityplayer.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
 	}
-
-	@Override
-	public void openInventory(){
-
+	
+	public boolean canInsertItem(int i, ItemStack itemstack, int j){
+		return isItemValidForSlot(i, itemstack);
 	}
 
-	@Override
-	public void closeInventory(){
+	public void openInventory(){}
 
-	}
+	public void closeInventory(){}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int var1){
@@ -143,19 +160,28 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j){
-		if(i == this.resultSlot){
-			return true;
-		} else{
-			return false;
-		}
+		if(i == this.resultSlot) return true;
+		return false;
 	}
 
 	public boolean hasPower(){
 		return storage.energy > this.powerUsage;
 	}
 
+	public int operationSpeed(){
+		return getRequiredPowerForCrafting(this.slots[0]) / powerUsage;
+	}
+
+	public int craftTime(ItemStack itemstack){
+		return getRequiredPowerForCrafting(itemstack) / this.powerUsage;
+	}
+
 	public int getPowerRemainingScaled(int i){
 		return storage.energy * i / this.maxPower;
+	}
+
+	public int getCraftingProgressScaled(int i){
+		return this.cookTime * i / this.machineSpeed;
 	}
 	
 	public boolean canOperate(){
@@ -164,9 +190,9 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 		} else{
 			ItemStack itemstack = getResult(this.slots[this.ingredSlot]);
 			if(itemstack == null) return false;
-			if(this.slots[this.resultSlot] == null) return true;
-			if(!this.slots[this.resultSlot].isItemEqual(itemstack)) return false;
-			int result = this.slots[this.resultSlot].stackSize + itemstack.stackSize;
+			if(this.slots[2] == null) return true;
+			if(!this.slots[2].isItemEqual(itemstack)) return false;
+			int result = this.slots[2].stackSize + itemstack.stackSize;
 			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
 		}
 	}
@@ -174,14 +200,14 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	public void operateItem(){
 		if(this.canOperate()){
 			ItemStack itemstack = getResult(this.slots[this.ingredSlot]);
-			if(this.slots[this.resultSlot] == null){
-				this.slots[this.resultSlot] = itemstack.copy();
-			} else if(this.slots[this.resultSlot].isItemEqual(itemstack)){
+			if(this.slots[2] == null){
+				this.slots[2] = itemstack.copy();
+			} else if(this.slots[2].isItemEqual(itemstack)){
 				this.slots[2].stackSize += itemstack.stackSize;
 			}
-			this.slots[this.ingredSlot].stackSize--;
-			if(this.slots[this.ingredSlot].stackSize <= 0){
-				this.slots[this.ingredSlot] = null;
+			this.slots[0].stackSize--;
+			if(this.slots[0].stackSize <= 0){
+				this.slots[0] = null;
 			}
 		}
 	}
@@ -210,6 +236,8 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 				this.slots[b] = ItemStack.loadItemStackFromNBT(compound);
 			}
 		}
+		//this.power = nbt.getShort("Power");
+		this.cookTime = nbt.getShort("CookTime");
 		if(nbt.hasKey("CustomName")){
 			this.localizedName = nbt.getString("CustomName");
 		}
@@ -218,6 +246,9 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 		storage.writeToNBT(nbt);
+		//nbt.setShort("Power", (short)this.power);
+		nbt.setShort("CookTime", (short)this.cookTime);
+
 		NBTTagList list = new NBTTagList();
 		for(int i = 0; i < this.slots.length; i++){
 			if(this.slots[i] != null){
@@ -234,19 +265,20 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	}
 
 	
-	// ThermalExpansion Part	@Override
+	// ThermalExpansion Part
+	@Override
 	public boolean canConnectEnergy(ForgeDirection from){
 		return true;
 	}
 	
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate){
-		return 0;
+		return storage.receiveEnergy(maxReceive, simulate);
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate){
-		return storage.extractEnergy(maxExtract, simulate);
+		return 0;
 	}
 
 	@Override

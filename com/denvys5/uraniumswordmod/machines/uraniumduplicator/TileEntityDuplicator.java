@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.EnergyStorage;
 
-import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
+import com.denvys5.uraniumswordmod.api.TileEntityMachine;
 
 public class TileEntityDuplicator extends TileEntityMachine{
 

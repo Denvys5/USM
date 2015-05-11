@@ -20,6 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.tools.IToolWrench;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMItem;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 import cpw.mods.fml.relauncher.Side;

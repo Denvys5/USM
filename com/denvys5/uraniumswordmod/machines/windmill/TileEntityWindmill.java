@@ -5,8 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import cofh.api.energy.EnergyStorage;
 
+import com.denvys5.uraniumswordmod.api.TileEntityGenerator;
 import com.denvys5.uraniumswordmod.item.USMItems;
-import com.denvys5.uraniumswordmod.machines.TileEntityGenerator;
 
 public class TileEntityWindmill extends TileEntityGenerator{
 	public TileEntityWindmill(){

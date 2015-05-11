@@ -8,10 +8,23 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
 
-import com.denvys5.uraniumswordmod.block.USMBlock;
+import com.denvys5.uraniumswordmod.api.USMBlock;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 
 public class USMOreGenerator implements IWorldGenerator{
+	
+	public static int oreUraniumRarity;
+	public static int oreCopperRarity;
+	public static int oreTinRarity;
+	public static int oreSilverRarity;
+	public static int oreLeadRarity;
+	
+	public static boolean oreUraniumGeneration;
+	public static boolean oreCopperGeneration;
+	public static boolean oreTinGeneration;
+	public static boolean oreSilverGeneration;
+	public static boolean oreLeadGeneration;
+
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider){
@@ -33,11 +46,11 @@ public class USMOreGenerator implements IWorldGenerator{
 	}
 
 	public void generateSurface(World world, Random random, int x, int y){
-		this.addOreSpawn(USMBlocks.oreuranium, world, random, x, y, 16, 16, 1 + random.nextInt(3), 30, 5, 50);
-		this.addOreSpawn(USMBlocks.oreMetal, 0, world, random, x, y, 16, 16, 1 + random.nextInt(6), 120, 14, 40);
-		this.addOreSpawn(USMBlocks.oreMetal, 1, world, random, x, y, 16, 16, 1 + random.nextInt(6), 120, 14, 40);
-		this.addOreSpawn(USMBlocks.oreMetal, 2, world, random, x, y, 16, 16, 1 + random.nextInt(4), 100, 5, 38);
-		this.addOreSpawn(USMBlocks.oreMetal, 3, world, random, x, y, 16, 16, 1 + random.nextInt(4), 100, 5, 35);
+		if(oreUraniumGeneration) this.addOreSpawn(USMBlocks.oreuranium, world, random, x, y, 16, 16, 1 + random.nextInt(3), oreUraniumRarity, 5, 50);
+		if(oreCopperGeneration) this.addOreSpawn(USMBlocks.oreMetal, 0, world, random, x, y, 16, 16, 1 + random.nextInt(6), oreCopperRarity, 14, 40);
+		if(oreTinGeneration) this.addOreSpawn(USMBlocks.oreMetal, 1, world, random, x, y, 16, 16, 1 + random.nextInt(6), oreTinRarity, 14, 40);
+		if(oreSilverGeneration) this.addOreSpawn(USMBlocks.oreMetal, 2, world, random, x, y, 16, 16, 1 + random.nextInt(4), oreSilverRarity, 5, 38);
+		if(oreLeadGeneration) this.addOreSpawn(USMBlocks.oreMetal, 3, world, random, x, y, 16, 16, 1 + random.nextInt(4), oreLeadRarity, 5, 35);
 	}
 
 	public void generateEnd(World world, Random random, int x, int y){

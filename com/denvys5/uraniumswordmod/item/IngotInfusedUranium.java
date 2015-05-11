@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMItem;
 
 public class IngotInfusedUranium extends USMItem{
 	public IngotInfusedUranium(){

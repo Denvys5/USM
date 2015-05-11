@@ -9,6 +9,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.ItemEnergyContainer;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMItem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

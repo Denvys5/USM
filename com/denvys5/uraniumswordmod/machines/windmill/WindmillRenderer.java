@@ -3,8 +3,8 @@ package com.denvys5.uraniumswordmod.machines.windmill;
 import org.lwjgl.opengl.GL11;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.TileEntityMachine;
 import com.denvys5.uraniumswordmod.core.Config;
-import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 import com.denvys5.uraniumswordmod.machines.pipes.PipeRenderer;
 import com.denvys5.uraniumswordmod.machines.pipes.TileEntityPipe;

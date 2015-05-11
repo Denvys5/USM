@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMItem;
 
 public class UraniumOnStick extends USMItem{
 	public UraniumOnStick(){

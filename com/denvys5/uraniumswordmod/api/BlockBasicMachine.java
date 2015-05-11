@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.machines;
+package com.denvys5.uraniumswordmod.api;
 
 import java.util.Random;
 

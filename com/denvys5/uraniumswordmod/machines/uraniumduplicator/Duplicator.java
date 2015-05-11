@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.BlockBasicMachine;
 import com.denvys5.uraniumswordmod.block.USMBlocks;
 import com.denvys5.uraniumswordmod.item.UraniumWrench;
-import com.denvys5.uraniumswordmod.machines.BlockBasicMachine;
 import com.denvys5.uraniumswordmod.machines.USMTiles;
 
 public class Duplicator extends BlockBasicMachine{

@@ -19,6 +19,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMBlock;
 
 public class OreMetal extends USMBlock{
 

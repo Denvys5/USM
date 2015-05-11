@@ -1,4 +1,4 @@
-package com.denvys5.uraniumswordmod.item;
+package com.denvys5.uraniumswordmod.api;
 
 import com.denvys5.uraniumswordmod.USM;
 

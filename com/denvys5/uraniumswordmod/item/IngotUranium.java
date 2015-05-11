@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 
 import com.denvys5.uraniumswordmod.USM;
+import com.denvys5.uraniumswordmod.api.USMItem;
 
 public class IngotUranium extends USMItem{
 	public IngotUranium(){

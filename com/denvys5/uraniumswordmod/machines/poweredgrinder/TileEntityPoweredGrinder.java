@@ -3,7 +3,7 @@ package com.denvys5.uraniumswordmod.machines.poweredgrinder;
 import net.minecraft.item.ItemStack;
 import cofh.api.energy.EnergyStorage;
 
-import com.denvys5.uraniumswordmod.machines.TileEntityMachine;
+import com.denvys5.uraniumswordmod.api.TileEntityMachine;
 
 public class TileEntityPoweredGrinder extends TileEntityMachine{
 

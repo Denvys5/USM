@@ -36,27 +36,27 @@ public class MachineRecipes{
 		for(String name : GrindingOres){
 			for(ItemStack ore : OreDictionary.getOres(name)){
 				String result = name.replace("ore", "dust");
-				PoweredGrinderRecipes.smelting().addGrinderRecipe(ore, new ItemStack(Util.getItemStackFromOreDict(result).getItem(), 2, Util.getItemStackFromOreDict(result).getItemDamage()), PowerPerOreGrind);
+				PoweredGrinderRecipes.smelting().addMachineRecipe(ore, new ItemStack(Util.getItemStackFromOreDict(result).getItem(), 2, Util.getItemStackFromOreDict(result).getItemDamage()), PowerPerOreGrind);
 			}
 		}
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.coal_ore, new ItemStack(Items.coal, 2), PowerPerOreGrind);
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz, 2), PowerPerOreGrind);
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Items.emerald, 2), PowerPerOreGrind);
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.lapis_ore, new ItemStack(Util.getItemStackFromOreDict("gemLapis").getItem(), 8, Util.getItemStackFromOreDict("gemLapis").getItemDamage()), PowerPerOreGrind);
-		PoweredGrinderRecipes.smelting().addGrinderRecipe(Blocks.diamond_ore, new ItemStack(Items.diamond, 2), PowerPerOreGrind);
+		PoweredGrinderRecipes.smelting().addMachineRecipe(Blocks.coal_ore, new ItemStack(Items.coal, 2), PowerPerOreGrind);
+		PoweredGrinderRecipes.smelting().addMachineRecipe(Blocks.quartz_ore, new ItemStack(Items.quartz, 2), PowerPerOreGrind);
+		PoweredGrinderRecipes.smelting().addMachineRecipe(Blocks.emerald_ore, new ItemStack(Items.emerald, 2), PowerPerOreGrind);
+		PoweredGrinderRecipes.smelting().addMachineRecipe(Blocks.lapis_ore, new ItemStack(Util.getItemStackFromOreDict("gemLapis").getItem(), 8, Util.getItemStackFromOreDict("gemLapis").getItemDamage()), PowerPerOreGrind);
+		PoweredGrinderRecipes.smelting().addMachineRecipe(Blocks.diamond_ore, new ItemStack(Items.diamond, 2), PowerPerOreGrind);
 	}
 
 	public static void DuplicatorRecipes(){
 		for(String name : GrindingOres){
 			for(ItemStack ore : OreDictionary.getOres(name)){
 				String result = name.replace("ore", "ingot");
-				DuplicatorRecipes.smelting().addDuplicatorRecipe(ore, new ItemStack(Util.getItemStackFromOreDict(result).getItem(), 2, Util.getItemStackFromOreDict(result).getItemDamage()), PowerPerOreGrind);
+				DuplicatorRecipes.smelting().addMachineRecipe(ore, new ItemStack(Util.getItemStackFromOreDict(result).getItem(), 2, Util.getItemStackFromOreDict(result).getItemDamage()), PowerPerOreGrind);
 			}
 		}
-		DuplicatorRecipes.smelting().addDuplicatorRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot, 2), PowerPerOreDuplicate);
-		DuplicatorRecipes.smelting().addDuplicatorRecipe(Blocks.gold_ore, new ItemStack(Items.gold_ingot, 2), PowerPerOreDuplicate);
+		DuplicatorRecipes.smelting().addMachineRecipe(Blocks.iron_ore, new ItemStack(Items.iron_ingot, 2), PowerPerOreDuplicate);
+		DuplicatorRecipes.smelting().addMachineRecipe(Blocks.gold_ore, new ItemStack(Items.gold_ingot, 2), PowerPerOreDuplicate);
 
-		DuplicatorRecipes.smelting().addDuplicatorRecipe(USMBlocks.oreuranium, new ItemStack(USMItems.ingoturanium, 4), PowerPerOreDuplicate);
-		DuplicatorRecipes.smelting().addDuplicatorRecipe(Util.getItemStackFromOreDict("oreUranium"), new ItemStack(USMItems.ingoturanium, 4), PowerPerOreDuplicate);
+		DuplicatorRecipes.smelting().addMachineRecipe(USMBlocks.oreuranium, new ItemStack(USMItems.ingoturanium, 4), PowerPerOreDuplicate);
+		DuplicatorRecipes.smelting().addMachineRecipe(Util.getItemStackFromOreDict("oreUranium"), new ItemStack(USMItems.ingoturanium, 4), PowerPerOreDuplicate);
 	}
 }

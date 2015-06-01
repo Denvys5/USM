@@ -86,7 +86,6 @@ public class MachineRecipe{
 
 			entry = (Entry)iterator.next();
 		} while(!this.func_151397_a(itemstack, (ItemStack)entry.getKey()));
-
 		return ((Integer)entry.getValue()).intValue();
 	}
 }

@@ -43,40 +43,7 @@ public class TileEntityPoweredGrinder extends TileEntityMachine{
 			this.machineSpeed = operationSpeed();
 		}
 		if(!this.worldObj.isRemote){
-			if(storage.energy <= (this.maxPower - this.getItemPower(this.slots[1])) && this.hasItemPower(this.slots[1])){
-				if(!getBattery(this.slots[1])){
-					int prevPower = storage.energy;
-					storage.energy += getItemPower(this.slots[1]);
-					if(prevPower > 0){
-						flag1 = true;
-						if(this.slots[1] != null){
-							this.slots[1].stackSize--;
-							if(this.slots[1].stackSize == 0){
-								this.slots[1] = this.slots[1].getItem().getContainerItem(this.slots[1]);
-							}
-						}
-					}
-				} else{
-					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed < this.slots[1].getMaxDamage()){
-						storage.energy += this.batteryChargeSpeed;
-						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + this.batteryChargeSpeed);
-					}
-				}
-				if(storage.energy >= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
-					int a = this.maxPower - storage.energy;
-					if(this.slots[1].getItemDamage() + a < this.slots[1].getMaxDamage()){
-						storage.energy = this.maxPower;
-						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + a);
-					}
-				}
-				if(storage.energy <= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
-					if(this.slots[1].getItemDamage() + this.batteryChargeSpeed >= this.slots[1].getMaxDamage()){
-						int a = this.slots[1].getMaxDamage() - this.slots[1].getItemDamage();
-						storage.energy += a;
-						this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getMaxDamage());
-					}
-				}
-			}
+			flag1 = operateFuelandBattery(flag1);
 			if(flag && this.canOperate()){
 				PoweredGrinder.updatePoweredGrinderBlockState(this.canOperate(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			} else{
@@ -84,12 +51,12 @@ public class TileEntityPoweredGrinder extends TileEntityMachine{
 			}
 		}
 		if(this.hasPower() && this.canOperate()){
-			if(storage.energy < this.powerUsage){
-				this.cookTime+=(storage.energy/this.powerUsage);
-				storage.energy = 0;
+			if(storage.getEnergyStored() < this.powerUsage){
+				this.cookTime+=(storage.getEnergyStored()/this.powerUsage);
+				storage.setEnergyStored(0);
 			}else{
 				this.cookTime++;
-				storage.energy -= this.powerUsage;
+				storage.setEnergyStored(storage.getEnergyStored() - this.powerUsage);
 			}
 
 			if(this.cookTime == this.machineSpeed){

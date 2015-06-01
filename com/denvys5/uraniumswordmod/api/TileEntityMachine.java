@@ -165,7 +165,7 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	}
 
 	public boolean hasPower(){
-		return storage.energy > this.powerUsage;
+		return storage.getEnergyStored() > this.powerUsage;
 	}
 
 	public int operationSpeed(){
@@ -177,7 +177,7 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 	}
 
 	public int getPowerRemainingScaled(int i){
-		return storage.energy * i / this.maxPower;
+		return storage.getEnergyStored() * i / this.maxPower;
 	}
 
 	public int getCraftingProgressScaled(int i){
@@ -262,6 +262,52 @@ public abstract class TileEntityMachine extends TileEntity implements ISidedInve
 		if(this.hasCustomInventoryName()){
 			nbt.setString("CustomName", this.localizedName);
 		}
+	}
+	
+	public void operateBattery(){
+		if(storage.getEnergyStored() >= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+			int a = this.maxPower - storage.getEnergyStored();
+			if(this.slots[1].getItemDamage() + a < this.slots[1].getMaxDamage()){
+				storage.setEnergyStored(this.maxPower);
+				this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + a);
+			}
+		}
+		if(storage.getEnergyStored() <= (this.maxPower - this.batteryChargeSpeed) && getBattery(this.slots[1])){
+			if(this.slots[1].getItemDamage() + this.batteryChargeSpeed >= this.slots[1].getMaxDamage()){
+				int a = this.slots[1].getMaxDamage() - this.slots[1].getItemDamage();
+				storage.setEnergyStored(storage.getEnergyStored() + a);
+				this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getMaxDamage());
+			}
+		}
+	}
+	
+	public void operateBatteryFirst(){
+		if(this.slots[1].getItemDamage() + this.batteryChargeSpeed < this.slots[1].getMaxDamage()){
+			storage.setEnergyStored(storage.getEnergyStored() + this.batteryChargeSpeed);
+			this.slots[1] = new ItemStack(this.slots[1].getItem(), this.slots[1].stackSize, this.slots[1].getItemDamage() + this.batteryChargeSpeed);
+		}
+	}
+	
+	public boolean operateFuelandBattery(boolean flag1){
+		if(storage.getEnergyStored() <= (this.maxPower - this.getItemPower(this.slots[1])) && this.hasItemPower(this.slots[1])){
+			if(!getBattery(this.slots[1])){
+				int prevPower = storage.getEnergyStored();
+				storage.setEnergyStored(storage.getEnergyStored() + getItemPower(this.slots[1]));
+				if(prevPower > 0){
+					flag1 = true;
+					if(this.slots[1] != null){
+						this.slots[1].stackSize--;
+						if(this.slots[1].stackSize == 0){
+							this.slots[1] = this.slots[1].getItem().getContainerItem(this.slots[1]);
+						}
+					}
+				}
+			} else{
+				operateBatteryFirst();
+			}
+			operateBattery();
+		}
+		return flag1;
 	}
 
 	

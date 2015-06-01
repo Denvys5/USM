@@ -36,17 +36,17 @@ public class TileEntityWindmill extends TileEntityGenerator{
 					flag1 = true;
 				}
 			}
-			storage.energy += this.powerPerRotation;
-			if(storage.energy > this.maxPower) storage.energy = this.maxPower;
-			if(storage.energy > 0){
+			storage.setEnergyStored(storage.getEnergyStored() + this.powerPerRotation);
+			if(storage.getEnergyStored() > this.maxPower) storage.setEnergyStored(this.maxPower);
+			if(storage.getEnergyStored() > 0){
 				if(canOperate()){
 					if(this.slots[0].getItemDamage() >= 0){
-						if(storage.energy >= this.batteryChargeSpeed){
-							storage.energy -= this.batteryChargeSpeed;
+						if(storage.getEnergyStored() >= this.batteryChargeSpeed){
+							storage.setEnergyStored(storage.getEnergyStored() - this.batteryChargeSpeed);
 							this.slots[0] = new ItemStack(this.slots[0].getItem(), this.slots[0].stackSize, this.slots[0].getItemDamage() - this.batteryChargeSpeed);	
-						}else if(storage.energy < this.batteryChargeSpeed){
-							int power1 = (int)storage.energy;
-							storage.energy -= power1;
+						}else if(storage.getEnergyStored() < this.batteryChargeSpeed){
+							int power1 = (int)storage.getEnergyStored();
+							storage.setEnergyStored(storage.getEnergyStored() - power1);
 							this.slots[0] = new ItemStack(this.slots[0].getItem(), this.slots[0].stackSize, this.slots[0].getItemDamage() - power1);	
 						}
 					}

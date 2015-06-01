@@ -45,7 +45,7 @@ public class ContainerDuplicator extends Container{
 	public void canCraftingToCrafters(ICrafting icrafting){
 		super.addCraftingToCrafters(icrafting);
 		icrafting.sendProgressBarUpdate(this, 0, this.Duplicator.cookTime);
-		icrafting.sendProgressBarUpdate(this, 1, this.Duplicator.storage.energy);
+		icrafting.sendProgressBarUpdate(this, 1, this.Duplicator.storage.getEnergyStored());
 		icrafting.sendProgressBarUpdate(this, 2, this.Duplicator.maxPower);
 	}
 
@@ -57,18 +57,18 @@ public class ContainerDuplicator extends Container{
 				icrafting.sendProgressBarUpdate(this, 0, this.Duplicator.cookTime);
 			}
 
-			if(this.lastpower != this.Duplicator.storage.energy){
-				icrafting.sendProgressBarUpdate(this, 1, this.Duplicator.storage.energy);
+			if(this.lastpower != this.Duplicator.storage.getEnergyStored()){
+				icrafting.sendProgressBarUpdate(this, 1, this.Duplicator.storage.getEnergyStored());
 			}
 		}
 		this.lastCookTime = this.Duplicator.cookTime;
-		this.lastpower = this.Duplicator.storage.energy;
+		this.lastpower = this.Duplicator.storage.getEnergyStored();
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newValue){
 		if(slot == 0) this.Duplicator.cookTime = newValue;
-		if(slot == 1) this.Duplicator.storage.energy = newValue;
+		if(slot == 1) this.Duplicator.storage.setEnergyStored(newValue);
 	}
 
 	public ItemStack transferStackInSlot(EntityPlayer player, int clickedSlotNumber){

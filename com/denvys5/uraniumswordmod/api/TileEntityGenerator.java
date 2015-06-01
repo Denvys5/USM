@@ -151,11 +151,11 @@ public abstract class TileEntityGenerator extends TileEntity implements ISidedIn
 	}
 
 	public boolean hasPower(){
-		return storage.energy > this.powerUsage;
+		return storage.getEnergyStored() > this.powerUsage;
 	}
 
 	public int getPowerRemainingScaled(int i){
-		return storage.energy * i / this.maxPower;
+		return storage.getEnergyStored() * i / this.maxPower;
 	}
 	
 	public boolean canOperate(){

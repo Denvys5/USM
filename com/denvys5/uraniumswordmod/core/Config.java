@@ -18,7 +18,7 @@ public class Config{
 
 	public static void ConfigMethod(File file){
 		try{
-			file = new File(file.getCanonicalPath().replace(USM.modid, "USM\\UraniumSwordMod"));
+			file = new File(file.getCanonicalPath().replace(USM.modid, "USM/UraniumSwordMod"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -68,11 +68,11 @@ public class Config{
 		USMOreGenerator.oreSilverGeneration = config.getBoolean("Silver Generation", "Ore Generation", true, "Generate silver ore, or not.");
 		USMOreGenerator.oreLeadGeneration = config.getBoolean("Lead Generation", "Ore Generation", true, "Generate lead ore, or not.");
 		
-		USMOreGenerator.oreUraniumRarity = config.getInt("Uranium ore rarity", "Ore Generation", 30, 0, Integer.MAX_VALUE, "Increase for more uranium ore to generate.");
-		USMOreGenerator.oreCopperRarity = config.getInt("Copper ore rarity", "Ore Generation", 90, 0, Integer.MAX_VALUE, "Increase for more copper ore to generate.");
-		USMOreGenerator.oreTinRarity = config.getInt("Tin ore rarity", "Ore Generation", 85, 0, Integer.MAX_VALUE, "Increase for more tin ore to generate.");
-		USMOreGenerator.oreSilverRarity = config.getInt("Silver ore rarity", "Ore Generation", 60, 0, Integer.MAX_VALUE, "Increase for more silver ore to generate.");
-		USMOreGenerator.oreLeadRarity = config.getInt("Lead ore rarity", "Ore Generation", 60, 0, Integer.MAX_VALUE, "Increase for more lead ore to generate.");
+		USMOreGenerator.oreUraniumRarity = config.getInt("Uranium ore rarity", "Ore Generation", 25, 0, Integer.MAX_VALUE, "Increase for more uranium ore to generate.");
+		USMOreGenerator.oreCopperRarity = config.getInt("Copper ore rarity", "Ore Generation", 42, 0, Integer.MAX_VALUE, "Increase for more copper ore to generate.");
+		USMOreGenerator.oreTinRarity = config.getInt("Tin ore rarity", "Ore Generation", 25, 0, Integer.MAX_VALUE, "Increase for more tin ore to generate.");
+		USMOreGenerator.oreSilverRarity = config.getInt("Silver ore rarity", "Ore Generation", 23, 0, Integer.MAX_VALUE, "Increase for more silver ore to generate.");
+		USMOreGenerator.oreLeadRarity = config.getInt("Lead ore rarity", "Ore Generation", 40, 0, Integer.MAX_VALUE, "Increase for more lead ore to generate.");
 	}
 
 	private static void ConfigTweakRegister(){
